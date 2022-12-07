@@ -1,0 +1,380 @@
+{
+    "onboardingScreen": {
+        "title1": "قابل مدربك \n وابدأ رحلتك",
+        "title2": "أنشئ خطة خاطئة \n للحفاظ على لياقتك",
+        "title3": "لا مزيد من الأفكار السلبية \n الجسدية.",
+        "skip": "يتخطى",
+        "next": "التالي",
+        "signin": "تسجيل الدخول",
+        "getstarted":"ابدأ",
+
+        "exitText": "اضغط على رجوع مرة أخرى للخروج"
+    },
+    "signinScreen": {
+        "header": "تسجيل الدخول",
+        "Username": "اسم الشخصي",
+        "password": "كلمة المرور",
+        "forgetPwd": "هل نسيت كلمة السر؟",
+        "signin": "تسجيل الدخول",
+        "connect": "أو تواصل مع",
+        "dontAccount": "ليس لديك حساب؟",
+        "signup": "اشتراك",
+        "exitText": "اضغط على رجوع مرة أخرى للخروج"
+    },
+    "signupScreen": {
+        "header": "اشتراك",
+        "name": "الاسم الكامل",
+        "email": "عنوان الايميل",
+        "phone": "رقم الهاتف",
+        "password": "كلمة المرور",
+        "signup": "اشتراك",
+        "connect": "أو تواصل مع",
+        "alreadyAccount": "هل لديك حساب؟",
+        "signin": "تسجيل الدخول"
+    },
+    "forgotPassword": {
+        "header": "هل نسيت كلمة السر",
+        "description": "الرجاء إدخال معرف البريد الإلكتروني المرتبط بحسابك.",
+        "email": "عنوان الايميل",
+        "continue": "يكمل"
+    },
+    "otpVerificationScreen": {
+        "header": "التحقق من OTP",
+        "description1": "الرجاء إدخال رمز التحقق هنا الذي أرسلناه لك للتو على معرف البريد الإلكتروني الخاص بك.",
+        "description2": "الرجاء إدخال رمز التحقق هنا الذي أرسلناه لك للتو",
+        "verify": "يؤكد",
+        "resend": "إعادة إرسال"
+    },
+    "newPasswordScreen": {
+        "header": "كلمة السر الجديدة",
+        "newPwd": "أدخل كلمة مرور جديدة",
+        "confirmPwd": "تأكيد كلمة المرور",
+        "submit": "يُقدِّم"
+    },
+    "genderSelectionScreen": {
+        "getInfoHeader": "أخبرنا عن نفسك !",
+        "getInfoDescription": "لمنحك تجربة أفضل تحتاج إلى معرفة جنسكr",
+        "next": "التالي"
+    },
+    "levelSelectionScreen": {
+        "getInfoHeader": "اختر مستوى لياقتك",
+        "getInfoDescription": "يساعدنا هذا في إنشاء خطتك الشخصية ، ويمكنك دائمًا تغيير ذلك لاحقًا",
+        "age": "سن",
+        "weight": "وزن",
+        "height": "ارتفاع",
+        "next": "التالي"
+    },
+    "goalSelectionScreen": {
+        "getInfoHeader": "اختر هدفك",
+        "getInfoDescription": "يساعدنا هذا في إنشاء خطتك الشخصية ، ويمكنك دائمًا تغيير ذلك لاحقًا",
+        "next": "التالي",
+        "wait": "أرجو الإنتظار"
+    },
+    "bottomTabsScreen": {
+        "home": "مسكن",
+        "workout": "اكتشف - حل",
+        "insight": "تبصر",
+        "diet": "حمية",
+        "profile": "الملف الشخصي",
+        "exitText": "اضغط على رجوع مرة أخرى للخروج"
+    },
+    "homeScreen": {
+        "userWelcome": "صباح الخير",
+        "joinNow": "نضم الان",
+        "premium1": "بدء",
+        "premium3": "/شهر",
+        "today": "اليوم",
+        "sessionStart": "تبدأ الجلسة القادمة في",
+        "todayPlanTitle": "خطتك لهذا اليوم",
+        "personalTrainerTitle": "مدربين شخصيين",
+        "popularWorkoutTitle": "برنامج تجريب شعبي",
+        "motivationalVideoTitle": "فيديو تحفيزي",
+        "GymsTitle":"النوادي المشهورة",
+        "shop":"اطلب الان",
+        "appointmentTitle": "قبل أن تبدأ هذا التمرين ، يرجى أخذ المشورة من المدرب.",
+        "bookAppintment": "موعد الكتاب",
+        "skip": "يتخطى",
+        "seeAll":"اظهار الكل"
+    },
+    "scheduleWorkoutAndDiet": {
+        "header": "تقويم",
+        "workout": "اكتشف - حل",
+        "totalWorkouts": "اليوم لديك 5 تمارين.",
+        "diet": "حمية",
+        "totalMealPlans": "اليوم لديك خطة وجبات مدتها 5 مرات"
+    },
+    "notificationScreen": {
+        "header": "تنبيه",
+        "new": "جديد",
+        "yesterday": "في الامس",
+        "noNotification": "لا يوجد إشعار جديد",
+        "dismissed": "لا يوجد إشعار جديد"
+    },
+    "trainerProfileScreen": {
+        "header": "الملف الشخصي للمدرب",
+        "work": "عمل",
+        "speak": "يتكلم",
+        "qualification": "مؤهل",
+        "month": "شهر",
+        "book": "الكتاب",
+        "reviews": "المراجعات",
+        "upcomingSessionTitle": "الجلسة القادمة"
+    },
+    "subscriptionDetailScreen": {
+        "header": "تفاصيل الاشتراك",
+        "monthly": "شهريا",
+        "quarterly": "ربعي",
+        "annual": "سنوي",
+        "includes": "يشمل",
+        "requirement": "المتطلبات",
+        "equipment": "معدات",
+        "space": "مساحة",
+        "proceed": "يتابع"
+    },
+    "chooseTimeScreen": {
+        "header": "حدد وقتك",
+        "selectDate": "حدد تاريخ",
+        "selectTime": "حدد الوقت",
+        "morning": "صباح",
+        "evening": "اخر النهار",
+        "confirm": "يتأكد"
+    },
+    "selectPaymentMethodScreen": {
+        "header": "طريقة الدفع او السداد",
+        "cardHolderNameTitle": "إسم صاحب البطاقة",
+        "cardNumberTitle": "رقم البطاقة",
+        "dateFormate": "اليوم / الشهر / السنة",
+        "cvvTitle": "رقم الكود الموجود على بطاقات الاتمان",
+        "payNow": "ادفع الآن"
+    },
+    "successPaymentScreen": {
+        "welcomeText": "مرحبًا بك في Fitness Family! \n يسعدنا أنك قررت الملاءمة.",
+        "confirmation": "تأكيد الدفعة",
+        "confirmationDetail": "تم إرسال بريد إلكتروني للتأكيد إليك ، وسيتواصل معك خبير اللياقة لدينا باختصار",
+        "dateAndTimeTitle": "التاريخ والوقت",
+        "subscription": "اشتراك شهري",
+        "backToHome": "العودة إلى الصفحة الرئيسية"
+    },
+    "workoutScreen": {
+        "header": "اكتشف - حل",
+        "todayVideo": "فيديو تجريب اليوم",
+        "workoutCategoryTitle": "فئات التمرين",
+        "workoutTitle": "اكتشف - حل",
+        "userProgram": "برنامجك",
+        "trainer": "مدرب",
+        "nextWorkoutTitle": "فيديو تجريب جديد",
+        "appointmentTitle": "قبل أن تبدأ هذا التمرين ، يرجى أخذ المشورة من المدرب.",
+        "bookAppintment": "موعد الكتاب",
+        "skip": "يتخطى"
+    },
+    "workoutCategoryDetailScreen": {
+        "appointmentTitle": "قبل أن تبدأ هذا التمرين ، يرجى أخذ المشورة من المدرب.",
+        "bookAppintment": "موعد الكتاب",
+        "skip": "يتخطى"
+    },
+    "videosScreen": {
+        "header": "تدريب كامل للجسم"
+    },
+    "userProgramScreen": {
+        "calories": "سعرات حراريه",
+        "equpiment": "معدات",
+        "netDuration": "المدة الصافية",
+        "min": "دقيقة",
+        "benefits": "فوائد",
+        "sessionDetails": "تفاصيل الجلسة",
+        "begin": "يبدأ",
+        "upcomingVideo": "الفيديو القادم",
+        "addInFav": "أضيف في المفضلة",
+        "removeFromFav": "تمت إزالته من المفضلة"
+    },
+    "trainersScreen": {
+        "header": "المدربون",
+        "trainer1Name": "جيمس جوي",
+        "trainer1Speciality": "اختصاصي يوغا",
+        "trainer2Name": "بطاقة مارك",
+        "trainer2Speciality": "مدرب القوة والتكييف",
+        "trainer3Name": "ديفيد سكوت",
+        "trainer3Speciality": "أخصائيو التغذية الغذائية",
+        "trainer4Name": "وباتيل",
+        "trainer4Speciality": "هييت",
+        "trainer5Name": "فرح روهيت",
+        "trainer5Speciality": "اختصاصي يوغا",
+        "trainer6Name": "جيمس جوي",
+        "trainer6Speciality": "مدرب القوة والتكييف",
+        "trainer7Name": "تعال إلى الفرح",
+        "trainer7Speciality": "مدرب القوة والتكييف",
+        "trainer8Name": "مادهوري باتل",
+        "trainer8Speciality": "مدرب القوة والتكييف",
+        "years": "سنوات",
+        "experiance": "خبرة"
+    },
+    "insightScreen": {
+        "header": "تبصر",
+        "workout": "اكتشف - حل",
+        "sleep": "ينام",
+        "diet": "حمية",
+        "water": "ماء",
+        "calories": "سعرات حراريه",
+        "burn": "حرق",
+        "target": "استهداف",
+        "left": "اليسار",
+        "totalWorkout": "إجمالي التمرين",
+        "netDuration": "المدة الصافية",
+        "caloriesBurnTitle": "إحصائيات حرق السعرات الحرارية",
+        "daily": "اليومي",
+        "week": "أسبوع",
+        "month": "شهر",
+        "minute": "اللحظة",
+        "kcal": "سعر حراري",
+        "woakUp": "استيقظ",
+        "wentToSleep": "ذهب للنوم",
+        "reduced": "انخفاض",
+        "sleepTimeCompare": "وقت النوم يقترب من الأسبوع الماضي",
+        "sleepDuration": "مدة النوم الإجمالية",
+        "sleepSatatistics": "إشباع النوم",
+        "deep": "عميق",
+        "awake": "مستيقظ",
+        "taken": "مأخوذ",
+        "protein": "بروتين",
+        "fat": "سمين",
+        "carb": "الكربوهيدرات",
+        "drunk": "سكران",
+        "addDrink": "أضف المشروب",
+        "waterConsume": "إحصاءات استهلاك المياه",
+        "waterConsumpation": "استهلاك المياه (مل)"
+    },
+    "dietScreen": {
+        "header": "حمية",
+        "todayPlanTitle": "خطة النظام الغذائي اليوم",
+        "dietCategoryTitle": "فئات النظام الغذائي",
+        "seeAll": "اظهار الكل",
+        "favDietTitle": "النظام الغذائي المفضل",
+        "addInFav": "أضيف في المفضلة",
+        "removeFromFav": "تمت إزالته من المفضلة"
+    },
+    "dietCategoriesScreen": {
+        "header": "فئات النظام الغذائي",
+        "addInFav": "أضيف في المفضلة",
+        "removeFromFav": "تمت إزالته من المفضلة"
+    },
+    "mealCategoryVideoScreen": {
+        "protein": "بروتين",
+        "fat": "سمين",
+        "calories": "سعرات حراريه",
+        "ingrediants": "مكونات",
+        "recipe": "وصفة",
+        "readMore": "اقرأ أكثر",
+        "readLess": "أقرأ أقل",
+        "addInFav": "أضيف في المفضلة",
+        "removeFromFav": "تمت إزالته من المفضلة"
+    },
+    "dietCategoryDetailScreen": {
+        "day": "يوم",
+        "plan": "خطة",
+        "totalDaysPlanTitle": "نظام غذائي نباتي لمدة 10 أيام",
+        "dayBig": "يوم"
+    },
+    "dietDetailScreen": {
+        "day": "يوم",
+        "protein": "بروتين",
+        "fat": "سمين",
+        "calories": "سعرات حراريه"
+    },
+    "profileScreen": {
+        "header": "الملف الشخصي",
+        "editProfile": "تعديل الملف الشخصي",
+        "favourite": "المفضل",
+        "progressReport": "تقرير التطور",
+        "notification": "تنبيه",
+        "privacyPolicy": "سياسة الخصوصية",
+        "downloadVideo": "تحميل الفيديو",
+        "subscriptionPlan": "خطة الاشتراك",
+        "about": "حول",
+        "help": "مساعدة",
+        "languages": "اللغات",
+        "logout": "تسجيل خروج",
+        "cancel": "يلغي",
+        "logoutInfo": "هل أنت متأكد أنك تريد تسجيل الخروج؟"
+    },
+    "progressReportScreen": {
+        "header": "تقرير التطور",
+        "completedGoal": "أكمل هدفك"
+    },
+    "editProfileScreen": {
+        "header": "تعديل الملف الشخصي",
+        "name": "اسم",
+        "email": "عنوان الايميل",
+        "phoneNo": "رقم الهاتف",
+        "goal": "هدف اللياقة",
+        "update": "تحديث",
+        "sheetTitle": "تغيير صورة الملف الشخصي",
+        "cameraOption": "اختر من الكاميرا",
+        "galleryOption": "اختر من المعرض",
+        "remove": "إزالة الصورة"
+    },
+    "privacyPolicyScreen": {
+        "header": "سياسة الخصوصية",
+        "notification": "تنبيه",
+        "applicationUpdate": "تحديث التطبيق",
+        "themes": "ثيمات",
+        "darkMode": "الوضع المظلم",
+        "lightMode": "وضع الضوء"
+    },
+    "aboutScreen": {
+        "header": "حول",
+        "terms": "أحكام وشروط",
+        "dataPolicy": "سياسة البيانات"
+    },
+    "favoriteScreen": {
+        "header": "المفضل",
+        "nothingInFav": "لا شيء في المفضلة",
+        "removeMessage": "تمت إزالة العنصر من المفضلة."
+    },
+    "downloadsScreen": {
+        "header": "تحميل",
+        "nothingInDown": "لا شيء في التنزيلات",
+        "removeMessage": "تمت إزالة العنصر من التنزيلات."
+    },
+    "helpScreen": {
+        "header": "مساعدة",
+        "contact": "ابقى على تواصل",
+        "helpDescription": "لا تتردد في مراسلتنا على الخط أدناه",
+        "enterName": "أدخل أسمك",
+        "enterEmail": "أدخل معرف البريد الإلكتروني الخاص بك",
+        "enterMessage": "اكتب رسالتك هنا",
+        "send": "إرسال",
+        "submitted": "مُقَدَّم",
+        "submissionSuccess": "تم إرسال طلبك بنجاح ، وسنعاود الاتصال بك.",
+        "ok": "موافق"
+    },
+    "userSubscriptionScreen": {
+        "header": "تفاصيل الاشتراك",
+        "monthly": "شهريا",
+        "quarterly": "ربعي",
+        "annual": "سنوي",
+        "includes": "يشمل",
+        "proceed": "يتابع"
+    },
+    "languagesScreen": {
+        "header": "اللغات",
+        "english": "English",
+        "hindi": "हिन्दी",
+        "indonesian": "Indonesian",
+        "chienese": "中国人",
+        "arabic": "عربي"
+    },
+    "calender": {
+        "jan": "يناير",
+        "feb": "فبراير",
+        "mar": "مارس",
+        "apr": "أبريل",
+        "may": "مايو",
+        "jun": "يونيو",
+        "jul": "يوليو",
+        "aug": "أغسطس",
+        "sep": "سبتمبر",
+        "oct": "أكتوبر",
+        "nov": "نوفمبر",
+        "dec": "ديسمبر"
+    }
+}

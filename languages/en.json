@@ -1,0 +1,363 @@
+{
+    "onboardingScreen": {
+        "title1": "Meet your coach &\nstart your journey",
+        "title2": "Creat a wrokout &\ndieat plan to stay fit",
+        "title3": "No more nagative\nBody thoughts.",
+        "skip": "Skip",
+        "next": "Next",
+        "signin": "Sign in",
+        "getstarted":"Get Started",
+        "exitText": "Press Back Once Again to Exit"
+    },
+    "signinScreen": {
+        "header": "Sign in",
+        "Username": "Username",
+        "password": "Password",
+        "forgetPwd": "Forgot password?",
+        "signin": "Sign In",
+        "connect": "Or Connect with",
+        "dontAccount": "Don’t have an account?",
+        "signup": "sign up",
+        "exitText": "Press Back Once Again to Exit"
+    },
+    "signupScreen": {
+        "header": "Sign Up",
+        "name": "Full name",
+        "email": "Email Id",
+        "phone": "Phone no",
+        "password": "Password",
+        "signup": "Sign Up",
+        "connect": "Or Connect with",
+        "alreadyAccount": "Alreay have an account?",
+        "signin": "sign in"
+    },
+    "forgotPassword": {
+        "header": "Forgot password",
+        "description": "Please enter the email id associated with your account.",
+        "email": "Email Id",
+        "continue": "Continue"
+    },
+    "otpVerificationScreen": {
+        "header": " Enter OTP Verification?",
+        "description1": "Please enter the verification code here we just sent you on your email id.",
+        "description2": "Please enter the verification code here we just sent you",
+        "verify": "Verify",
+        "resend": "Resend"
+    },
+    "newPasswordScreen": {
+        "header": "New password",
+        "newPwd": "Enter new password",
+        "confirmPwd": "Confirm password",
+        "submit": "Submit"
+    },
+    "genderSelectionScreen": {
+        "getInfoHeader": "Tell us about yourself !",
+        "getInfoDescription": "To give you better experiancewe need to know your gender",
+        "next": "Next"
+    },
+    "levelSelectionScreen": {
+        "getInfoHeader": "Your BMI Calculator",
+        "getInfoDescription": "This help us creat your personalised plan you can always change this later",
+        "age": "Age",
+        "weight": "Weight",
+        "height": "Height",
+        "next": "Next"
+    },
+    "goalSelectionScreen": {
+        "getInfoHeader": "Choose your goal",
+        "getInfoDescription": "This help us creat your personalised plan you can always change this later",
+        "next": "Next",
+        "wait": "Please wait"
+    },
+    "bottomTabsScreen": {
+        "home": "Home",
+        "workout": "Workout",
+        "insight": "Insight",
+        "diet": "Diet",
+        "profile": "Profile",
+        "exitText": "Press Back Once Again to Exit"
+    },
+    "homeScreen": {
+        "userWelcome": "Good morning",
+        "joinNow": "Join now",
+        "premium1": "Starting",
+        "premium3": "/month",
+        "today": "Today",
+        "sessionStart": "Upcoming session start in",
+        "todayPlanTitle": "Your Healty Food for today",
+        "personalTrainerTitle": "Personal trainers",
+        "popularWorkoutTitle": "Videos workout program",
+        "GymsTitle":"Gyms Popular",
+        "shop":"Shop Now",
+        "motivationalVideoTitle": "Motivational Video",
+        "appointmentTitle": "Before You start this workout please take advise from the trainner.",
+        "bookAppintment": "Book appointment",
+        "skip": "skip",
+        "seeAll":"see all"
+    },
+    "scheduleWorkoutAndDiet": {
+        "header": "Calender",
+        "workout": "Workout",
+        "totalWorkouts": "Today you have 5 workout.",
+        "diet": "Diet",
+        "totalMealPlans": "Today you have 5 time meal plan"
+    },
+    "notificationScreen": {
+        "header": "Notification",
+        "new": "New",
+        "yesterday": "Yesterday",
+        "noNotification": "No new notification",
+        "dismissed": "dismissed"
+    },
+    "trainerProfileScreen": {
+        "header": "Trainer profile",
+        "work": "Work",
+        "speak": "Speak",
+        "qualification": "Qualification",
+        "month": "month",
+        "book": "Book",
+        "reviews": "Reviews",
+        "upcomingSessionTitle": "Upcoming Session"
+    },
+    "subscriptionDetailScreen": {
+        "header": "Subscription detail",
+        "monthly": "Monthly",
+        "quarterly": "Quarterly",
+        "annual": "Annual",
+        "includes": "Includes",
+        "requirement": "Requirement",
+        "equipment": "Equipment",
+        "space": "Space",
+        "proceed": "Proceed"
+    },
+    "chooseTimeScreen": {
+        "header": "Select your time",
+        "selectDate": "Select date",
+        "selectTime": "Select Time",
+        "morning": "Morning",
+        "evening": "Evening",
+        "confirm": "Confirm"
+    },
+    "selectPaymentMethodScreen": {
+        "header": "Payment method",
+        "cardHolderNameTitle": "Card holder name",
+        "cardNumberTitle": "Card Number",
+        "dateFormate": "DD/MM/YY",
+        "cvvTitle": "CVV Code",
+        "payNow": "Pay now"
+    },
+    "successPaymentScreen": {
+        "welcomeText": "Welcome To Fitness Family!\nWe are delight that you have decides to fit.",
+        "confirmation": "Payment Confirmation",
+        "confirmationDetail": "A confirmation email has been sent to you.Our Fitness expert will reach out to you short",
+        "dateAndTimeTitle": "Date & Time",
+        "subscription": "Monthly subscription",
+        "backToHome": "Back to home page"
+    },
+    "workoutScreen": {
+        "header": "Workout",
+        "todayVideo": "Today workout video",
+        "workoutCategoryTitle": "Workout Categories",
+        "workoutTitle": "Workout",
+        "userProgram": "Your Program",
+        "trainer": "Trainer",
+        "nextWorkoutTitle": "New workout video",
+        "appointmentTitle": "Before You start this workout please take advise from the trainner.",
+        "bookAppintment": "Book appointment",
+        "skip": "skip"
+    },
+    "workoutCategoryDetailScreen": {
+        "appointmentTitle": "Before You start this workout please take advise from the trainner.",
+        "bookAppintment": "Book appointment",
+        "skip": "skip"
+    },
+    "videosScreen": {
+        "header": "Full body tranning"
+    },
+    "userProgramScreen": {
+        "calories": "Calories",
+        "equpiment": "Equpiment",
+        "netDuration": "Net duration",
+        "min": "min",
+        "benefits": "Benefits",
+        "sessionDetails": "Session details",
+        "begin": "Begin",
+        "upcomingVideo": "Upcoming Video",
+        "addInFav": "Added in favorite",
+        "removeFromFav": "Removed from Favorite"
+    },
+    "trainersScreen": {
+        "header": "Trainers",
+        "years": "years",
+        "experiance": "experiance"
+    },
+    "insightScreen": {
+        "header": "Insight",
+        "workout": "Workout",
+        "sleep": "Sleep",
+        "diet": "Diet",
+        "water": "Water",
+        "calories": "Calories",
+        "burn": "Burn",
+        "target": "Target",
+        "left": "Left",
+        "totalWorkout": "Total workout",
+        "netDuration": "Net duration",
+        "caloriesBurnTitle": "Calories Burn Satatistics",
+        "daily": "Daily",
+        "week": "Week",
+        "month": "Month",
+        "minute": "Minute",
+        "kcal": "Kcal",
+        "woakUp": "Woak up",
+        "wentToSleep": "Went to sleep",
+        "reduced": "Reduced",
+        "sleepTimeCompare": "sleep time comapre to last week",
+        "sleepDuration": "Total sleep duration",
+        "sleepSatatistics": "Sleep Satatistics",
+        "deep": "Deep",
+        "awake": "Awake",
+        "taken": "Taken",
+        "protein": "Protein",
+        "fat": "Fat",
+        "carb": "Carb",
+        "drunk": "Drunk",
+        "addDrink": "Add drink",
+        "waterConsume": "Water consume statistics",
+        "waterConsumpation": "water consumpation(ml)"
+    },
+    "dietScreen": {
+        "header": "Diet",
+        "todayPlanTitle": "Today diet plan",
+        "dietCategoryTitle": "Diet categories",
+        "seeAll": "see all",
+        "favDietTitle": "Favourite diet",
+        "addInFav": "Added in favorite",
+        "removeFromFav": "Removed from Favorite"
+    },
+    "dietCategoriesScreen": {
+        "header": "Diet categories",
+        "addInFav": "Added in favorite",
+        "removeFromFav": "Removed from Favorite"
+    },
+    "mealCategoryVideoScreen": {
+        "protein": "Protein",
+        "fat": "Fat",
+        "calories": "Calories",
+        "ingrediants": "Ingrediants",
+        "recipe": "Recipe",
+        "readMore": "Read more",
+        "readLess": "Read less",
+        "addInFav": "Added in favorite",
+        "removeFromFav": "Removed from Favorite"
+    },
+    "dietCategoryDetailScreen": {
+        "day": "day",
+        "plan": "plan",
+        "totalDaysPlanTitle": "Vegan dieat 10 day plan",
+        "dayBig": "Day"
+    },
+    "dietDetailScreen": {
+        "day": "Day",
+        "protein": "Protein",
+        "fat": "Fat",
+        "calories": "Calories"
+    },
+    "profileScreen": {
+        "header": "Profile",
+        "editProfile": "Edit profile",
+        "favourite": "Favourite",
+        "progressReport": "Progress Report",
+        "notification": "Notification",
+        "privacyPolicy": "Privacy Policy",
+        "downloadVideo": "Download video",
+        "subscriptionPlan": "Subscription Plan",
+        "about": "About",
+        "help": "Help",
+        "languages": "Languages",
+        "logout": "Logout",
+        "cancel": "Cancel",
+        "logoutInfo": "Are you sure you want to logout?"
+    },
+    "progressReportScreen": {
+        "header": "Progress report",
+        "completedGoal": "completed your goal"
+    },
+    "editProfileScreen": {
+        "header": "Edit profile",
+        "name": "Name",
+        "email": "Email id",
+        "phoneNo": "Phone no",
+        "goal": "Fitness Goal",
+        "update": "Update",
+        "sheetTitle": "Change profile photo",
+        "cameraOption": "Choose from camera",
+        "galleryOption": "Choose from gallery",
+        "remove": "Remove image"
+    },
+    "privacyPolicyScreen": {
+        "header": "Privacy Policy",
+        "notification": "Notification",
+        "applicationUpdate": "Application update",
+        "themes": "Themes",
+        "darkMode": "Dark mode",
+        "lightMode": "Light mode"
+    },
+    "aboutScreen": {
+        "header": "About",
+        "terms": "Terms and condition",
+        "dataPolicy": "Data Policy"
+    },
+    "favoriteScreen": {
+        "header": "Favourite",
+        "nothingInFav": "Nothing In Favorites",
+        "removeMessage": "Item removed from Favorite."
+    },
+    "downloadsScreen": {
+        "header": "Download",
+        "nothingInDown": "Nothing In Downloads",
+        "removeMessage": "Item removed from Downloads."
+    },
+    "helpScreen": {
+        "header": "Help",
+        "contact": "Get in touch",
+        "helpDescription": "Feel Free to drop us line below",
+        "enterName": "Enter your Name",
+        "enterEmail": "Enter your Email id",
+        "enterMessage": "Write your Message Here",
+        "send": "Send",
+        "submitted": "Submitted",
+        "submissionSuccess": "Your request Submitted successfully,we’ll get back to you.",
+        "ok": "Ok"
+    },
+    "userSubscriptionScreen": {
+        "header": "Subscription detail",
+        "monthly": "Monthly",
+        "quarterly": "Quarterly",
+        "annual": "Annual",
+        "includes": "Includes",
+        "proceed": "Proceed"
+    },
+    "languagesScreen": {
+        "header": "Languages",
+        "english": "English",
+        "hindi": "Hindi",
+        "indonesian": "Indonesian",
+        "chienese": "Chienese",
+        "arabic": "Arabic"
+    },
+    "calender": {
+        "jan": "Jan",
+        "feb": "Feb",
+        "mar": "Mar",
+        "apr": "Apr",
+        "may": "May",
+        "jun": "Jun",
+        "jul": "Jul",
+        "aug": "Aug",
+        "sep": "Sep",
+        "oct": "Oct",
+        "nov": "Nov",
+        "dec": "Dec"
+    }
+}

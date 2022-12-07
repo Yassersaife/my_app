@@ -1,0 +1,37 @@
+{
+  "expo": {
+    "name": "App-Fitness",
+    "slug": "App-fitness",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/images/icons/App.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.yasser.APP-FITNESS"
+
+
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#FFFFFF"
+      },
+      "package": "com.yasser.saife.rnFitness"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    }
+  }
+}
