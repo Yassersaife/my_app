@@ -33,6 +33,7 @@ export const Colors = {
     DARK_THREE: '#404040',
     DARK_FOUR: '#282828',
     DARK_FIVE: '#B3B3B3',
+    DARK_sex:'#e9ecef',
 }
 export const Colorss = {
     primaryColor: '#005662',
@@ -50,6 +51,7 @@ export const images ={
     FACEBOOK: require('../assets/images/icons/facebook.png'),
     GOOGLE: require('../assets/images/icons/google.png'),
     OTP :require('../assets/images/victore/otp.png'),
+    energy:require('../assets/images/icons/energy.png'),
   }
 
 export const Fonts = {

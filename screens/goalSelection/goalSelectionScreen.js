@@ -1,16 +1,33 @@
-import { StyleSheet, Text, View, SafeAreaView, StatusBar, ScrollView, ActivityIndicator, TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, Dimensions,View,FlatList,ImageBackground, SafeAreaView, StatusBar, ScrollView, ActivityIndicator, TouchableOpacity } from 'react-native'
 import React, { useState } from 'react'
 import { Colors, Fonts, Sizes } from '../../constants/styles';
 import { MaterialIcons } from '@expo/vector-icons';
 import { Overlay } from 'react-native-elements';
 import { useTranslation } from 'react-i18next';
+import { AntDesign } from '@expo/vector-icons';
+const {width, height} = Dimensions.get('window');
 
-const goalsList = [
-    "Learn the basics",
-    "Get fiiter (Build lean muscle)",
-    "Lose weight (lose fat)",
-    "Gain weight (Grow your size)",
-    "Gain more flexible",
+const GoalData = [
+   { id: '1',
+   image: require('../../assets/images/goal/goal1.png'),
+   title: "Keep fit",
+},
+{ id: '2',
+image: require('../../assets/images/goal/goal2.png'),
+title: "Lose weight (lose fat)",
+},
+{ id: '3',
+image: require('../../assets/images/goal/goal3.png'),
+title: "Gain muscle mass (Grow your size)",
+},
+{ id: '4',
+image: require('../../assets/images/goal/goal4.png'),
+title: "Gain more flexible",
+},
+{ id: '5',
+    image: require('../../assets/images/goal/goal5.png'),
+    title: "Get Stringer ",
+},   
 ];
 
 const GoalSelectionScreen = ({ navigation }) => {
@@ -36,7 +53,7 @@ const GoalSelectionScreen = ({ navigation }) => {
                     contentContainerStyle={{ flexGrow: 1 }}
                 >
                     {getInformationText()}
-                    {goals()}
+                    {goalItems()}
                 </ScrollView>
             </View>
             {nextButton()}
@@ -115,6 +132,50 @@ const GoalSelectionScreen = ({ navigation }) => {
             </View>
         )
     }
+    function goalItems() {
+        const renderItem = ({ item }) => (
+            <TouchableOpacity
+                activeOpacity={0.99}
+                onPress={() => {   setSelectedGoalIndex(item.id)} }
+                style={{...styles.favoritesInfoWrapStyle,
+                                borderColor: selectedGoalIndex == item.id ? Colors.primaryColor : Colors.DARK_FIVE,
+
+                                
+                            }}>
+             
+                <ImageBackground
+                    source={item.image}
+                    style={{ height: height / 6.0, justifyContent: 'center', }}
+                    borderTopLeftRadius={Sizes.fixPadding - 2.0}
+                    borderTopRightRadius={Sizes.fixPadding - 2.0}
+                >
+                    <AntDesign
+                        name={selectedGoalIndex == item.id ? "checkcircle":"checkcircleo"}
+                        size={26}
+                        color={selectedGoalIndex == item.id ? Colors.primaryColor:Colors.DEFAULT_BLACK}
+                        style={{ top: 5.0, right: 5.0, position: 'absolute', }}
+                    />
+                   
+                </ImageBackground>
+                <View style={{ alignItems: 'center', paddingVertical:  Sizes.fixPadding - 5.0  }}>
+                <Text style={selectedGoalIndex == item.id ? { ...Fonts.primaryColor16SemiBold } : { ...Fonts.blackColor16Regular }}>
+                                {item.title}
+                            </Text>
+                   
+                </View>
+            </TouchableOpacity >
+        )
+        return (
+            <FlatList
+                data={GoalData}
+                keyExtractor={(item) => `${item.id}`}
+                renderItem={renderItem}
+                numColumns={2}
+                contentContainerStyle={{ paddingHorizontal: Sizes.fixPadding, }}
+            />
+        )
+    }
+
 
     function header() {
         return (
@@ -159,5 +220,16 @@ const styles = StyleSheet.create({
         paddingBottom: Sizes.fixPadding * 3.5,
         paddingTop: Sizes.fixPadding * 3.0,
         elevation: 3.0,
+    },
+    favoritesInfoWrapStyle: {
+     
+        flex: 1,
+        borderRadius: Sizes.fixPadding - 2.0,
+        borderwidth:2,
+        backgroundColor: Colors.DEFAULT_WHITE,
+        elevation: 2.0,
+        marginHorizontal: Sizes.fixPadding,
+        marginBottom: Sizes.fixPadding * 3.0,
+        maxWidth: (width / 2.0) - 20,
     },
 })

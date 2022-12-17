@@ -4,6 +4,8 @@ import { Colors, Fonts, Sizes } from '../../constants/styles';
 import { MaterialIcons } from '@expo/vector-icons';
 import { useTranslation } from 'react-i18next';
 import BmiForm from '../../components/bmi/BmiForm';
+import AntDesignIcons from 'react-native-vector-icons/AntDesign';
+
 const LevelSelectionScreen = ({ navigation }) => {
 
     const { t, i18n } = useTranslation();
@@ -33,8 +35,9 @@ const LevelSelectionScreen = ({ navigation }) => {
                { getInformationText()}
                     <BmiForm/>
                 </ScrollView>
+                {nextButton()}
+
             </View>
-            {nextButton()}
         </SafeAreaView>
     )
 
@@ -53,7 +56,7 @@ const LevelSelectionScreen = ({ navigation }) => {
                         keyboardType="numeric"
                     />
                     <Text style={{ ...Fonts.blackColor14Regular }}>
-                        ft
+                        Cm
                     </Text>
                 </View>
             </View >
@@ -103,15 +106,28 @@ const LevelSelectionScreen = ({ navigation }) => {
 
     function nextButton() {
         return (
-            <TouchableOpacity
-                activeOpacity={0.99}
+           
+                 <TouchableOpacity 
                 onPress={() => navigation.push('GoalSelection')}
-                style={styles.buttonStyle}
-            >
-                <Text style={{ ...Fonts.whiteColor16Bold }}>
-                    {tr('next')}
-                </Text>
-            </TouchableOpacity>
+                            style={{
+                                flexDirection: 'row',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                width: 60,
+                                height: 60,
+                                borderRadius: 30,
+                                left:300,
+                                backgroundColor: Colors.primaryColor
+                            }}
+                            activeOpacity={0.8}
+                            >
+                                <AntDesignIcons name="right" 
+                                style={{fontSize: 18, color: Colors.DEFAULT_WHITE, opacity: 0.3}}/>
+                                <AntDesignIcons
+                                name="right"
+                                style={{fontSize: 25, color: Colors.DEFAULT_WHITE, marginLeft: -15}}
+                                />
+                            </TouchableOpacity>
         )
     }
 
@@ -125,6 +141,10 @@ const LevelSelectionScreen = ({ navigation }) => {
                 <Text style={{ marginHorizontal: Sizes.fixPadding * 2.0, textAlign: 'center', ...Fonts.grayColor14Regular }}>
                     {tr('getInfoDescription')}
                 </Text>
+                <Image
+            source={require('../../assets/images/victore/bmi.png')}
+            style={{ width: 200.0, height: 200.0 }}
+        />   
             </View>
         )
     }
@@ -137,12 +157,10 @@ const LevelSelectionScreen = ({ navigation }) => {
                 size={24}
                 color={Colors.blackColor}
                 onPress={() => navigation.pop()}
-                style={{ margin: Sizes.fixPadding * 2.0, alignSelf: isRtl ? 'flex-end' : 'flex-start' }}
+                style={{ margin: Sizes.fixPadding , alignSelf: 'flex-end',right:150 }}
             />
-        <Image
-            source={require('../../assets/images/victore/bmi.png')}
-            style={{ width: 200.0, height: 200.0 }}
-        />          
+            
+              
             
             </View>
         )

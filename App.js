@@ -31,7 +31,11 @@ import TrainerProfileScreen from './screens/trainers/trainerProfileScreen';
 import TrainersScreen from './screens/trainers/trainersScreen';
 import SignupTraninerScreen from './screens/auth/signupTraniner';
 import maps from './screens/maps/MapsScreen';
-
+import BmiResult from './components/bmi/BmiResult';
+import EditProfileScreen from './screens/editProfile/editProfileScreen';
+import WorkoutCategoryDetailScreen from './screens/workoutCategoryDetail/workoutCategoryDetailScreen';
+import VideosScreen from './screens/videos/videosScreen';
+import UserProgramScreen from './screens/userProgram/userProgramScreen';
 LogBox.ignoreAllLogs();
 
 const Stack = createStackNavigator();
@@ -39,12 +43,14 @@ const Stack = createStackNavigator();
 const Route = () => {
   return (
     <NavigationContainer>
+    
       <Stack.Navigator
         screenOptions={{
           headerShown: false,
           ...TransitionPresets.SlideFromRightIOS,
         }}
       >
+
 <Stack.Screen name="Loading" component={LoadingScreen} />
         <Stack.Screen name="Splash" component={SplashScreen} />
         <Stack.Screen name="Onboarding" component={OnboardingScreen} />
@@ -59,8 +65,7 @@ const Route = () => {
         <Stack.Screen name="LevelSelection" component={LevelSelectionScreen} />
         <Stack.Screen name="GoalSelection" component={GoalSelectionScreen} />
       <Stack.Screen name="m" component={maps} />
-
-        <Stack.Screen name="BottomTabs" component={BottomTabs} options={{ ...TransitionPresets.DefaultTransition }} />
+            <Stack.Screen name="BottomTabs" component={BottomTabs} options={{ ...TransitionPresets.DefaultTransition }} />
         <Stack.Screen name="Shop" component={ShopScreen} />
         <Stack.Screen name="ProductInfo" component={ProductInfo}/>
         <Stack.Screen name="Clubs" component={clubsScreen}/>
@@ -71,11 +76,15 @@ const Route = () => {
         <Stack.Screen name="DietDetail" component={DietDetailScreen} />
         <Stack.Screen name="TrainerProfile" component={TrainerProfileScreen} />
         <Stack.Screen name="Trainers" component={TrainersScreen} />
-
+        <Stack.Screen name="EditProfile" component={EditProfileScreen} />
+        <Stack.Screen name="WorkoutCategoryDetail" component={WorkoutCategoryDetailScreen} />
+        <Stack.Screen name="Videos" component={VideosScreen} />
+        <Stack.Screen name="UserProgram" component={UserProgramScreen} />
 
 
       </Stack.Navigator>
     </NavigationContainer>
+    
   );
 }
 

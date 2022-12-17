@@ -214,7 +214,8 @@ const MapTestScreen = () => {
             latitude: 32.2385621922917,   
             longitude: 35.223833436542115,  
             latitudeDelta: 13,  
-            longitudeDelta: 13,  }}
+            longitudeDelta: 13, 
+            zoom:19 }}
         >{
         locations.map((index) => (
           <Marker 

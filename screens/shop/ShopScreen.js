@@ -14,16 +14,14 @@ import { Ionicons } from "@expo/vector-icons";
 import SearchField from "../../components/SearchField";
 import Categories from "../../components/Categories";
 import products from "../../Data/products";
-
 import { Colors, Fonts, Sizes ,Size} from '../../constants/styles';
-
-import {NavigationContainer} from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 
 const avatar = require("../../assets/images/user/user2.png");
 
 const { width,height } = Dimensions.get("window");
+
+
 
 const ShopScreen = ({navigation}) => {
   const [activeCategoryId, setActiveCategoryId] = useState(null);
@@ -59,6 +57,7 @@ const ShopScreen = ({navigation}) => {
             >
               <Ionicons
                 name="menu"
+
                 size={Size * 3}
                 color={Colors.DEFAULT_BLACK}
               />

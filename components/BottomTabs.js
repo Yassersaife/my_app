@@ -12,12 +12,15 @@ import DietCategoriesScreen from '../screens/diet/dietCategoriesScreen';
 import DietCategoryDetailScreen from '../screens/diet/dietCategoryDetailScreen';
 import DietScreen from '../screens/diet/dietScreen';
 import InsightScreen from '../screens/insight/insightScreen';
+import MapTestScreen from '../screens/maps/MapsScreen';
+import ProfileScreen from '../screens/profile/profileScreen';
+import WorkoutScreen from '../screens/workout/workoutScreen';
 const TabArr = [
   { route: 'Home', label: 'Home', type: Icons.Ionicons, activeIcon: 'grid', inActiveIcon: 'grid-outline', component:HomeScreen },
-  { route: 'Clubs', label: 'chat', type: Icons.MaterialCommunityIcons, activeIcon: 'heart-plus', inActiveIcon: 'heart-plus-outline', component: clubsScreen },
-  { route: 'map', label: 'map', type: Icons.MaterialCommunityIcons, activeIcon: 'timeline-plus', inActiveIcon: 'timeline-plus-outline',component: DietCategoryDetailScreen },
-  { route: 'shop', label: 'shop', type: Icons.FontAwesome, activeIcon: 'user-circle', inActiveIcon: 'user-circle-o', component: DietScreen},
-  { route: 'rrr', label: 'shop', type: Icons.FontAwesome, activeIcon: 'user-circle', inActiveIcon: 'user-circle-o', component: InsightScreen},
+  { route: 'Clubs', label: 'chat', type: Icons.MaterialCommunityIcons, activeIcon: 'heart-plus', inActiveIcon: 'heart-plus-outline', component: InsightScreen },
+  { route: 'map', label: 'map', type: Icons.MaterialCommunityIcons, activeIcon: 'timeline-plus', inActiveIcon: 'timeline-plus-outline',component: DietScreen },
+  { route: 'shop', label: 'shop', type: Icons.FontAwesome, activeIcon: 'user-circle', inActiveIcon: 'user-circle-o', component: WorkoutScreen},
+  { route: 'rrr', label: 'shop', type: Icons.FontAwesome, activeIcon: 'user-circle', inActiveIcon: 'user-circle-o', component: ProfileScreen},
 
 ];
 

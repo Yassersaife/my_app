@@ -1,27 +1,10 @@
 import React, { useState } from 'react'
-import { View, Text,StyleSheet,ToastAndroid } from 'react-native'
+import { Colors, Fonts, Sizes,images } from '../../constants/styles';
+import {  Text,StyleSheet,ToastAndroid , View, Image,SafeAreaView, StatusBar, ScrollView, TouchableOpacity } from 'react-native'
 
 
 const BmiResult = (props) => {
-    const styles=StyleSheet.create({
-        label:{
-            fontSize:25,
-            paddingHorizontal:10,
-            color:'black'
-        },
-        green:{
-            color:'green'
-        },
-        blue:{
-            color:'#1a238a'
-        },
-        yellow:{
-            color:'#e6d045'
-        },
-        red:{
-            color:'red'
-        }
-    })
+   
     const handleColors=()=>{
         if(props.data <= 18.5){
             return styles.blue.color
@@ -33,7 +16,19 @@ const BmiResult = (props) => {
             return styles.red.color
         }
     }
-    
+    function nextButton() {
+        return (
+            <TouchableOpacity
+                activeOpacity={0.99}
+                onPress={() => navigation.push('GoalSelection')}
+                style={styles.buttonStyle}
+            >
+                <Text style={{ ...Fonts.whiteColor16Bold }}>
+                    Skip
+                </Text>
+            </TouchableOpacity>
+        )
+    }
     const statusColor=handleColors()
     
     return (
@@ -43,13 +38,39 @@ const BmiResult = (props) => {
             ToastAndroid.show('Enter valid info',2000)
             :
             <View>
-                <Text style={styles.label}>Your B.M.I is : {props.data} </Text>
-                <Text style={styles.label}>B.M.I status : <Text style={{color:statusColor}}>{props.status}</Text></Text>
+                <Text style={styles.label}>Your Body status : <Text style={{color:statusColor}}>{props.status}</Text></Text>
             </View>
         }
         </View>
-        
+
     )
 }
 
 export default BmiResult
+const styles = StyleSheet.create({
+    buttonStyle: {
+        backgroundColor: Colors.primaryColor,
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: Sizes.fixPadding,
+        paddingVertical: Sizes.fixPadding + 5.0,
+        marginHorizontal: Sizes.fixPadding * 2.0,
+        marginTop: Sizes.fixPadding * 3.5,
+        marginBottom: Sizes.fixPadding * 2.0,
+    },
+    label:{
+        ...Fonts.primaryColor18SemiBold
+    },
+    green:{
+        color:'green',
+    },
+    blue:{
+        color:'#1a238a',
+    },
+    yellow:{
+        color:'#e6d045',
+    },
+    red:{
+        color:'red'
+    }
+});

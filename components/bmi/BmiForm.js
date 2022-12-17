@@ -9,12 +9,14 @@ function BmiForm() {
     const [height,setHeight]=useState(0)
     const [bmiValue,setBmiValue]=useState(0)
     const [bmiStatus,setBmiStatus]=useState('')
-    
+    const [bminew,setbminew]=useState(0)
     
     const calculateBmi=(weight,height)=>{
         const ht=height/100
         const bmi=weight/(ht*ht)
-        setBmiValue(bmi.toFixed(2))   
+        
+        setBmiValue(bmi.toFixed(2))  
+
     }
 
     const clickHandler=()=>{
@@ -25,11 +27,12 @@ function BmiForm() {
 
     const handleBmiStatus=()=>{
         if(bmiValue <= 18.5){
-            setBmiStatus('Under Weight')
+          
+            setBmiStatus('Under Weight Of')
         }else if (bmiValue > 18.5 && bmiValue<=24.9){
             setBmiStatus('Normal Weight')
         }else if (bmiValue>25 && bmiValue<=29.9){
-            setBmiStatus('Over Weight')
+            setBmiStatus('Over Weight of')
         }else{
             setBmiStatus('Obesity')
         }
@@ -76,6 +79,7 @@ function BmiForm() {
             marginHorizontal: Sizes.fixPadding * 2.0,
             marginTop: Sizes.fixPadding * 3.5,
             marginBottom: Sizes.fixPadding * 2.0,
+            color:Colors.DEFAULT_WHITE,
         }
     })
     
@@ -102,11 +106,11 @@ function BmiForm() {
             </View>
             <Separator/>
             <View style={styles.btn}>
-            <Button title='Check BMI' onPress={clickHandler}/>
+            <Button  title='Check BMI' onPress={clickHandler}/>
             </View>
             
             {
-                displayResult ? <BmiResult data={bmiValue} status={bmiStatus}/>: <Text></Text>                 
+                displayResult ? <BmiResult data={bmiValue}  status={bmiStatus}/>: <Text></Text>                 
             }
             
         </SafeAreaView>

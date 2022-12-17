@@ -40,7 +40,7 @@ const GenderSelectionScreen = ({ navigation,route }) => {
         return (
             <TouchableOpacity
                 activeOpacity={0.99}
-                onPress={() => {traniner=='traniner' ? navigation.push('LevelSelection') : navigation.push('GoalSelection')}}
+                onPress={() => { navigation.push('LevelSelection') }}
                 style={styles.buttonStyle}
             >
                 <Text style={{ ...Fonts.whiteColor16Bold }}>
@@ -53,8 +53,8 @@ const GenderSelectionScreen = ({ navigation,route }) => {
     function genderSelection() {
         return (
             <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-                {genderSelectionShort({ icon: require('../../assets/images/icons/male.jpg'), gender: 'Male' })}
-                {genderSelectionShort({ icon: require('../../assets/images/icons/female.jpg'), gender: 'Female' })}
+                {genderSelectionShort({ icon: require('../../assets/images/icons/male.png'), gender: 'Male' })}
+                {genderSelectionShort({ icon: require('../../assets/images/icons/female.png'), gender: 'Female' })}
             </View>
         )
     }
@@ -65,7 +65,7 @@ const GenderSelectionScreen = ({ navigation,route }) => {
                 activeOpacity={0.99}
                 onPress={() => setSelectedGender(gender)}
                 style={{
-                    backgroundColor: selectedGender == gender ? Colors.primary2 : Colors.primary4,
+                    backgroundColor: selectedGender == gender ? Colors.primary2 : Colors.DARK_FIVE,
                     borderColor: selectedGender == gender ? Colors.lightBlackColor : Colors.DEFAULT_WHITE,
                     ...styles.genderWrapStyle,
                 }}>
@@ -120,7 +120,7 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-end',
         overflow: 'hidden',
         borderWidth: 1.0,
-        borderBottomWidth: 0.0,
+        borderBottomWidth: 1.0,
         marginVertical: Sizes.fixPadding + 5.0,
     },
     buttonStyle: {

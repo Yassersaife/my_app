@@ -93,6 +93,7 @@
         "appointmentTitle": "Before You start this workout please take advise from the trainner.",
         "bookAppintment": "Book appointment",
         "skip": "skip",
+        
         "seeAll":"see all"
     },
     "scheduleWorkoutAndDiet": {
@@ -164,7 +165,10 @@
         "nextWorkoutTitle": "New workout video",
         "appointmentTitle": "Before You start this workout please take advise from the trainner.",
         "bookAppintment": "Book appointment",
-        "skip": "skip"
+        "skip": "skip",
+        "personalTrainerTitle": "Personal trainers",
+
+        "seeAll":"see all"
     },
     "workoutCategoryDetailScreen": {
         "appointmentTitle": "Before You start this workout please take advise from the trainner.",
