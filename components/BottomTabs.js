@@ -1,8 +1,15 @@
+
+import Icon, { Icons } from '../constants/Icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import React, { useEffect, useRef } from 'react'
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import Icon, { Icons } from '../constants/Icons';
 import { Colors, Fonts, Sizes,images } from '../constants/styles';
+import { Entypo } from '@expo/vector-icons'; 
+
+import { AntDesign } from '@expo/vector-icons';
+import { MaterialIcons } from '@expo/vector-icons';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
 
 import * as Animatable from 'react-native-animatable';
 import HomeScreen from '../screens/home/homeScreen';
@@ -15,12 +22,15 @@ import InsightScreen from '../screens/insight/insightScreen';
 import MapTestScreen from '../screens/maps/MapsScreen';
 import ProfileScreen from '../screens/profile/profileScreen';
 import WorkoutScreen from '../screens/workout/workoutScreen';
+import ExploreScreen from '../screens/maps/ExploreScreen';
+import HomeTraninerScreen from '../screens/trainerpages/Home';
+
 const TabArr = [
-  { route: 'Home', label: 'Home', type: Icons.Ionicons, activeIcon: 'grid', inActiveIcon: 'grid-outline', component:HomeScreen },
-  { route: 'Clubs', label: 'chat', type: Icons.MaterialCommunityIcons, activeIcon: 'heart-plus', inActiveIcon: 'heart-plus-outline', component: InsightScreen },
-  { route: 'map', label: 'map', type: Icons.MaterialCommunityIcons, activeIcon: 'timeline-plus', inActiveIcon: 'timeline-plus-outline',component: DietScreen },
-  { route: 'shop', label: 'shop', type: Icons.FontAwesome, activeIcon: 'user-circle', inActiveIcon: 'user-circle-o', component: WorkoutScreen},
-  { route: 'rrr', label: 'shop', type: Icons.FontAwesome, activeIcon: 'user-circle', inActiveIcon: 'user-circle-o', component: ProfileScreen},
+  { route: 'Home', label: 'Home', type: AntDesign, activeIcon: 'home', inActiveIcon: 'home', component:HomeScreen },
+  { route: 'Workout', label: 'Workout', type: MaterialIcons, activeIcon: 'fitness-center', inActiveIcon: 'fitness-center', component: WorkoutScreen },
+  { route: 'Insight', label: 'Insight', type: MaterialIcons, activeIcon: 'insights', inActiveIcon: 'insights',component: InsightScreen },
+  { route: 'Dite', label: 'Dite', type: MaterialCommunityIcons, activeIcon: 'food-apple', inActiveIcon: 'food-apple-outline', component: DietScreen},
+  { route: 'Profile', label: 'My Profile', type: Ionicons, activeIcon: 'person-circle-sharp', inActiveIcon: 'person-circle-outline', component: ProfileScreen},
 
 ];
 
@@ -48,7 +58,7 @@ const TabButton = (props) => {
         ref={viewRef}
         duration={1000}
         style={styles.container}>
-        <Icon type={item.type} name={focused ? item.activeIcon : item.inActiveIcon} color={focused ? Colors.lightPrimaryColor : Colors.primaryColor} />
+        <Icon type={item.type} name={focused ? item.activeIcon : item.inActiveIcon} color={focused ? Colors.primaryColor : Colors.primary4} />
       </Animatable.View>
     </TouchableOpacity>
   )

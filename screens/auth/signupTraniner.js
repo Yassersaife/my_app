@@ -4,6 +4,7 @@ import { Colors, Fonts, Sizes,images } from '../../constants/styles';
 import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
 import { useTranslation } from 'react-i18next';
 import SvgIcon from '../../assets/images/victore/tr.png';
+import RNPickerSelect from "react-native-picker-select";
 
 
 
@@ -24,6 +25,7 @@ const SignupTraninerScreen = ({ navigation }) => {
         phoneNumber: '',
         Salary:'',
         password: '',
+        address:'',
         showPassword: false,
     })
 
@@ -42,6 +44,7 @@ const SignupTraninerScreen = ({ navigation }) => {
                     {emailIdTextField()}
                     {phoneNumberTextField()}
                     {SalaryField()}
+                    {addressinfo()}
                     {passwordTextField()}
                     {signupButton()}
                     {connectWithInfo()}
@@ -97,7 +100,7 @@ const SignupTraninerScreen = ({ navigation }) => {
         return (
             <TouchableOpacity
                 activeOpacity={0.99}
-                onPress={() => navigation.push('OtpVerification', { from: 'signup' })}
+                onPress={() => navigation.push('Speciality')}
                 style={styles.buttonStyle}
             >
                 <Text style={{ ...Fonts.whiteColor16Bold }}>
@@ -163,7 +166,29 @@ const SignupTraninerScreen = ({ navigation }) => {
             </View>
         )
     }
-    
+    function addressinfo() {
+        return (
+            <View style={styles.textFieldWrapStyle}>
+                 <RNPickerSelect
+                       placeholder={{ label: "Select your Address", value: null }}
+
+                 onValueChange={(value) =>  updateState({ address: value })}
+                 items={[
+                     { label: "Jerusalem", value: "Jerusalem" },
+                     { label: "Gaza", value: "Gaza" },
+                     { label: "Jericho ", value: "Jericho" },
+                     { label: "Jabālyā", value: "Jabālyā" },
+                     { label: "Nablus", value: "Nablus" },
+                     { label: "Rafaḩ", value: "Rafaḩ" },
+                     { label: "Ţūlkarm	", value: "Ţūlkarm	" },
+                     { label: "Bethlehem", value: "Bethlehem" },
+                     { label: "Ramallah", value: "Ramallah" },
+
+                 ]}
+             />
+            </View>
+        )
+    }
 
     function emailIdTextField() {
         return (

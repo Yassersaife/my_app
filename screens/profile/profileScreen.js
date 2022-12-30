@@ -86,6 +86,10 @@ const ProfileScreen = ({ navigation }) => {
         return (
           <ScrollView showsVerticalScrollIndicator={false}>
           <View style={{ marginTop: Sizes.fixPadding * 2.0 }}>
+              {profileOptionShort({ icon: require('../../assets/images/settingIcons/gym.png'), option: "Clubs", onPress: () => { navigation.push('Clubs') } })}
+              {profileOptionShort({ icon: require('../../assets/images/settingIcons/trainer.png'), option:"Trainers", onPress: () => { navigation.push('Trainers') } })}
+              {profileOptionShort({ icon: require('../../assets/images/settingIcons/shop.png'), option:"Shop", onPress: () => { navigation.push('Shop') } })}
+
               {profileOptionShort({ icon: require('../../assets/images/settingIcons/favorite.png'), option: tr('favourite'), onPress: () => { navigation.push('Favorite') } })}
               {profileOptionShort({ icon: require('../../assets/images/settingIcons/notification.png'), option: tr('notification'), onPress: () => { navigation.push('Notification') } })}
               {profileOptionShort({ icon: require('../../assets/images/settingIcons/subscription.png'), option: tr('subscriptionPlan'), onPress: () => { navigation.push('UserSubscription') } })}

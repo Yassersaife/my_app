@@ -36,6 +36,19 @@ import EditProfileScreen from './screens/editProfile/editProfileScreen';
 import WorkoutCategoryDetailScreen from './screens/workoutCategoryDetail/workoutCategoryDetailScreen';
 import VideosScreen from './screens/videos/videosScreen';
 import UserProgramScreen from './screens/userProgram/userProgramScreen';
+import ExploreScreen from './screens/maps/ExploreScreen';
+import BottomTabs2 from './components/BottomTabs2';
+import ClubworkInfo from './screens/trainerpages/clubsDetail';
+import ClientScreen from './screens/trainerpages/ClientScreen';
+import SpecialitySelectionScreen from './screens/trainerpages/goalSelectionScreen';
+import FavoriteScreen from './screens/favorite/favoriteScreen';
+import HelpScreen from './screens/help/helpScreen';
+import UserSubscriptionScreen from './screens/userSubscription/userSubscriptionScreen';
+import NotificationScreen from './screens/notification/notificationScreen';
+import ChooseTimeScreen from './screens/chooseTime/chooseTimeScreen';
+import SelectPaymentMethodScreen from './screens/selectPaymentMethod/selectPaymentMethodScreen';
+import SuccessPaymentScreen from './screens/successPayment/successPaymentScreen';
+import AboutScreen from './screens/about/aboutScreen';
 LogBox.ignoreAllLogs();
 
 const Stack = createStackNavigator();
@@ -64,8 +77,8 @@ const Route = () => {
         <Stack.Screen name="GenderSelection" component={GenderSelectionScreen} />
         <Stack.Screen name="LevelSelection" component={LevelSelectionScreen} />
         <Stack.Screen name="GoalSelection" component={GoalSelectionScreen} />
-      <Stack.Screen name="m" component={maps} />
-            <Stack.Screen name="BottomTabs" component={BottomTabs} options={{ ...TransitionPresets.DefaultTransition }} />
+        <Stack.Screen name="BottomTabs2" component={BottomTabs2} options={{ ...TransitionPresets.DefaultTransition }} />
+        <Stack.Screen name="BottomTabs" component={BottomTabs} options={{ ...TransitionPresets.DefaultTransition }} />
         <Stack.Screen name="Shop" component={ShopScreen} />
         <Stack.Screen name="ProductInfo" component={ProductInfo}/>
         <Stack.Screen name="Clubs" component={clubsScreen}/>
@@ -80,7 +93,18 @@ const Route = () => {
         <Stack.Screen name="WorkoutCategoryDetail" component={WorkoutCategoryDetailScreen} />
         <Stack.Screen name="Videos" component={VideosScreen} />
         <Stack.Screen name="UserProgram" component={UserProgramScreen} />
-
+        <Stack.Screen name="ClubworkInfo" component={ClubworkInfo}/>
+        <Stack.Screen name="client" component={ClientScreen}/>
+        <Stack.Screen name="Favorite" component={FavoriteScreen} />
+        <Stack.Screen name="Help" component={HelpScreen} />
+        <Stack.Screen name="UserSubscription" component={UserSubscriptionScreen} />
+        <Stack.Screen name="Speciality" component={SpecialitySelectionScreen}/>
+        <Stack.Screen name="Notification" component={NotificationScreen} />
+        <Stack.Screen name="SubscriptionDetail" component={UserSubscriptionScreen} />
+        <Stack.Screen name="ChooseTime" component={ChooseTimeScreen} />
+        <Stack.Screen name="SelectPaymentMethod" component={SelectPaymentMethodScreen} />
+        <Stack.Screen name="SuccessPayment" component={SuccessPaymentScreen} />
+        <Stack.Screen name="About" component={AboutScreen} />
 
       </Stack.Navigator>
     </NavigationContainer>

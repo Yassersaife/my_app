@@ -67,7 +67,9 @@
         "getInfoHeader": "Choose your goal",
         "getInfoDescription": "This help us creat your personalised plan you can always change this later",
         "next": "Next",
-        "wait": "Please wait"
+        "wait": "Please wait",
+        "InfoHeader": "Choose your Speciality",
+        "InfoDescription": "This help us creat your Work plan you can always change this later"
     },
     "bottomTabsScreen": {
         "home": "Home",
@@ -310,7 +312,7 @@
     "aboutScreen": {
         "header": "About",
         "terms": "Terms and condition",
-        "dataPolicy": "Data Policy"
+        "dataPolicy": "Activity sharing & privacy"
     },
     "favoriteScreen": {
         "header": "Favourite",

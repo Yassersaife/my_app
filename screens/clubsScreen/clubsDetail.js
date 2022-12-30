@@ -318,7 +318,7 @@ import {
     const renderItem = ({ item }) => (
         <TouchableOpacity
             activeOpacity={0.99}
-            onPress={() => navigation.push('TrainerProfile')}
+            onPress={() => navigation.push('TrainerProfile',{item:item})}
             style={{ ...styles.trainerInfoWrapStyle, flexDirection:  'row'  }}
         >
             <View style={{ flex: 1, flexDirection: 'row' , alignItems: 'center', }}>

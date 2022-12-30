@@ -189,7 +189,7 @@ const NotificationScreen = ({ navigation }) => {
             <View style={{ flex: 1, backgroundColor: Colors.whiteColor }}>
                 <View style={{
                     ...styles.notificationWrapStyle,
-                    borderWidth: 0.0,
+                    borderWidth: 1.0,
                     elevation: 1.0
                 }}>
                     <View style={{ flexDirection: isRtl ? 'row-reverse' : 'row', justifyContent: 'space-between' }}>

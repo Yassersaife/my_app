@@ -7,7 +7,7 @@ const { width } = Dimensions.get('window');
 const SplashScreen = ({ navigation }) => {
 
     setTimeout(() => {
-        navigation.push('BottomTabs')
+        navigation.push('Onboarding')
     }, 2000);
 
     return (
