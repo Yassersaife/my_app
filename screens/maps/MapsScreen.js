@@ -5,6 +5,8 @@ import { Colors, Fonts, Sizes } from '../../constants/styles';
 import { fonts } from 'react-native-elements/dist/config';
 import { State } from 'react-native-gesture-handler';
 import { locations } from '../../Data/locations';
+import { MaterialIcons } from '@expo/vector-icons';
+
 const mapDarkStyle = [
   {
     "elementType": "geometry",
@@ -203,9 +205,10 @@ const mapStandardStyle = [
   },
 ];
 
-const MapTestScreen = () => {
+const MapTestScreen = ({navigation}) => {
 
     return (
+     
         <MapView
           provider={PROVIDER_GOOGLE} // remove if not using Google Maps
           style={styles.map}
@@ -213,28 +216,38 @@ const MapTestScreen = () => {
           region={{
             latitude: 32.2385621922917,   
             longitude: 35.223833436542115,  
-            latitudeDelta: 13,  
-            longitudeDelta: 13, 
-            zoom:19 }}
-        >{
-        locations.map((index) => (
+            latitudeDelta: 1,  
+            longitudeDelta: 1, 
+            zoom:9999 }}
+        >
+         <MaterialIcons
+                    name={"arrow-back" }
+                    size={34}
+                    color={Colors.whiteColor}
+                    style={{ margin: Sizes.fixPadding * 3.0, alignSelf:  'flex-start'  }}
+                    onPress={() => navigation.pop()}
+                />
+        {
+        locations.map((item, index) => (
           <Marker 
+              key={index}
              coordinate={{
-              latitude: 32.22694568290515,
-              longitude:35.20675312953528,
+              latitude: item.lat,
+              longitude:item.lng,
             }}
             image={require('../../assets/images/map.png')}
-            title="Test Title"
-            description="This is the test description"
+            title={item.gymName}
           >
+          
             <Callout tooltip>
               <View>
                 <View style={styles.bubble}>
-                  <Text style={styles.name}>yasser gym</Text>
+                  <Text style={{...Fonts.primaryColor14SemiBold, marginBottom: 5,
+}}>{item.gymName}</Text>
                   {/* <Text>A short description</Txt> */}
                   <Image 
                     style={styles.image}
-                    source={require('../../assets/images/icon.png')}
+                    source={item.gymImage}
                   />
                 </View>
                 <View style={styles.arrowBorder} />
@@ -250,7 +263,7 @@ export default MapTestScreen;
 
 const styles = StyleSheet.create({
   map: {
-    height: '100%'
+    height: '90%'
   },
   // Callout bubble
   bubble: {
@@ -262,6 +275,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     padding: 15,
     width: 150,
+    height:150,
   },
   // Arrow below the bubble
   arrow: {
@@ -289,7 +303,7 @@ const styles = StyleSheet.create({
   },
   // Character image
   image: {
-    width: 100,
-    height: 80,
+    width: 120,
+    height: 110,
   },
 });

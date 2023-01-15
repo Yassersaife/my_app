@@ -223,7 +223,7 @@ const MealCategoryVideoScreen = ({ navigation }) => {
                     videoProps={{
                         shouldPlay: true,
                         resizeMode: ResizeMode.COVER,
-                        source: require('../../assets/video/sampleVideo.mp4')
+                        source: require('../../assets/video/diet.mp4')
                     }}
                     slider={{ visible: true, }}
                     style={{

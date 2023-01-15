@@ -1,0 +1,41 @@
+
+{
+  "expo": {
+    "name": "App-Fitness",
+    "slug": "App-fitness",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/images/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/images/icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.yasser.APP-FITNESS"
+
+
+    },
+    "android": {
+      "adaptiveIcon": {
+        "googleServicesFile":"./asset/google-services.json",
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#FFFFFF"
+      },
+      "package": "com.sharathnb.firebase"
+    },
+    "plugins":["@react-native-firebase/app"],
+    "web": {
+      "favicon": "./assets/favicon.png"
+    }
+    
+  }
+}

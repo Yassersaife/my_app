@@ -152,7 +152,7 @@ const clubsScreen = ({ navigation }) => {
         }}>
         <View>        
         <Image
-          source={item.gymImage}
+          source={item.path}
           style={{
               height: 60,
               width: 60,

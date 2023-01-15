@@ -155,8 +155,7 @@ const [search,setsearch]=useState('');
                 
                 <View style={{ flex: 1, flexDirection: isRtl ? 'row-reverse' : 'row', alignItems: 'center', }}>
                     <Image
-icon={item.path}
-                        source={icon}
+                        source={{uri:"../../assets/images/trainers/trainer7.png",}}
                         style={{ width: 70.0, height: 70.0, borderRadius: 35.0, }}
                     />
                     <View style={{ flex: 1, marginLeft: isRtl ? 0.0 : Sizes.fixPadding, marginRight: isRtl ? Sizes.fixPadding : 0.0 }}>

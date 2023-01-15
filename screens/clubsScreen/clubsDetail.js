@@ -10,7 +10,7 @@ import {
     FlatList,
     Image,
   } from "react-native";
-  import React, { useState } from "react";
+  import React, { useState,useContext } from "react";
   import { MaterialIcons } from '@expo/vector-icons';
 
   import { Ionicons } from "@expo/vector-icons";
@@ -18,6 +18,7 @@ import {
   import { BlurView } from "expo-blur";
   import IC_Call from '../../assets/images/icons/ic_call.svg'
   import IC_Chat from '../../assets/images/icons/ic_chat.svg'
+import { AuthContext } from "../../constants/AuthContext";
   const GoalData = ['Keep fit' ,'Lose weight (lose fat)',"Gain muscle mass (Grow your size)","Gain more flexible",
   "Get Stringer "  ];
   const { height, width } = Dimensions.get("window");
@@ -43,7 +44,38 @@ import {
   const ClubInfo = ({ navigation,route }) => {
     const [activeItem, setActiveItem] = useState('');
     const { item} = route.params;
-  
+    const {userinfo,email,setuserinfo} = useContext(AuthContext);
+
+
+    const handlejoin=(id)=>{
+      console.log(id);
+
+       fetch(`http://192.168.1.12:8082/player/gym/${userinfo.id}/${id}`, {
+           method: "GET",
+                    
+         })
+             .then(res => {
+                
+               return res.text();}
+             )
+             .then(
+               (result) => {
+                   if(result =="Success")
+                   navigation.push(('SuccessPayment'),{name:item.fullname});
+                       
+                   else{
+                       Alert.alert("Sorry, you Failed Payment. Please try again");   }
+   
+   
+                 console.log(result);
+               },
+               (error) => {
+                 console.log(error);
+                 
+               }
+             )
+   
+    }
     
     return (
       <>
@@ -287,6 +319,7 @@ import {
             </View>
           </View>
           <TouchableOpacity
+          onPress={()=>handlejoin(item.id)}
             style={{
               marginRight: Size,
               backgroundColor: Colors.primaryColor,

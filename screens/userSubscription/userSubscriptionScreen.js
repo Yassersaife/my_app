@@ -47,7 +47,7 @@ const UserSubscriptionScreen = ({ navigation }) => {
         return (
             <TouchableOpacity
                 activeOpacity={0.99}
-                onPress={() => navigation.push('Trainers')}
+                onPress={() => navigation.push(('SuccessPayment'),{name:" Sporter App"})}
                 style={styles.buttonStyle}
             >
                 <Text style={{ ...Fonts.whiteColor16Bold }}>

@@ -976,7 +976,7 @@ const HomeScreen = ({ navigation, route, screenProps }) => {
                         name="calendar-month-outline"
                         size={24}
                         color={Colors.blackColor}
-                        onPress={() => navigation.push('ScheduleWorkoutAndDiet')}
+                        onPress={() => navigation.push('UserProgram')}
                     />
                     <View style={{ marginLeft: isRtl ? 0.0 : Sizes.fixPadding, marginRight: isRtl ? Sizes.fixPadding : 0.0 }}>
                         <MaterialCommunityIcons name="bell-outline" size={24} color={Colors.blackColor} />
