@@ -1,5 +1,5 @@
 import { StyleSheet,  View, SafeAreaView, StatusBar, ScrollView, Image, TouchableOpacity, Dimensions, } from 'react-native'
-import React, { useState } from 'react';
+import React, { useState,useContext,useEffect } from 'react';
 import { Fonts, Colors, Sizes } from '../../constants/styles';
 import { MaterialCommunityIcons, MaterialIcons,FontAwesome } from '@expo/vector-icons';
 
@@ -13,10 +13,38 @@ import {
     TouchableRipple,
   } from 'react-native-paper';
   import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { AuthContext } from '../../constants/AuthContext';
 
 const { width } = Dimensions.get('window');
-
+const GoalData = ['Keep fit' ,'Lose weight (lose fat)',"Gain muscle mass (Grow your size)","Gain more flexible",
+ "Get Stringer "  ];
 const ProfileTrainerScreen = ({ navigation }) => {
+
+    const {userinfo,email,setuserinfo} = useContext(AuthContext);
+
+    useEffect(()=>{
+        setuserinfo([]);
+        fetch(`http://192.168.1.12:8082/coaches/${email}`, {
+            method: "GET",
+                     
+          })
+          .then(res => {
+              return res.json();}
+          )
+          .then(
+            (result) => {
+              console.log(result);
+              setuserinfo(result);
+              console.log(userinfo);
+
+            },
+            (error) => {
+              console.log(error);
+                    }
+          )
+        
+    },[])
+
 
     const { t, i18n } = useTranslation();
 
@@ -86,8 +114,6 @@ const ProfileTrainerScreen = ({ navigation }) => {
         return (
           <ScrollView showsVerticalScrollIndicator={false}>
           <View style={{ marginTop: Sizes.fixPadding * 2.0 }}>
-              {profileOptionShort({ icon: require('../../assets/images/settingIcons/favorite.png'), option: tr('favourite'), onPress: () => { navigation.push('Favorite') } })}
-              {profileOptionShort({ icon: require('../../assets/images/settingIcons/notification.png'), option: tr('notification'), onPress: () => { navigation.push('Notification') } })}
               {profileOptionShort({ icon: require('../../assets/images/settingIcons/subscription.png'), option: tr('subscriptionPlan'), onPress: () => { navigation.push('UserSubscription') } })}
               {profileOptionShort({ icon: require('../../assets/images/settingIcons/about.png'), option: tr('about'), onPress: () => { navigation.push('About') } })}
               {profileOptionShort({ icon: require('../../assets/images/settingIcons/help.png'), option: tr('help'), onPress: () => { navigation.push('Help') } })}
@@ -134,21 +160,17 @@ const ProfileTrainerScreen = ({ navigation }) => {
     function editProfileButton() {
         return (
             <View style={styles.userInfoSection}>
-        <View style={styles.row}>
-          <Icon name="map-marker-radius" color={Colors.primary2} size={20}/>
-          <Text style={{color:Colors.DEFAULT_BLACK, marginLeft: 20}}>Nables</Text>
-        </View>
-        <View style={styles.row}>
+                <View style={styles.row}>
           <Icon name="phone" color={Colors.primary2} size={20}/>
-          <Text style={{color:Colors.DEFAULT_BLACK, marginLeft: 20}}>972-568972337</Text>
+          <Text style={{color:Colors.DEFAULT_BLACK, marginLeft: 20}}>{userinfo.phone}</Text>
         </View>
         <View style={styles.row}>
-          <Icon name="work-outline" color={Colors.primary2} size={20}/>
-          <Text style={{color:Colors.DEFAULT_BLACK, marginLeft: 20}}>5 Years Of Experience</Text>
+          <MaterialIcons name="work" color={Colors.primary2} size={20}/>
+          <Text style={{color:Colors.DEFAULT_BLACK, marginLeft: 20}}>{userinfo.experience}</Text>
         </View>
         <View style={styles.row}>
           <Icon name="email" color={Colors.primary2} size={20}/>
-          <Text style={{color:Colors.DEFAULT_BLACK, marginLeft: 20}}>yassersaife@gmail.com</Text>
+          <Text style={{color:Colors.DEFAULT_BLACK, marginLeft: 20}}>{userinfo.email}</Text>
         </View>
       </View>
         )
@@ -160,7 +182,7 @@ const ProfileTrainerScreen = ({ navigation }) => {
             <View style={styles.userInfoSection}>
         <View style={{flexDirection: 'row', marginTop: 15}}>
           <Avatar.Image 
-                        source={require('../../assets/images/user/user4.png')}
+                        source={require('../../assets/images/trainers/trainer2.png')}
 
             size={80}
           />
@@ -168,8 +190,8 @@ const ProfileTrainerScreen = ({ navigation }) => {
             <Title style={[styles.title, {
               marginTop:15,
               marginBottom: 5,
-            }]}>yasser saife</Title>
-            <Caption style={styles.caption}>Yoga</Caption>
+            }]}>{userinfo.fullname}</Title>
+            <Caption style={styles.caption}>{GoalData[userinfo.goal]}</Caption>
           </View>
         </View>
       </View>
@@ -187,7 +209,7 @@ const ProfileTrainerScreen = ({ navigation }) => {
                 </Text>
                 <TouchableOpacity
                     activeOpacity={0.99}
-                    onPress={() => navigation.push('EditProfile')}
+                    onPress={() => navigation.push('EditProfileTrainer')}
                     style={styles.editIconWrapStyle}
                 >
                 

@@ -6,7 +6,12 @@ import { useTranslation } from 'react-i18next';
 
 const { width } = Dimensions.get('window');
 
-const SuccessPaymentScreen = ({ navigation }) => {
+
+const SuccessPaymentScreen = ({ navigation,route }) => {
+
+const timeElapsed = Date.now();
+const today = new Date(timeElapsed);
+    const name = route.params.name;
 
     const { t, i18n } = useTranslation();
 
@@ -57,15 +62,15 @@ const SuccessPaymentScreen = ({ navigation }) => {
 
     function paymentInfo() {
         return (
-            <View style={{ alignItems: 'center', marginHorizontal: Sizes.fixPadding * 2.0, }}>
+            <View style={{ alignItems: 'center',top:10, marginHorizontal: Sizes.fixPadding * 2.0, }}>
                 <Image
                     source={require('../../assets/images/icons/success.png')}
-                    style={{ width: width / 3.0, height: width / 3.0, resizeMode: 'contain' }}
+                    style={{ width: width/1.2 , height: width/1.2 , resizeMode: 'contain' }}
                 />
-                <Text style={{ marginVertical: Sizes.fixPadding, ...Fonts.blackColor20SemiBold }}>
+                <Text style={{ marginVertical: Sizes.fixPadding/5, ...Fonts.blackColor20SemiBold }}>
                     {tr('confirmation')}
                 </Text>
-                <Text style={{ textAlign: 'center', ...Fonts.grayColor14SemiBold }}>
+                <Text style={{ textAlign: 'center', ...Fonts.primaryColor14SemiBold }}>
                     {tr('confirmationDetail')}
                 </Text>
                 {scheduleAndSubscriptionInfo()}
@@ -83,8 +88,8 @@ const SuccessPaymentScreen = ({ navigation }) => {
             }}>
                 <View style={styles.scheduleAndSubscriptionDividerStyle} />
                 <View style={{ flex: 1, margin: Sizes.fixPadding, }}>
-                    <Text style={{ ...Fonts.blackColor16SemiBold }}>
-                        Train with jems
+                    <Text style={{ ...Fonts.primaryColor18SemiBold }}>
+                        Train with {name}
                     </Text>
                     {dateAndTimeInfo()}
                     {subscriptionInfo()}
@@ -105,6 +110,7 @@ const SuccessPaymentScreen = ({ navigation }) => {
             </View>
         )
     }
+  
 
     function dateAndTimeInfo() {
         return (
@@ -113,7 +119,7 @@ const SuccessPaymentScreen = ({ navigation }) => {
                     {tr('dateAndTimeTitle')}
                 </Text>
                 <Text style={{ ...Fonts.primaryColor14SemiBold }}>
-                    9.00 to 10.00 AM Thursday, 15 july 2021
+                {today.toDateString()}
                 </Text>
             </View>
         )
@@ -121,7 +127,7 @@ const SuccessPaymentScreen = ({ navigation }) => {
 
     function welcomeText() {
         return (
-            <Text style={{ textAlign: 'center', margin: Sizes.fixPadding * 2.0, ...Fonts.blackColor16SemiBold }}>
+            <Text style={{ textAlign: 'center', padding: Sizes.fixPadding *2, ...Fonts.blackColor16SemiBold }}>
                 {tr('welcomeText')}
             </Text>
         )

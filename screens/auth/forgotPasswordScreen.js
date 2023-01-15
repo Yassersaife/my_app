@@ -1,8 +1,9 @@
 import { StyleSheet, Text,Image, View, SafeAreaView, StatusBar, TextInput, TouchableOpacity, ScrollView } from 'react-native'
-import React, { useState } from 'react'
+import React, { useState ,useContext} from 'react'
 import { Colors, Fonts, Sizes } from '../../constants/styles';
 import { MaterialIcons } from '@expo/vector-icons';
 import { useTranslation } from 'react-i18next';
+import { AuthContext } from '../../constants/AuthContext';
 
 const ForgotPasswordScreen = ({ navigation }) => {
 
@@ -15,7 +16,11 @@ const ForgotPasswordScreen = ({ navigation }) => {
     }
 
     const [email, setEmail] = useState('');
-
+    const {setemail} = useContext(AuthContext);
+const handleFor=()=>{
+    setemail(email);
+    navigation.push('OtpVerification', { from: 'forgotPassword' })
+}
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: Colors.whiteColor }}>
             <StatusBar translucent={false} backgroundColor={Colors.primaryColor} />
@@ -35,7 +40,7 @@ const ForgotPasswordScreen = ({ navigation }) => {
         return (
             <TouchableOpacity
                 activeOpacity={0.99}
-                onPress={() => navigation.push('OtpVerification', { from: 'forgotPassword' })}
+                onPress={() => handleFor()}
                 style={styles.buttonStyle}
             >
                 <Text style={{ ...Fonts.whiteColor16Bold }}>

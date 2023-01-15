@@ -1,24 +1,28 @@
 import { StyleSheet, Text, View, SafeAreaView, StatusBar, Image, ScrollView, TouchableOpacity } from 'react-native'
-import React, { useState } from 'react'
+import React, { useState,useContext } from 'react'
 import { Colors, Fonts, Sizes } from '../../constants/styles';
 import { MaterialIcons } from '@expo/vector-icons';
 import { useTranslation } from 'react-i18next';
 import { PricingCard } from 'react-native-elements';
+import { AuthContext } from '../../constants/AuthContext';
 
 
-const GenderSelectionScreen = ({ navigation,route }) => {
+const GenderSelectionScreen = ({ navigation }) => {
 
     const { t, i18n } = useTranslation();
 
     const isRtl = i18n.dir() == 'rtl';
-    const traniner=route.params.traniner;
 
     function tr(key) {
         return t(`genderSelectionScreen:${key}`)
     }
+    const [selectedGender, setSelectedGender] = useState(0);
+    const {setgender} = useContext(AuthContext);
 
-    const [selectedGender, setSelectedGender] = useState('');
-
+const handlegender=()=>{
+    setgender(selectedGender);
+    navigation.push('LevelSelection') ;
+}
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: Colors.whiteColor }}>
             <StatusBar translucent={false} backgroundColor={Colors.primaryColor} />
@@ -40,7 +44,7 @@ const GenderSelectionScreen = ({ navigation,route }) => {
         return (
             <TouchableOpacity
                 activeOpacity={0.99}
-                onPress={() => { navigation.push('LevelSelection') }}
+                onPress={() => handlegender()}
                 style={styles.buttonStyle}
             >
                 <Text style={{ ...Fonts.whiteColor16Bold }}>
@@ -53,8 +57,8 @@ const GenderSelectionScreen = ({ navigation,route }) => {
     function genderSelection() {
         return (
             <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-                {genderSelectionShort({ icon: require('../../assets/images/icons/male.png'), gender: 'Male' })}
-                {genderSelectionShort({ icon: require('../../assets/images/icons/female.png'), gender: 'Female' })}
+                {genderSelectionShort({ icon: require('../../assets/images/icons/male.png'), gender:0 })}
+                {genderSelectionShort({ icon: require('../../assets/images/icons/female.png'), gender:1 })}
             </View>
         )
     }
@@ -76,7 +80,7 @@ const GenderSelectionScreen = ({ navigation,route }) => {
                 <Text style={{ textAlign: 'center', ...Fonts.blackColor18Bold,          
                 Color: selectedGender == gender ? Colors.DEFAULT_BLACK : Colors.DEFAULT_BLACK  }}>                                                                                                                                            
 
-                {gender}
+                {gender==0?'Male':'Female'}
                 </Text>
             </TouchableOpacity>
         )
@@ -86,7 +90,7 @@ const GenderSelectionScreen = ({ navigation,route }) => {
         return (
             <View style={{ marginTop: Sizes.fixPadding * 2.0, alignItems: 'center', marginHorizontal: Sizes.fixPadding * 2.0, }}>
                 <Text style={{ marginBottom: Sizes.fixPadding - 7.0, textAlign: 'center', ...Fonts.blackColor22SemiBold }}>
-                    {tr('getInfoHeader')}
+                    {tr('getInfoHeader')} 
                 </Text>
                 <Text style={{ marginHorizontal: Sizes.fixPadding * 2.0, textAlign: 'center', ...Fonts.grayColor14Regular }}>
                     {tr('getInfoDescription')}

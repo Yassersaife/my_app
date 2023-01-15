@@ -55,12 +55,21 @@ const ShopScreen = ({navigation}) => {
                 alignItems: "center",
               }}
             >
-              <Ionicons
-                name="menu"
-
-                size={Size * 3}
-                color={Colors.DEFAULT_BLACK}
-              />
+              <TouchableOpacity
+                style={{
+                  backgroundColor: Colors.DEFAULT_WHITE,
+                  padding: Size,
+                  borderRadius: Size * 1.5,
+                }}
+              >
+                <Ionicons
+                  name="arrow-back"
+                  color={Colors.primaryColor}
+                  size={Size * 2}
+                  onPress={() => navigation.pop()}
+           
+                />
+              </TouchableOpacity>
             </BlurView>
           </TouchableOpacity>
           <View

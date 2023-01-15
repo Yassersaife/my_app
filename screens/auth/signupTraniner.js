@@ -1,10 +1,12 @@
 import { StyleSheet, Text, View, SafeAreaView, StatusBar, ScrollView, TextInput, Image, TouchableOpacity } from 'react-native'
-import React, { useState } from 'react'
+import React, { useState,useContext } from 'react'
 import { Colors, Fonts, Sizes,images } from '../../constants/styles';
 import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
 import { useTranslation } from 'react-i18next';
 import SvgIcon from '../../assets/images/victore/tr.png';
 import RNPickerSelect from "react-native-picker-select";
+import { text } from '@fortawesome/fontawesome-svg-core';
+import { AuthContext } from '../../constants/AuthContext';
 
 
 
@@ -25,14 +27,32 @@ const SignupTraninerScreen = ({ navigation }) => {
         phoneNumber: '',
         Salary:'',
         password: '',
-        address:'',
+        city:'',
         showPassword: false,
     })
 
-    const { fullName, email, phoneNumber, Salary,password, showPassword } = state;
+    const { fullName, email, phoneNumber, city,Salary,password, showPassword } = state;
+    const [message,setMessage] =useState('');
 
     const updateState = (data) => setState((state) => ({ ...state, ...data }));
+    const {Sigup2,setlogin} = useContext(AuthContext);
 
+
+    const handleSigup =()=>{
+        handleMessage(null);
+
+        if(fullName==''||email==''||Salary==''||phoneNumber==''||password=='')
+        handleMessage('fill in the fields');
+
+        else{
+        Sigup2(fullName,Salary, email, phoneNumber, password);
+        handleMessage(null);
+        setlogin(1);
+        navigation.push('GenderSelection')}
+    }
+    const handleMessage =(message)=>{
+        setMessage(message);
+    }
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: Colors.whiteColor }}>
             <StatusBar translucent={false} backgroundColor={Colors.primaryColor} />
@@ -44,8 +64,8 @@ const SignupTraninerScreen = ({ navigation }) => {
                     {emailIdTextField()}
                     {phoneNumberTextField()}
                     {SalaryField()}
-                    {addressinfo()}
                     {passwordTextField()}
+                    {Messageinfo()}
                     {signupButton()}
                     {connectWithInfo()}
                 </ScrollView>
@@ -64,7 +84,19 @@ const SignupTraninerScreen = ({ navigation }) => {
             </Text>
         )
     }
-
+    function Messageinfo() {
+        return (
+            <TouchableOpacity
+                activeOpacity={0.99}
+                style={{
+                margin:Sizes.fixPadding}}
+            >
+                <Text style={{ ...Fonts.grayColor14SemiBold,alignItems:'center' }}>
+                    {message}
+                </Text>
+            </TouchableOpacity>
+        )
+    }
     function socialMediaOptionShort({ bgColor, icon }) {
         return (
             <View style={{
@@ -100,7 +132,7 @@ const SignupTraninerScreen = ({ navigation }) => {
         return (
             <TouchableOpacity
                 activeOpacity={0.99}
-                onPress={() => navigation.push('Speciality')}
+                onPress={() => handleSigup()}
                 style={styles.buttonStyle}
             >
                 <Text style={{ ...Fonts.whiteColor16Bold }}>
@@ -155,12 +187,12 @@ const SignupTraninerScreen = ({ navigation }) => {
         return (
             <View style={styles.textFieldWrapStyle}>
                 <TextInput
-                    value={phoneNumber}
-                    onChangeText={(text) => updateState({ phoneNumber: text })}
+                    value={Salary}
+                    onChangeText={(text) => updateState({ Salary: text })}
                     placeholder={tr('salary')}
                     style={{ ...Fonts.blackColor14Regular }}
                     selectionColor={Colors.primaryColor}
-                    keyboardType="number"
+                    keyboardType="number-pad"
                     placeholderTextColor={'#8D8D8D'}
                 />
             </View>
@@ -170,9 +202,9 @@ const SignupTraninerScreen = ({ navigation }) => {
         return (
             <View style={styles.textFieldWrapStyle}>
                  <RNPickerSelect
-                       placeholder={{ label: "Select your Address", value: null }}
-
-                 onValueChange={(value) =>  updateState({ address: value })}
+                       placeholder={{ label: "Select your Address", value: city }}
+value={city}
+                 onValueChange={(value) =>  updateState({ city: value })}
                  items={[
                      { label: "Jerusalem", value: "Jerusalem" },
                      { label: "Gaza", value: "Gaza" },

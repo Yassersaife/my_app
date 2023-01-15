@@ -1,10 +1,11 @@
 import { StyleSheet, Text, View, Image,SafeAreaView, StatusBar, ScrollView, TouchableOpacity, TextInput } from 'react-native'
-import React, { useState } from 'react'
+import React, { useState,useContext } from 'react'
 import { Colors, Fonts, Sizes } from '../../constants/styles';
 import { MaterialIcons } from '@expo/vector-icons';
 import { useTranslation } from 'react-i18next';
 import BmiForm from '../../components/bmi/BmiForm';
 import AntDesignIcons from 'react-native-vector-icons/AntDesign';
+import { AuthContext } from '../../constants/AuthContext';
 
 const LevelSelectionScreen = ({ navigation }) => {
 
@@ -15,14 +16,15 @@ const LevelSelectionScreen = ({ navigation }) => {
     function tr(key) {
         return t(`levelSelectionScreen:${key}`)
     }
+    const {login,age} = useContext(AuthContext);
 
     const [state, setState] = useState({
-        age: '26',
+        age1: '26',
         weight: '60',
         height: '6',
     })
 
-    const { age, weight, height } = state;
+    const { age1, weight, height } = state;
 
     const updateState = (data) => setState((state) => ({ ...state, ...data }));
 
@@ -93,8 +95,8 @@ const LevelSelectionScreen = ({ navigation }) => {
                 </Text>
                 <View style={styles.textFieldWrapStyle}>
                     <TextInput
-                        value={age}
-                        onChangeText={(text) => updateState({ age: text })}
+                        value={age1}
+                        onChangeText={(text) => updateState({ age1: text })}
                         style={{ ...Fonts.blackColor14Regular, height: 20.0, }}
                         selectionColor={Colors.primaryColor}
                         keyboardType="numeric"
@@ -108,7 +110,7 @@ const LevelSelectionScreen = ({ navigation }) => {
         return (
            
                  <TouchableOpacity 
-                onPress={() => navigation.push('GoalSelection')}
+                onPress={() =>{login==1? navigation.push('Speciality'):navigation.push('GoalSelection')}  }
                             style={{
                                 flexDirection: 'row',
                                 alignItems: 'center',
@@ -117,7 +119,7 @@ const LevelSelectionScreen = ({ navigation }) => {
                                 height: 60,
                                 borderRadius: 30,
                                 left:300,
-                                backgroundColor: Colors.primaryColor
+                                backgroundColor:age==0?  Colors.whiteColor :Colors.primaryColor
                             }}
                             activeOpacity={0.8}
                             >

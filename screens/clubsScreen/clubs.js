@@ -1,5 +1,5 @@
 import { SafeAreaView,TextInput, ScrollView, TouchableOpaascity,StyleSheet, Text, TouchableOpacity, View, StatusBar, ImageBackground, Image, Dimensions, FlatList, } from 'react-native'
-import React, { useState } from 'react'
+import React, { useState ,useEffect} from 'react'
 import { Colors, Fonts, Sizes,Size } from '../../constants/styles';
 import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
 import { Overlay } from 'react-native-elements';
@@ -8,7 +8,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from "@expo/vector-icons";
 import { BlurView } from "expo-blur";
 import SearchField from '../../components/SearchField';
-
+import { FontAwesome5 } from '@expo/vector-icons';
 const { width } = Dimensions.get('window');
 
 
@@ -65,56 +65,39 @@ const gyms =[
 
 ];
 
-const trainers = [
-    {
-        id: '1',
-        trainerImage: require('../../assets/images/trainers/trainer14.png'),
-        trainerName: 'Mira shah',
-        specialist: 'Yoga',
-        rating: 4.5,
-    },
-    {
-        id: '2',
-        trainerImage: require('../../assets/images/trainers/trainer5.png'),
-        trainerName: 'yasser saife',
-        specialist: 'workout',
-        rating: 4.5,
-    },
-    {
-        id: '3',
-        trainerImage: require('../../assets/images/trainers/trainer12.png'),
-        trainerName: 'Dhruva roi',
-        specialist: 'lessfit',
-        
-        rating: 4.5,
-    },
-    {
-        id: '4',
-        trainerImage: require('../../assets/images/trainers/trainer4.png'),
-        trainerName: 'Dr. roi',
-        specialist: 'hiits',
-        rating: 4.5,
-    },
-    {
-        id: '5',
-        trainerImage: require('../../assets/images/trainers/trainer1.png'),
-        trainerName: 'Salman khan',
-        specialist: 'S & C',
-        rating: 4.5,
-    },
-];
 
-const clubsScreen = ({ navigation, route, screenProps }) => {
+const clubsScreen = ({ navigation }) => {
 
     const { t, i18n } = useTranslation();
 
     const isRtl = i18n.dir() == 'rtl';
 
-    const [showAppointmentDialog, setShowAppointmentDialog] = useState(false)
 
     function tr(key) {
         return t(`clubsScreen:${key}`)
     }
+    const [gym, setgym] = useState([]);
+
+    useEffect(()=>{
+      fetch(`http://192.168.1.12:8082/gyms/`, {
+        method: "GET",
+                 
+      })
+      .then(res => {
+          return res.json();}
+      )
+      .then(
+        (result) => {
+          console.log(result);
+          setgym(result);
+          console.log(gym);
+
+        },
+        (error) => {
+          console.log(error);
+                }
+      )
+    },[])
 
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: Colors.whiteColor }}>
@@ -181,7 +164,7 @@ const clubsScreen = ({ navigation, route, screenProps }) => {
         <View style={{flex: 1, paddingLeft: 20}}>
           
             <Text style={{fontSize: 14, ...Fonts.blackColor14SemiBold}}>
-              {item.gymName}
+              {item.name}
             </Text>
             <Text
               style={{
@@ -189,7 +172,7 @@ const clubsScreen = ({ navigation, route, screenProps }) => {
                 ...Fonts.blackColor14Medium,
 
               }}>
-              {item.city}
+              {item.location}
             </Text>
           <View style={{flexDirection: 'row', alignItems: 'center', marginTop: 10}}>
           <Ionicons
@@ -222,7 +205,7 @@ const clubsScreen = ({ navigation, route, screenProps }) => {
                 </Text>
                 <View style={{ marginTop: Sizes.fixPadding }}>
                     <FlatList
-                        data={gyms}
+                        data={gym}
                         keyExtractor={(item) => `${item.id}`}
                         renderItem={renderItem}
                         
@@ -375,16 +358,11 @@ const clubsScreen = ({ navigation, route, screenProps }) => {
                 </View>
                 <TouchableOpacity
                     activeOpacity={0.99}
-                    onPress={() => navigation.push('')}
+                    onPress={() => navigation.push('maps')}
                     style={{ flexDirection: isRtl ? 'row-reverse' : 'row', alignItems: 'center' }}
                 >
-                    <MaterialCommunityIcons
-                        name="location"
-                        size={40}
-                        color={Colors.blackColor}
-                        onPress={() => navigation.push('')}
-                    />
-                    
+                   
+                    <FontAwesome5 name="map-marked" size={40} color={Colors.blackColor} />
                 </TouchableOpacity>
             </View>
         )

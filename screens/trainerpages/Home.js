@@ -1,5 +1,5 @@
 import { SafeAreaView, ScrollView, TouchableOpaascity,StyleSheet, Text, TouchableOpacity, View, StatusBar, ImageBackground, Image, Dimensions, FlatList, } from 'react-native'
-import React, { useState } from 'react'
+import React, { useState,useContext,useEffect } from 'react'
 import { Colors, Fonts, Sizes,Size } from '../../constants/styles';
 import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
 import { Overlay } from 'react-native-elements';
@@ -9,6 +9,11 @@ import { Ionicons } from "@expo/vector-icons";
 import { BlurView } from "expo-blur";
 import AntDesignIcons from 'react-native-vector-icons/AntDesign';
 import { SimpleLineIcons } from '@expo/vector-icons';
+import { AuthContext } from '../../constants/AuthContext';
+
+
+
+
 
 const { width,height } = Dimensions.get('window');
 const WorkCategories =[
@@ -16,37 +21,71 @@ const WorkCategories =[
         id: '1',
         Image: require('../../assets/images/trainer/work.png'),
         Name: "Clients",
+        ONPress:"client",
        
     },
     {
         id: '2',
         Image: require('../../assets/images/trainer/work2.jpg'),
         Name: "Workout",
+        ONPress:"videosTrainer",
+
        
     },
     {
         id: '3',
         Image: require('../../assets/images/trainer/gym3.jpg'),
         Name: "Find GYMs",
-       
+        ONPress:"Clubs",
+
     },
     {
         id: '4',
         Image: require('../../assets/images/trainer/work1.png'),
         Name: "Profile",
-       
+        ONPress:"ProfileTrainer",
+
     },
 ]
+const GoalData = ['Keep fit' ,'Lose weight (lose fat)',"Gain muscle mass (Grow your size)","Gain more flexible",
+ "Get Stringer "  ];
 const HomeTraninerScreen = ({ navigation, route, screenProps }) => {
 
     const { t, i18n } = useTranslation();
 
     const isRtl = i18n.dir() == 'rtl';
+    const {userinfo,email,setuserinfo,setgoalname} = useContext(AuthContext);
 
 
     function tr(key) {
         return t(`homeScreen:${key}`)
     }
+    useEffect(()=>{
+        setuserinfo([]);
+        fetch(`http://192.168.1.12:8082/coaches/${email}`, {
+            method: "GET",
+                     
+          })
+          .then(res => {
+              return res.json();}
+          )
+          .then(
+            (result) => {
+              console.log(result);
+              setuserinfo(result);
+              console.log(userinfo);
+              setgoalname(GoalData[userinfo.goal]);
+
+            },
+            (error) => {
+              console.log(error);
+                    }
+          )
+        
+    },[])
+
+
+
 
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: Colors.whiteColor }}>
@@ -63,15 +102,15 @@ const HomeTraninerScreen = ({ navigation, route, screenProps }) => {
             </View>
         </SafeAreaView>
     )
+
+
     function workCategoriesData() {
         const renderItem = ({ item }) => (
           
               
                     <TouchableOpacity
                      onPress={() => {
-                        navigation.navigate('DietCategoryDetail', {
-                          item:item
-                        });
+                        navigation.navigate(item.ONPress);
                     }}
                         style={{
                             flex: 1,
@@ -199,12 +238,12 @@ const HomeTraninerScreen = ({ navigation, route, screenProps }) => {
             <View style={{ ...styles.headerWrapStyle, flexDirection: isRtl ? 'row-reverse' : 'row' }}>
                 <View style={{ flex: 1, flexDirection: isRtl ? 'row-reverse' : 'row', alignItems: 'center' }}>
                     <Image
-                        source={require('../../assets/images/user/user4.png')}
+                        source={require('../../assets/images/trainers/trainer2.png')}
                         style={{ width: 45.0, height: 45.0, borderRadius: 22.5 }}
                     />
                     <View style={{ flex: 1, marginHorizontal: Sizes.fixPadding + 5.0 }}>
                         <Text style={{ ...Fonts.blackColor16SemiBold }}>
-                            Hello Coach
+                            Hello Coach {userinfo.fullname}
                         </Text>
                         <Text style={{ ...Fonts.blackColor14Regular }}>
                             {tr('userWelcome')}
@@ -213,11 +252,10 @@ const HomeTraninerScreen = ({ navigation, route, screenProps }) => {
                 </View>
                 <TouchableOpacity
                     activeOpacity={0.99}
-                    onPress={() => navigation.push('Notification')}
                     style={{ flexDirection: isRtl ? 'row-reverse' : 'row', alignItems: 'center' }}
                 >
                     <View style={{ marginLeft: isRtl ? 0.0 : Sizes.fixPadding, marginRight: isRtl ? Sizes.fixPadding : 0.0 }}>
-                        <MaterialCommunityIcons name="bell-outline" size={24} color={Colors.blackColor} />
+                        <MaterialCommunityIcons name="chat" size={24} color={Colors.blackColor} />
                         <View style={styles.newNotificationBellStyle} />
                     </View>
                    

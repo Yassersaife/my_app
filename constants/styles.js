@@ -294,7 +294,7 @@ export const Fonts = {
     },
 
     grayColor14SemiBold: {
-        color: Colors.grayColor,
+        color: Colors.redColor,
         fontSize: 14.0,
         fontFamily: 'Montserrat_SemiBold',
     },

@@ -167,7 +167,13 @@ const VideosTrainerScreen = ({ navigation }) => {
     function header() {
         return (
             <View style={{ margin: Sizes.fixPadding * 2.0, flexDirection: isRtl ? 'row-reverse' : 'row', alignItems: 'center' }}>
-                
+                <Ionicons
+                    name="arrow-back"
+                    color={Colors.primaryColor}
+                    size={20}
+                    onPress={() => navigation.pop()}
+             
+                  />
                 <Text style={{ marginHorizontal: Sizes.fixPadding*13, ...Fonts.primaryColor18SemiBold }}>
                     Workout
                 </Text>

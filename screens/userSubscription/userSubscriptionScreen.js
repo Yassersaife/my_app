@@ -154,7 +154,7 @@ const UserSubscriptionScreen = ({ navigation }) => {
                     style={{ width: width / 6.0, height: width / 6.0, resizeMode: 'stretch' }}
                 />
                 <Text style={{ marginTop: Sizes.fixPadding - 5.0, ...Fonts.primaryColor24SemiBold }}>
-                    Fitness App
+                   Sporter App
                 </Text>
             </View>
         )

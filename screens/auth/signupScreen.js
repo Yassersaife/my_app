@@ -1,11 +1,13 @@
 import { StyleSheet, Text, View, SafeAreaView, StatusBar, ScrollView, TextInput, Image, TouchableOpacity } from 'react-native'
-import React, { useState } from 'react'
+import React, { useContext,useState } from 'react'
 import { Colors, Fonts, Sizes,images } from '../../constants/styles';
 import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
 import { useTranslation } from 'react-i18next';
 import SvgIcon from '../../assets/images/victore/Pilates-amico.png';
 import { color } from 'react-native-reanimated';
 import { colors } from 'react-native-elements';
+import { AuthContext } from '../../constants/AuthContext';
+import RNPickerSelect from "react-native-picker-select";
 
 
 
@@ -18,18 +20,38 @@ const SignupScreen = ({ navigation }) => {
     function tr(key) {
         return t(`signupScreen:${key}`)
     }
+    const {Sigup1,setlogin} = useContext(AuthContext);
 
     const [state, setState] = useState({
         fullName: '',
         email: '',
         phoneNumber: '',
         password: '',
+        city:'',
         showPassword: false,
     })
 
-    const { fullName, email, phoneNumber, password, showPassword } = state;
+    const { fullName, email, phoneNumber,city, password, showPassword } = state;
+    const [message,setMessage] =useState('');
 
     const updateState = (data) => setState((state) => ({ ...state, ...data }));
+
+    const handleSigup =()=>{
+        handleMessage(null);
+
+        if(fullName==''||email==''||phoneNumber==''||city==''||password=='')
+        handleMessage('fill in the fields');
+
+        else{
+        Sigup1(fullName, email, phoneNumber,city, password);
+        handleMessage(null);
+        setlogin(0);
+        navigation.push('GenderSelection')}
+    }
+
+    const handleMessage =(message)=>{
+        setMessage(message);
+    }
 
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: Colors.whiteColor }}>
@@ -41,7 +63,9 @@ const SignupScreen = ({ navigation }) => {
                     {fullNameTextField()}
                     {emailIdTextField()}
                     {phoneNumberTextField()}
+                    {addressinfo()}
                     {passwordTextField()}
+                    {Messageinfo()}
                     {signupButton()}
                     {connectWithInfo()}
                 </ScrollView>
@@ -58,6 +82,19 @@ const SignupScreen = ({ navigation }) => {
                     {tr('signin')}
                 </Text>
             </Text>
+        )
+    }
+    function Messageinfo() {
+        return (
+            <TouchableOpacity
+                activeOpacity={0.99}
+                style={{
+                margin:Sizes.fixPadding}}
+            >
+                <Text style={{ ...Fonts.grayColor14SemiBold,alignItems:'center' }}>
+                    {message}
+                </Text>
+            </TouchableOpacity>
         )
     }
 
@@ -89,14 +126,36 @@ const SignupScreen = ({ navigation }) => {
             </View>
         )
     }
+    function addressinfo() {
+        return (
+            <View style={styles.textFieldWrapStyle}>
+                 <RNPickerSelect
+                       placeholder={{ label: "Select your Address", city: null }}
+value={city}
+                 onValueChange={(value) =>  updateState({ city: value })}
+                 items={[
+                     { label: "Jerusalem", value: "Jerusalem" },
+                     { label: "Gaza", value: "Gaza" },
+                     { label: "Jericho ", value: "Jericho" },
+                     { label: "Jabālyā", value: "Jabālyā" },
+                     { label: "Nablus", value: "Nablus" },
+                     { label: "Rafaḩ", value: "Rafaḩ" },
+                     { label: "Ţūlkarm	", value: "Ţūlkarm	" },
+                     { label: "Bethlehem", value: "Bethlehem" },
+                     { label: "Ramallah", value: "Ramallah" },
 
+                 ]}
+             />
+            </View>
+        )
+    }
     
 
     function signupButton() {
         return (
             <TouchableOpacity
                 activeOpacity={0.99}
-                onPress={() => navigation.push('OtpVerification', { from: 'signup' })}
+                onPress={() =>{handleSigup()}}
                 style={styles.buttonStyle}
             >
                 <Text style={{ ...Fonts.whiteColor16Bold }}>

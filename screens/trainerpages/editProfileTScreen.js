@@ -9,7 +9,7 @@ import RNPickerSelect from "react-native-picker-select";
 
 const { width } = Dimensions.get('window');
 
-const EditProfileScreen = ({ navigation }) => {
+const EditProfileTScreen = ({ navigation }) => {
 
     const { t, i18n } = useTranslation();
 
@@ -217,7 +217,7 @@ value={fitnessGoal}
     function profilePicWithChangeOption() {
         return (
             <ImageBackground
-                source={require('../../assets/images/user/user1.png')}
+                source={require('../../assets/images/trainers/trainer2.png')}
                 style={styles.profilePicStyle}
                 borderRadius={(width / 3.3) / 2.0}
             >
@@ -249,7 +249,7 @@ value={fitnessGoal}
     }
 }
 
-export default EditProfileScreen;
+export default EditProfileTScreen;
 
 const styles = StyleSheet.create({
     addIconWrapStyle: {

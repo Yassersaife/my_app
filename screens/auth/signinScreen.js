@@ -1,22 +1,28 @@
 import { StyleSheet, Text, View, SafeAreaView, StatusBar, ScrollView, BackHandler, TextInput, Image, TouchableOpacity } from 'react-native'
-import React, { useState, useCallback } from 'react'
+import React, { useContext,useState, useCallback } from 'react'
 import { Colors, Fonts, Sizes,images,size } from '../../constants/styles';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useFocusEffect } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
+import { Stack, ActivityIndicator } from "@react-native-material/core";
+import * as Network from 'expo-network';
+
+
 import SvgIcon from '../../assets/images/victore/Trainer-amico.png';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-
+import axios from 'axios';
+import { AuthContext } from '../../constants/AuthContext';
 const SigninScreen = ({ navigation }) => {
 
     const { t, i18n } = useTranslation();
 
     const isRtl = i18n.dir() == 'rtl';
-
+ 
     function tr(key) {
         return t(`signinScreen:${key}`)
     }
+    const {setemail} = useContext(AuthContext);
 
     const backAction = () => {
         backClickCount == 1 ? BackHandler.exitApp() : _spring();
@@ -25,6 +31,9 @@ const SigninScreen = ({ navigation }) => {
 
     useFocusEffect(
         useCallback(() => {
+              
+              
+             
             BackHandler.addEventListener("hardwareBackPress", backAction);
             return () => BackHandler.removeEventListener("hardwareBackPress", backAction);
         }, [backAction])
@@ -38,8 +47,11 @@ const SigninScreen = ({ navigation }) => {
     }
 
     const [backClickCount, setBackClickCount] = useState(0);
+const [message,setMessage] =useState('');
+const [messageType,setMessageType] =useState('');
+const [isloagding,setisLoading]=useState(false);
 
-    const [state, setState] = useState({
+   const [state, setState] = useState({
         email: '',
         password: '',
         showPassword: false,
@@ -48,6 +60,54 @@ const SigninScreen = ({ navigation }) => {
     const { email, password, showPassword } = state;
 
     const updateState = (data) => setState((state) => ({ ...state, ...data }));
+
+
+    const handleLogin = () =>{
+        handleMessage(null);
+
+        fetch(`http://192.168.1.12:8082/login/`, {
+            method: "POST",
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                email: email,
+                password:password})
+          })
+          .then(res => {
+             
+            return res.json();}
+          )
+          .then(
+            (result) => {
+                if(result.msg =="Failed")
+                    handleMessage("Sorry, your password was incorrect. Please try again"); 
+                else if(result.msg=="Success 'Player' "){
+                setemail(email);
+                    navigation.push('BottomTabs',result.id);}
+                else{
+                setemail(email);
+                 navigation.push('BottomTabs2',result.id);}
+
+          setisLoading(false);
+
+              console.log(result);
+            },
+            (error) => {
+              console.log(error);
+              setisLoading(false);
+              handleMessage("An error occurdded.Check your network and try again");
+
+            }
+          )
+        };
+
+
+
+    const handleMessage =(message,type='FAILED')=>{
+        setMessage(message);
+        setMessageType(type);
+    }
 
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: Colors.whiteColor }}>
@@ -58,7 +118,10 @@ const SigninScreen = ({ navigation }) => {
                     {emailIdTextField()}
                     {passwordTextField()}
                     {forgotPasswordText()}
+                    {Messageinfo()}
+
                     {signinButton()}
+
                     {connectWithInfo()}
                 </ScrollView>
             </View>
@@ -120,12 +183,25 @@ const SigninScreen = ({ navigation }) => {
             </View>
         )
     }
+    function Messageinfo() {
+        return (
+            <TouchableOpacity
+                activeOpacity={0.99}
+                style={{
+                margin:Sizes.fixPadding}}
+            >
+                <Text style={{ ...Fonts.grayColor14SemiBold,alignItems:'center' }}>
+                    {message}
+                </Text>
+            </TouchableOpacity>
+        )
+    }
 
     function signinButton() {
         return (
             <TouchableOpacity
                 activeOpacity={0.99}
-                onPress={() => navigation.push('Home')}
+                onPress={() => {handleLogin()}}
                 style={styles.buttonStyle}
             >
                 <Text style={{ ...Fonts.whiteColor16Bold }}>

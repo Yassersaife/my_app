@@ -1,8 +1,9 @@
 import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity, StatusBar, FlatList, TextInput, Image, } from 'react-native'
-import React, { useState } from 'react'
+import React, { useState,useContext,useEffect } from 'react'
 import { Colors, Fonts, Sizes } from '../../constants/styles';
 import { MaterialIcons } from '@expo/vector-icons';
 import { useTranslation } from 'react-i18next';
+import { AuthContext } from '../../constants/AuthContext';
 
 const client = [
     {
@@ -39,7 +40,8 @@ const client = [
     },
     
 ];
-
+const GoalData = ['Keep fit' ,'Lose weight (lose fat)',"Gain muscle mass (Grow your size)","Gain more flexible",
+ "Get Stringer "  ];
 const ClientScreen = ({ navigation }) => {
 
     const { t, i18n } = useTranslation();
@@ -49,9 +51,31 @@ const ClientScreen = ({ navigation }) => {
     function tr(key) {
         return t(`trainersScreen:${key}`)
     }
+    const {userinfo,email,setuserinfo} = useContext(AuthContext);
 
     const [search, setSearch] = useState('');
+    const [clients, setclients] = useState([]);
 
+    useEffect(()=>{
+      fetch(`http://192.168.1.12:8082/coaches/getplayers/${email}`, {
+        method: "GET",
+                 
+      })
+      .then(res => {
+          return res.json();}
+      )
+      .then(
+        (result) => {
+          console.log(result);
+          setclients(result);
+          console.log(clients);
+
+        },
+        (error) => {
+          console.log(error);
+                }
+      )
+    },[])
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: Colors.whiteColor }}>
             <StatusBar translucent={false} backgroundColor={Colors.primaryColor} />
@@ -67,7 +91,6 @@ const ClientScreen = ({ navigation }) => {
         const renderItem = ({ item }) => (
             <TouchableOpacity
                 activeOpacity={0.99}
-                onPress={() => navigation.push('TrainerProfile',{item:item})}
                 style={{ ...styles.trainerInfoWrapStyle, flexDirection: isRtl ? 'row-reverse' : 'row', }}
             >
                 <View style={{ flex: 1, flexDirection: isRtl ? 'row-reverse' : 'row', alignItems: 'center', }}>
@@ -78,7 +101,7 @@ const ClientScreen = ({ navigation }) => {
                     <View style={{ flex: 1, marginLeft: isRtl ? 0.0 : Sizes.fixPadding, marginRight: isRtl ? Sizes.fixPadding : 0.0 }}>
                         <View style={{ marginBottom: Sizes.fixPadding - 6.0 }}>
                             <Text style={{ ...Fonts.blackColor14SemiBold }}>
-                                {item.Name}
+                                {item.fullname}
                             </Text>
                             <Text style={{ ...Fonts.blackColor14Regular }}>
                                 {item.email}
@@ -88,7 +111,7 @@ const ClientScreen = ({ navigation }) => {
                         
                             <Text style={{ ...Fonts.primaryColor14SemiBold }}>
                             
-                                {item.goal} 
+                            {GoalData[item.goal]}
 
                             </Text>
                             
@@ -104,7 +127,7 @@ const ClientScreen = ({ navigation }) => {
         )
         return (
             <FlatList
-                data={client}
+                data={clients}
                 keyExtractor={(item) => `${item.id}`}
                 renderItem={renderItem}
                 showsVerticalScrollIndicator={false}

@@ -150,10 +150,10 @@
         "payNow": "Pay now"
     },
     "successPaymentScreen": {
-        "welcomeText": "Welcome To Fitness Family!\nWe are delight that you have decides to fit.",
+        "welcomeText": "Welcome To Sporter App\nWe are delight that you have decides to fit.",
         "confirmation": "Payment Confirmation",
         "confirmationDetail": "A confirmation email has been sent to you.Our Fitness expert will reach out to you short",
-        "dateAndTimeTitle": "Date & Time",
+        "dateAndTimeTitle": "Date",
         "subscription": "Monthly subscription",
         "backToHome": "Back to home page"
     },

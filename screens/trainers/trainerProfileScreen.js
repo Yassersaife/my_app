@@ -1,15 +1,16 @@
-import { StyleSheet, Text,ScrollView, View, SafeAreaView, Image, FlatList, TouchableOpacity, StatusBar, Dimensions, ImageBackground } from 'react-native'
-import React from 'react'
+import { StyleSheet, Alert,Text,ScrollView, View, SafeAreaView, Image, FlatList, TouchableOpacity, StatusBar, Dimensions, ImageBackground } from 'react-native'
+import React, { useState,useContext,useEffect } from 'react';
 import { Colors, Fonts, Sizes,Size } from '../../constants/styles';
 import { MaterialIcons } from '@expo/vector-icons';
 import CollapsibleToolbar from 'react-native-collapsible-toolbar';
 import { useTranslation } from 'react-i18next';
-import { useState } from 'react';
 import { Ionicons } from "@expo/vector-icons";
 import { BlurView } from "expo-blur";
-
+import { AuthContext } from '../../constants/AuthContext';
 const { height, width } = Dimensions.get('window');
-
+const GoalData = ['Keep fit' ,'Lose weight (lose fat)',"Gain muscle mass (Grow your size)","Gain more flexible",
+ "Get Stringer " 
+ ];
 const reviews = [
     {
         id: '1',
@@ -29,31 +30,42 @@ const reviews = [
     },
 ];
 
-const sessions = [
-    {
-        id: '1',
-        sessionThumbImage: require('../../assets/images/exercises/exercise13.png'),
-        sessionDate: `14 July 2022`,
-        sessionType: "Dumbbell core",
-    },
-    {
-        id: '2',
-        sessionThumbImage: require('../../assets/images/exercises/exercise14.png'),
-        sessionDate: `25 July 2022`,
-        sessionType: "Pushup",
-    },
-    {
-        id: '3',
-        sessionThumbImage: require('../../assets/images/exercises/exercise15.png'),
-        sessionDate: `30 July 2022`,
-        sessionType: "Yoga special"
-    },
-];
+
 
 const TrainerProfileScreen = ({ navigation ,route}) => {
 
-    const [item,setitem] = useState(route.params.item);
+    const item =route.params.item;
+    const {userinfo,email,setuserinfo} = useContext(AuthContext);
 
+
+ const handlejoin=()=>{
+
+    fetch(`http://192.168.1.12:8082/player/coach/${userinfo.id}/${item.id}`, {
+        method: "GET",
+                 
+      })
+          .then(res => {
+             
+            return res.text();}
+          )
+          .then(
+            (result) => {
+                if(result =="Success")
+                navigation.push(('SuccessPayment'),{name:item.fullname});
+                    
+                else{
+                    Alert.alert("Sorry, you Failed Payment. Please try again");   }
+
+
+              console.log(result);
+            },
+            (error) => {
+              console.log(error);
+              
+            }
+          )
+
+ }
 
     const { t, i18n } = useTranslation();
 
@@ -104,12 +116,15 @@ const TrainerProfileScreen = ({ navigation ,route}) => {
                 </View>
             )
         }
+        console.log(item.path);
+
 
         const renderToolBar = () => {
             return (
                 <ImageBackground
-                source={item.trainerImage}
-                style={{
+                        source={item.path}
+
+                  style={{
                   height: height / 2 + Size * 2,
     
                 }}
@@ -151,38 +166,7 @@ const TrainerProfileScreen = ({ navigation ,route}) => {
         )
     }
 
-    function upcomingSecssionInfo() {
-        const renderItem = ({ item }) => {
-            return (
-                <ImageBackground
-                    source={item.sessionThumbImage}
-                    style={{ width: width / 2.5, height: (width / 2.5) - 30.0, marginRight: Sizes.fixPadding * 2.0, }}
-                    borderRadius={Sizes.fixPadding - 2.0}
-                >
-                    <View style={styles.sessionThumbImageCoverStyle}>
-                        <Text style={{ ...Fonts.whiteColor14SemiBold }}>
-                            {item.sessionDate}{`\n`}{item.sessionType}
-                        </Text>
-                    </View>
-                </ImageBackground>
-            )
-        }
-        return (
-            <View style={{ marginVertical: Sizes.fixPadding * 2.5 }}>
-                <Text style={{ marginHorizontal: Sizes.fixPadding * 2.0, ...Fonts.blackColor16SemiBold }}>
-                    {tr('upcomingSessionTitle')}
-                </Text>
-                <FlatList
-                    data={sessions}
-                    keyExtractor={(item) => `${item.id}`}
-                    renderItem={renderItem}
-                    showsHorizontalScrollIndicator={false}
-                    horizontal
-                    contentContainerStyle={{ paddingLeft: Sizes.fixPadding * 2.0, paddingTop: Sizes.fixPadding }}
-                />
-            </View>
-        )
-    }
+    
 
     function reviewInfo() {
         return (
@@ -227,7 +211,7 @@ const TrainerProfileScreen = ({ navigation ,route}) => {
                 <View style={{ flexDirection: isRtl ? 'row-reverse' : 'row', alignItems: 'center' }}>
                     <MaterialIcons name="star" size={20} color={Colors.yellowColor} />
                     <Text style={{ ...Fonts.blackColor12Bold }}>
-{item.rating}                    </Text>
+4.5                  </Text>
                 </View>
             </View>
         )
@@ -260,7 +244,7 @@ const TrainerProfileScreen = ({ navigation ,route}) => {
                   marginLeft: Size / 2,
                 }}
               >
-                {item.price}
+                {item.amount}
               </Text>
               <Text style={{ color: Colors.DARK_TWO, fontSize: Size ,top:15}}>
                 /{tr('month')}
@@ -276,7 +260,7 @@ const TrainerProfileScreen = ({ navigation ,route}) => {
               alignItems: "center",
               borderRadius: Size * 2,
             }}
-            onPress={() => navigation.push('SubscriptionDetail')}
+            onPress={() => handlejoin()}
 
           >
             <Text
@@ -323,9 +307,9 @@ const TrainerProfileScreen = ({ navigation ,route}) => {
     function expercienceInfo() {
         return (
             <View style={{ marginVertical: Sizes.fixPadding * 2.5, flexDirection: isRtl ? 'row-reverse' : 'row', marginHorizontal: Sizes.fixPadding + 5.0 }}>
-                {expercienceInfoShort({ count: 18, description: `Work\nexpriance`, bgColor: Colors.primary4 })}
-                {expercienceInfoShort({ count: 600, description: `Job\nCompleted`, bgColor: Colors.primary4 })}
-                {expercienceInfoShort({ count: 60, description: `Client\nServing`, bgColor: Colors.primary4 })}
+                {expercienceInfoShort({ count: item.experience, description: `Work\nexpriance`, bgColor: Colors.primary4 })}
+                {expercienceInfoShort({ count: 10, description: `Job\nCompleted`, bgColor: Colors.primary4 })}
+                {expercienceInfoShort({ count: 5, description: `Client\nServing`, bgColor: Colors.primary4 })}
             </View>
         )
     }
@@ -392,7 +376,7 @@ const TrainerProfileScreen = ({ navigation ,route}) => {
                           marginBottom: Size,
                         }}
                       >
-                        {item.trainerName}
+                        {item.fullname}
                       </Text>
                       <Text
                         style={{
@@ -401,7 +385,7 @@ const TrainerProfileScreen = ({ navigation ,route}) => {
 
                         }}
                       >
-                                {item.speciality}
+                            {GoalData[item.goal]}
                      </Text>
                       {reviewInfo()}
 
@@ -446,7 +430,7 @@ const TrainerProfileScreen = ({ navigation ,route}) => {
                             padding: Size ,
                             width: Size *5,
                             height: Size * 5.5,
-                            backgroundColor: Colors.primary2,
+                            backgroundColor: Colors.primary4,
                             borderRadius: Size+2,
                             justifyContent: "center",
                             alignItems: "center",

@@ -175,7 +175,7 @@ const VideosScreen = ({ navigation }) => {
                         monthFormat={`${defaultDate} MMMM  yyyy`}
                         hideExtraDays={true}
                         disableMonthChange={true}
-                        firstDay={4}
+                        firstDay={defaultDate}
                         renderArrow={direction => direction == 'left'
                             ?
                             <MaterialIcons name="arrow-back-ios" color={Colors.primaryColor} size={20} style={{ marginLeft: -Sizes.fixPadding, bottom: 40.0, }} />

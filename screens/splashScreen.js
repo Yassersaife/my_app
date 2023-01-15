@@ -23,7 +23,7 @@ const SplashScreen = ({ navigation }) => {
     function appName() {
         return (
             <Text style={{ ...Fonts.primaryColor48SemiBold }}>
-                Gym Life
+                Sporter App
             </Text>
         )
     }

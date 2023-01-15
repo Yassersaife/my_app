@@ -12,20 +12,10 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
 
 import * as Animatable from 'react-native-animatable';
-import ShopScreen from '../screens/shop/ShopScreen';
-import clubsScreen from '../screens/clubsScreen/clubs';
-import DietCategoriesScreen from '../screens/diet/dietCategoriesScreen';
-import DietCategoryDetailScreen from '../screens/diet/dietCategoryDetailScreen';
-import DietScreen from '../screens/diet/dietScreen';
-import InsightScreen from '../screens/insight/insightScreen';
-import MapTestScreen from '../screens/maps/MapsScreen';
-import ProfileScreen from '../screens/profile/profileScreen';
-import WorkoutScreen from '../screens/workout/workoutScreen';
-import ExploreScreen from '../screens/maps/ExploreScreen';
+
 import HomeTraninerScreen from '../screens/trainerpages/Home';
 import ProfileTrainerScreen from '../screens/trainerpages/profileScreen';
-import VideosTrainerScreen from '../screens/trainerpages/videosScreen';
-import ClientScreen from '../screens/trainerpages/ClientScreen';
+
 import addScreen from '../screens/trainerpages/AddworkoutScreen';
 
 const TabArr = [

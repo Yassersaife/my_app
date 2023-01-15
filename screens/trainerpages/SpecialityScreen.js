@@ -1,10 +1,11 @@
-import { StyleSheet, Text, Dimensions,View,FlatList,ImageBackground, SafeAreaView, StatusBar, ScrollView, ActivityIndicator, TouchableOpacity } from 'react-native'
-import React, { useState } from 'react'
+import { StyleSheet, Text,Alert, Dimensions,View,FlatList,ImageBackground, SafeAreaView, StatusBar, ScrollView, ActivityIndicator, TouchableOpacity } from 'react-native'
+import React, { useState,useContext } from 'react'
 import { Colors, Fonts, Sizes } from '../../constants/styles';
 import { MaterialIcons } from '@expo/vector-icons';
 import { Overlay } from 'react-native-elements';
 import { useTranslation } from 'react-i18next';
 import { AntDesign } from '@expo/vector-icons';
+import { AuthContext } from '../../constants/AuthContext';
 const {width, height} = Dimensions.get('window');
 
 const GoalData = [
@@ -30,6 +31,7 @@ title: "Gain more flexible",
 },   
 ];
 
+
 const SpecialitySelectionScreen = ({ navigation }) => {
 
     const { t, i18n } = useTranslation();
@@ -39,10 +41,77 @@ const SpecialitySelectionScreen = ({ navigation }) => {
     function tr(key) {
         return t(`goalSelectionScreen:${key}`)
     }
+    const { gender,
+        email,
+        age,
+        height1,
+        weight1,
+        fullName,
+        salary,
+        phoneNumber,
+        password,
+       } = useContext(AuthContext);
 
     const [selectedGoalIndex, setSelectedGoalIndex] = useState(2);
     const [isLoading, setIsLoading] = useState(false);
 
+    const handleSigup =()=>{
+        console.log(gender);
+        fetch(`http://192.168.1.12:8082/signup/coach`, {
+                method: "POST",
+                headers: {
+                  'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    fullname:fullName,
+                    email:email,
+                    password: password,
+                    phone: phoneNumber,
+                    gender: gender,
+                    age: age,
+                    weight: weight1,
+                    height: height1,
+                    amount: salary,
+                    paymentperiod: 2,
+                    goal: selectedGoalIndex
+                
+                })
+              })
+              .then(res => {
+               
+                return res.text();}
+              )
+              .then(
+                (result) => {
+                    console.log(result);
+    
+    
+                    if(result==" Success"){
+                        setIsLoading(true)
+                        setTimeout(() => {
+                            setIsLoading(false)
+                            navigation.push('BottomTabs2')
+                        }, 2000);
+        
+                  setIsLoading(false);}
+                  else{
+                      Alert.alert(result)
+                      }
+                    
+                  console.log(result);
+                },
+                (error) => {
+                  console.log(error);
+                  Alert.alert(error.msg)
+    
+                  setIsLoading(false);
+    
+                }
+              )
+            
+      
+    };
+    
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: Colors.whiteColor }}>
             <StatusBar translucent={false} backgroundColor={Colors.primaryColor} />
@@ -104,13 +173,7 @@ const SpecialitySelectionScreen = ({ navigation }) => {
         return (
             <TouchableOpacity
                 activeOpacity={0.99}
-                onPress={() => {
-                    setIsLoading(true)
-                    setTimeout(() => {
-                        setIsLoading(false)
-                        navigation.push('BottomTabs2')
-                    }, 2000);
-                }}
+                onPress={() => handleSigup()}
                 style={styles.buttonStyle}
             >
                 <Text style={{ ...Fonts.whiteColor16Bold }}>

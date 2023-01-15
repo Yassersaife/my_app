@@ -1,8 +1,9 @@
 import { StyleSheet, Text, View,Image, SafeAreaView, StatusBar, TextInput, TouchableOpacity, ScrollView } from 'react-native'
-import React, { createRef, useState } from 'react'
+import React, { useEffect,useContext,createRef, useState } from 'react'
 import { Colors, Fonts, Sizes ,images} from '../../constants/styles';
 import { MaterialIcons } from '@expo/vector-icons';
 import { useTranslation } from 'react-i18next';
+import { AuthContext } from '../../constants/AuthContext';
 
 const OtpVerificationScreen = ({ navigation, route }) => {
 
@@ -15,17 +16,55 @@ const OtpVerificationScreen = ({ navigation, route }) => {
     }
 
     const from = route.params.from;
-const traniner=route.params.traniner;
     const [state, setState] = useState({
         firstDigit: '',
         secondDigit: '',
         thirdDigit: '',
         forthDigit: '',
     })
+    const {email,setemail} = useContext(AuthContext);
 
     const updateState = (data) => setState((state) => ({ ...state, ...data }));
 
     const { firstDigit, secondDigit, thirdDigit, forthDigit } = state;
+    
+     useEffect(() =>{
+
+        fetch(`http://192.168.1.12:8082/signup/otp/player`, {
+            method: "POST",
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                bodystring: email
+                })
+          })
+          .then(res => {
+
+            return res.json();}
+          )
+          .then(
+            (result) => {
+                
+                updateState({ firstDigit:  String(result)[0] })
+                updateState({ secondDigit:  String(result)[1] })
+                updateState({ thirdDigit:  String(result)[2] })
+                updateState({ forthDigit:  String(result)[3] })
+
+
+              console.log(result);
+            },
+            (error) => {
+              console.log(error);
+
+            }
+          )
+        },[]);
+
+
+
+
+
 
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: Colors.whiteColor }}>
@@ -126,7 +165,7 @@ const traniner=route.params.traniner;
         return (
             <TouchableOpacity
                 activeOpacity={0.99}
-                onPress={() => { from == 'forgotPassword' ? navigation.push('NewPassword') : navigation.push('GenderSelection',{traniner:traniner}) }}
+                onPress={() => { from == 'forgotPassword' ? navigation.push('NewPassword') : navigation.push('GenderSelection')}}
                 style={styles.buttonStyle}
             >
                 <Text style={{ ...Fonts.whiteColor16Bold }}>
@@ -143,7 +182,7 @@ const traniner=route.params.traniner;
                     ?
                     tr('description1')
                     :
-                    `${tr('description2')} +072568972337`
+                    tr('description1')
                 }
             </Text>
         )

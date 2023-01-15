@@ -1,12 +1,12 @@
 import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity, StatusBar, FlatList, TextInput, Image, } from 'react-native'
-import React, { useState } from 'react'
+import React, { useState,useContext,useEffect } from 'react'
 import { Colors, Fonts, Sizes } from '../../constants/styles';
 import { MaterialIcons } from '@expo/vector-icons';
 import { useTranslation } from 'react-i18next';
 
 const trainers = [
     {
-        id: '1',
+        id: '133',
         trainerImage: require('../../assets/images/trainers/trainer7.png'),
         trainerName: "Jems joy",
         speciality: "Yoga specialist",
@@ -15,7 +15,7 @@ const trainers = [
         price:200,
     },
     {
-        id: '2',
+        id: '134',
         trainerImage: require('../../assets/images/trainers/trainer8.png'),
         trainerName: "Katin Markin",
         speciality: "S & C",
@@ -25,7 +25,7 @@ const trainers = [
 
     },
     {
-        id: '3',
+        id: '135',
         trainerImage: require('../../assets/images/trainers/trainer9.png'),
         trainerName: "Devid Scot",
         speciality: "Food dietitians",
@@ -35,7 +35,7 @@ const trainers = [
 
     },
     {
-        id: '4',
+        id: '136',
         trainerImage: require('../../assets/images/trainers/trainer10.png'),
         trainerName: "Ket Patel",
         speciality: "Hiit",
@@ -45,7 +45,7 @@ const trainers = [
 
     },
     {
-        id: '5',
+        id: '137',
         trainerImage: require('../../assets/images/trainers/trainer11.png'),
         trainerName: "Rohit joy",
         speciality: "Yoga specialist",
@@ -55,7 +55,7 @@ const trainers = [
 
     },
     {
-        id: '6',
+        id: '138',
         trainerImage: require('../../assets/images/trainers/trainer12.png'),
         trainerName: "Jems joy",
         speciality: "S & C",
@@ -66,7 +66,7 @@ const trainers = [
 
     },
     {
-        id: '7',
+        id: '139',
         trainerImage: require('../../assets/images/trainers/trainer13.png'),
         trainerName: "Priti joy",
         speciality: "S & C",
@@ -76,7 +76,7 @@ const trainers = [
 
     },
     {
-        id: '8',
+        id: '140',
         trainerImage: require('../../assets/images/trainers/trainer14.png'),
         trainerName: "Madhuri patel",
         speciality: "S & C",
@@ -86,19 +86,23 @@ const trainers = [
 
     },
     {
-        id: '9',
+        id: '141',
         trainerImage: require('../../assets/images/trainers/trainer7.png'),
-        trainerName: "Jems joy",
+        trainerName: "yasser saife",
         speciality: "Yoga specialist",
         yearOfExperience: 6,
-        rating: 4.5,
+        rating: 4.5, 
         price:200,
 
     },
 ];
 
-const TrainersScreen = ({ navigation }) => {
+const GoalData = ['Keep fit' ,'Lose weight (lose fat)',"Gain muscle mass (Grow your size)","Gain more flexible",
+ "Get Stringer " 
+ ];
 
+const TrainersScreen = ({ navigation }) => {
+const [search,setsearch]=useState('');
     const { t, i18n } = useTranslation();
 
     const isRtl = i18n.dir() == 'rtl';
@@ -106,8 +110,29 @@ const TrainersScreen = ({ navigation }) => {
     function tr(key) {
         return t(`trainersScreen:${key}`)
     }
+    const [trainer, settrainer] = useState([]);
 
-    const [search, setSearch] = useState('');
+    useEffect(()=>{
+      fetch(`http://192.168.1.12:8082/coaches/`, {
+        method: "GET",
+                 
+      })
+      .then(res => {
+          return res.json();}
+      )
+      .then(
+        (result) => {
+          settrainer(result);
+          console.log(result);
+         
+
+        },
+        (error) => {
+          console.log(error);
+                }
+      )
+    },[])
+
 
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: Colors.whiteColor }}>
@@ -127,23 +152,25 @@ const TrainersScreen = ({ navigation }) => {
                 onPress={() => navigation.push('TrainerProfile',{item:item})}
                 style={{ ...styles.trainerInfoWrapStyle, flexDirection: isRtl ? 'row-reverse' : 'row', }}
             >
+                
                 <View style={{ flex: 1, flexDirection: isRtl ? 'row-reverse' : 'row', alignItems: 'center', }}>
                     <Image
-                        source={item.trainerImage}
+icon={item.path}
+                        source={icon}
                         style={{ width: 70.0, height: 70.0, borderRadius: 35.0, }}
                     />
                     <View style={{ flex: 1, marginLeft: isRtl ? 0.0 : Sizes.fixPadding, marginRight: isRtl ? Sizes.fixPadding : 0.0 }}>
                         <View style={{ marginBottom: Sizes.fixPadding - 6.0 }}>
                             <Text style={{ ...Fonts.blackColor14SemiBold }}>
-                                {item.trainerName}
+                                {item.fullname}
                             </Text>
                             <Text style={{ ...Fonts.grayColor14Medium }}>
-                                {item.speciality}
+                            {GoalData[item.goal]}
                             </Text>
                         </View>
                         <View style={{ marginTop: Sizes.fixPadding - 6.0, }}>
                             <Text style={{ ...Fonts.primaryColor14SemiBold }}>
-                                {item.yearOfExperience} {tr('years')}
+                                {item.experience} {tr('years')}
                             </Text>
                             <Text style={{ ...Fonts.grayColor14Medium }}>
                                 {tr('experiance')}
@@ -158,7 +185,7 @@ const TrainersScreen = ({ navigation }) => {
                         marginRight: isRtl ? Sizes.fixPadding - 7.0 : 0.0,
                         ...Fonts.blackColor14SemiBold
                     }}>
-                        {item.rating}
+                        4.5
                     </Text>
                 </View>
                 
@@ -166,7 +193,7 @@ const TrainersScreen = ({ navigation }) => {
         )
         return (
             <FlatList
-                data={trainers}
+                data={trainer}
                 keyExtractor={(item) => `${item.id}`}
                 renderItem={renderItem}
                 showsVerticalScrollIndicator={false}

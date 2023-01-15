@@ -1,5 +1,5 @@
 import { SafeAreaView, ScrollView, TouchableOpaascity,StyleSheet, Text, TouchableOpacity, View, StatusBar, ImageBackground, Image, Dimensions, FlatList, } from 'react-native'
-import React, { useState } from 'react'
+import React, { useState,useContext,useEffect } from 'react'
 import { Colors, Fonts, Sizes,Size } from '../../constants/styles';
 import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
 import { Overlay } from 'react-native-elements';
@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from "@expo/vector-icons";
 import { BlurView } from "expo-blur";
+import { AuthContext } from '../../constants/AuthContext';
 
 const { width } = Dimensions.get('window');
 const products =[{ 
@@ -218,6 +219,9 @@ const motivationalVideos = [
         motivationalVideoThumbImage: require('../../assets/images/exercises/exercise15.png')
     },
 ];
+const GoalData = ['Keep fit' ,'Lose weight (lose fat)',"Gain muscle mass (Grow your size)","Gain more flexible",
+ "Get Stringer " 
+ ];
 
 const HomeScreen = ({ navigation, route, screenProps }) => {
 
@@ -230,6 +234,34 @@ const HomeScreen = ({ navigation, route, screenProps }) => {
     function tr(key) {
         return t(`homeScreen:${key}`)
     }
+    const {userinfo,email,setuserinfo,setgoalname} = useContext(AuthContext);
+
+
+    useEffect(()=>{
+        setuserinfo([]);
+        fetch(`http://192.168.1.12:8082/player/getdatafromemail/${email}`, {
+            method: "GET",
+                     
+          })
+          .then(res => {
+              return res.json();}
+          )
+          .then(
+            (result) => {
+              console.log(result);
+              setuserinfo(result);
+              setgoalname(GoalData[userinfo.goal]);
+
+              console.log(userinfo);
+
+            },
+            (error) => {
+              console.log(error);
+                    }
+          )
+        
+    },[])
+
 
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: Colors.whiteColor }}>
@@ -928,7 +960,7 @@ const HomeScreen = ({ navigation, route, screenProps }) => {
                     />
                     <View style={{ flex: 1, marginHorizontal: Sizes.fixPadding + 5.0 }}>
                         <Text style={{ ...Fonts.blackColor16SemiBold }}>
-                            Hello Yasser
+                            Hello {userinfo.fullname}
                         </Text>
                         <Text style={{ ...Fonts.blackColor14Regular }}>
                             {tr('userWelcome')}

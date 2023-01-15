@@ -18,7 +18,8 @@ import {
   import { BlurView } from "expo-blur";
   import IC_Call from '../../assets/images/icons/ic_call.svg'
   import IC_Chat from '../../assets/images/icons/ic_chat.svg'
-
+  const GoalData = ['Keep fit' ,'Lose weight (lose fat)',"Gain muscle mass (Grow your size)","Gain more flexible",
+  "Get Stringer "  ];
   const { height, width } = Dimensions.get("window");
   const trainers = [
     {
@@ -121,7 +122,7 @@ import {
                         marginBottom: Size,
                       }}
                     >
-                      {item.gymName}
+                      {item.name}
                     </Text>
                     <Text
                       style={{
@@ -131,7 +132,7 @@ import {
                         marginBottom: Size,
                       }}
                     >
-                      {item.city}
+                      {item.location}
                     </Text>
                     <View style={{ flexDirection: "row", marginTop: Size }}>
                       <Ionicons
@@ -145,8 +146,7 @@ import {
                           marginLeft: Size,
                         }}
                       >
-                        {item.rating}
-                      </Text>
+{item.rating}                      </Text>
                     </View>
                   </View>
                   <View
@@ -172,17 +172,15 @@ import {
                           alignItems: "center",
                         }}
                       >
-                        <Ionicons
-                        name="Yogaia"                       size={Size * 2}
-                          color={Colors.lightPrimaryColor}
-                        />
+                                        <MaterialIcons name="chat" size={20} color={Colors.blackColor} />
+
                         <Text
                           style={{
                             color: Colors.DEFAULT_WHITE,
                             fontSize: Size,
                           }}
                         >
-                          Yogaia
+                          Chat
                         </Text>
                       </View>
                       <View
@@ -196,18 +194,15 @@ import {
                           alignItems: "center",
                         }}
                       >
-                        <Ionicons
-                        name="fitness-center"                        
-                          size={Size * 2}
-                          color={Colors.lightPrimaryColor}
-                        />
+                       <MaterialIcons name="call" size={20} color={Colors.blackColor} />
+
                         <Text
                           style={{
                             color: Colors.DEFAULT_WHITE,
                             fontSize: Size,
                           }}
                         >
-                            Fitness
+                            Call
                         </Text>
                       </View>
                     </View>
@@ -284,7 +279,7 @@ import {
                   marginLeft: Size / 2,
                 }}
               >
-                {item.price}
+                {item.amoutmonthlt}
               </Text>
               <Text style={{ color: Colors.DARK_TWO, fontSize: Size ,top:15}}>
                 /PER MONTH
@@ -329,18 +324,17 @@ import {
                 <View style={{ flex: 1,  marginLeft:  Sizes.fixPadding-5  }}>
                     <View style={{ marginBottom: Sizes.fixPadding -5,}}>
                         <Text style={{ ...Fonts.blackColor14SemiBold }}>
-                            {item.trainerName}
+                            {item.fullname}
                         </Text>
                         <Text style={{ ...Fonts.grayColor14Medium }}>
-                            {item.specialist}
-                        </Text>
+                        {GoalData[item.goal]}                        </Text>
                     </View>
                     <View style={{ marginTop: Sizes.fixPadding  }}>
                         <Text style={{ ...Fonts.primaryColor14SemiBold }}>
-                            {item.yearOfExperience} Years
+                            {item.registrationyear} 
                         </Text>
                         <Text style={{ ...Fonts.grayColor14Medium }}>
-                        experiance                        </Text>
+                        Registration Year                      </Text>
                     </View>
                 </View>
             </View>
@@ -350,8 +344,7 @@ import {
                     marginLeft:   Sizes.fixPadding - 7.0 ,
                     ...Fonts.blackColor14SemiBold
                 }}>
-                    {item.rating}
-                </Text>
+4.5                </Text>
             </View>
             
         </TouchableOpacity>
@@ -361,7 +354,7 @@ import {
 Trainers gym        </Text>
         <View style={{ marginTop: Sizes.fixPadding }}>
         <FlatList
-            data={trainers}
+            data={item.gymCoaches}
             keyExtractor={(item) => `${item.id}`}
             renderItem={renderItem}
             showsVerticalScrollIndicator={false}

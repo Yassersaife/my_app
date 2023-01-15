@@ -1,7 +1,8 @@
-import React, { useState,useEffect } from 'react'
+import React, { useState,useEffect,useContext } from 'react'
 import {StyleSheet,View,Text,TextInput,Button,SafeAreaView, Keyboard} from 'react-native'
 import BmiResult from './BmiResult'
 import { Colors, Fonts, Sizes } from '../../constants/styles';
+import { AuthContext } from '../../constants/AuthContext';
 
 function BmiForm() {
     const [displayResult,setDisplayResult]=useState(false)
@@ -10,7 +11,8 @@ function BmiForm() {
     const [bmiValue,setBmiValue]=useState(0)
     const [bmiStatus,setBmiStatus]=useState('')
     const [bminew,setbminew]=useState(0)
-    
+    const {setage,setweight1,setheight1} = useContext(AuthContext);
+
     const calculateBmi=(weight,height)=>{
         const ht=height/100
         const bmi=weight/(ht*ht)
@@ -20,6 +22,8 @@ function BmiForm() {
     }
 
     const clickHandler=()=>{
+        setweight1(weight);
+        setheight1(height);
         setDisplayResult(true)
         calculateBmi(weight,height)
         Keyboard.dismiss()
@@ -104,9 +108,18 @@ function BmiForm() {
                 <Text style={styles.label}>Enter Height <Text style={{fontWeight:'normal'}}>(in cm)</Text></Text>
                 <TextInput style={styles.input} keyboardType='decimal-pad' onChangeText={(val)=>setHeight(val)}/>
             </View>
+            <View style={{
+            paddingTop:40,
+            display:'flex',
+            flexDirection:'row',
+            allignItems:'center'
+            }}>
+                <Text style={styles.label}>Enter age<Text style={{fontWeight:'normal'}}>(in years)</Text></Text>
+                <TextInput style={styles.input} keyboardType='decimal-pad' onChangeText={(val)=>setage(val)}/>
+            </View>
             <Separator/>
             <View style={styles.btn}>
-            <Button  title='Check BMI' onPress={clickHandler}/>
+            <Button style={{ color:Colors.DEFAULT_WHITE}} title='Check BMI' onPress={clickHandler}/>
             </View>
             
             {

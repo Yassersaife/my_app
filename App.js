@@ -20,7 +20,6 @@ import GoalSelectionScreen from './screens/goalSelection/goalSelectionScreen';
 import BottomTabs from './components/BottomTabs';
 import ShopScreen from './screens/shop/ShopScreen';
 import ProductInfo from './screens/shop/ProductInfo';
-import HomeScreen from './screens/home/homeScreen';
 import clubsScreen from './screens/clubsScreen/clubs';
 import ClubInfo from './screens/clubsScreen/clubsDetail';
 import MealCategoryVideoScreen from './screens/mealCategoryVideo/mealCategoryVideoScreen';
@@ -30,17 +29,14 @@ import DietDetailScreen from './screens/diet/dietDetailScreen';
 import TrainerProfileScreen from './screens/trainers/trainerProfileScreen';
 import TrainersScreen from './screens/trainers/trainersScreen';
 import SignupTraninerScreen from './screens/auth/signupTraniner';
-import maps from './screens/maps/MapsScreen';
-import BmiResult from './components/bmi/BmiResult';
 import EditProfileScreen from './screens/editProfile/editProfileScreen';
 import WorkoutCategoryDetailScreen from './screens/workoutCategoryDetail/workoutCategoryDetailScreen';
 import VideosScreen from './screens/videos/videosScreen';
 import UserProgramScreen from './screens/userProgram/userProgramScreen';
-import ExploreScreen from './screens/maps/ExploreScreen';
 import BottomTabs2 from './components/BottomTabs2';
 import ClubworkInfo from './screens/trainerpages/clubsDetail';
 import ClientScreen from './screens/trainerpages/ClientScreen';
-import SpecialitySelectionScreen from './screens/trainerpages/goalSelectionScreen';
+import SpecialitySelectionScreen from './screens/trainerpages/SpecialityScreen';
 import FavoriteScreen from './screens/favorite/favoriteScreen';
 import HelpScreen from './screens/help/helpScreen';
 import UserSubscriptionScreen from './screens/userSubscription/userSubscriptionScreen';
@@ -49,6 +45,12 @@ import ChooseTimeScreen from './screens/chooseTime/chooseTimeScreen';
 import SelectPaymentMethodScreen from './screens/selectPaymentMethod/selectPaymentMethodScreen';
 import SuccessPaymentScreen from './screens/successPayment/successPaymentScreen';
 import AboutScreen from './screens/about/aboutScreen';
+import ProfileTrainerScreen from './screens/trainerpages/profileScreen';
+import VideosTrainerScreen from './screens/trainerpages/videosScreen';
+import MapTestScreen from './screens/maps/MapsScreen';
+import HomeScreen from './screens/home/homeScreen';
+import { AuthProvider } from './constants/AuthContext';
+import EditProfileTScreen from './screens/trainerpages/editProfileTScreen';
 LogBox.ignoreAllLogs();
 
 const Stack = createStackNavigator();
@@ -80,6 +82,7 @@ const Route = () => {
         <Stack.Screen name="BottomTabs2" component={BottomTabs2} options={{ ...TransitionPresets.DefaultTransition }} />
         <Stack.Screen name="BottomTabs" component={BottomTabs} options={{ ...TransitionPresets.DefaultTransition }} />
         <Stack.Screen name="Shop" component={ShopScreen} />
+
         <Stack.Screen name="ProductInfo" component={ProductInfo}/>
         <Stack.Screen name="Clubs" component={clubsScreen}/>
         <Stack.Screen name="ClubInfo" component={ClubInfo}/>
@@ -90,6 +93,8 @@ const Route = () => {
         <Stack.Screen name="TrainerProfile" component={TrainerProfileScreen} />
         <Stack.Screen name="Trainers" component={TrainersScreen} />
         <Stack.Screen name="EditProfile" component={EditProfileScreen} />
+        <Stack.Screen name="EditProfileTrainer" component={EditProfileTScreen} />
+
         <Stack.Screen name="WorkoutCategoryDetail" component={WorkoutCategoryDetailScreen} />
         <Stack.Screen name="Videos" component={VideosScreen} />
         <Stack.Screen name="UserProgram" component={UserProgramScreen} />
@@ -105,6 +110,13 @@ const Route = () => {
         <Stack.Screen name="SelectPaymentMethod" component={SelectPaymentMethodScreen} />
         <Stack.Screen name="SuccessPayment" component={SuccessPaymentScreen} />
         <Stack.Screen name="About" component={AboutScreen} />
+        <Stack.Screen name="ProfileTrainer" component={ProfileTrainerScreen} />
+        <Stack.Screen name="videosTrainer" component={VideosTrainerScreen} />
+        <Stack.Screen name="maps" component={MapTestScreen} />
+
+
+        
+
 
       </Stack.Navigator>
     </NavigationContainer>
@@ -119,6 +131,9 @@ const ReloadAppOnLanguageChange = withTranslation('common', {
 
 export default App = () => {
   return (
-    <ReloadAppOnLanguageChange />
+    <AuthProvider>
+    <Route />
+
+    </AuthProvider>
   );
 }

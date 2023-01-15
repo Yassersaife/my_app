@@ -1,11 +1,12 @@
 import { StyleSheet, Text, View,TextInput, SafeAreaView, ScrollView, StatusBar, FlatList, Image, Dimensions, ImageBackground, TouchableOpacity } from 'react-native'
-import React, { useState } from 'react'
+import React, { useState,useContext } from 'react'
 import { Fonts, Colors, Sizes } from '../../constants/styles';
 import { Overlay } from 'react-native-elements';
 import { useTranslation } from 'react-i18next';
 import { LinearGradient } from 'expo-linear-gradient';
 import { SimpleLineIcons } from '@expo/vector-icons';
 import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
+import { AuthContext } from '../../constants/AuthContext';
 
 const { width, height } = Dimensions.get('window');
 const activities =[
@@ -233,6 +234,7 @@ const WorkoutScreen = ({ navigation }) => {
     }
 
     const [showAppointmentDialog, setShowAppointmentDialog] = useState(false);
+    const {goalname} = useContext(AuthContext);
 
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: Colors.whiteColor }}>
@@ -605,7 +607,7 @@ Activities that Interrst                </Text>
                     />
                     <View style={{ marginHorizontal: Sizes.fixPadding + 5.0, flex: 1 }}>
                         <Text numberOfLines={1} style={{ ...Fonts.blackColor16SemiBold }}>
-                                         loss wight      </Text>
+                                         {goalname}      </Text>
                         <View style={{ ...styles.sessionStartTimeWrapStyle, alignSelf: isRtl ? 'flex-end' : 'flex-start', }}>
                             <Text style={{ ...Fonts.primaryColor14Regular }}>
                             Today you have 5 workout.

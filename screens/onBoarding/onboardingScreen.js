@@ -75,12 +75,20 @@ const OnboardingScreen = ({ navigation }) => {
                     {/* Skip button */}
                     {/* Hide Skip button on last screen */}
                     <TouchableOpacity   onPress={() => navigation.navigate('Signin')}>
+                    {currentPage == data.length-1 ?( 
                         <Text style={{
-                            fontSize: 18,
-                            color: Colors.primaryColor,
-                            opacity: currentPage == data.length-1 ? 0 : 1
-                        }}>Skip</Text>
-                    </TouchableOpacity>
+                           ...Fonts.primaryColor18SemiBold
+                        }}></Text>)
+                        :
+                        (<Text style={{
+                                                      ...Fonts.primaryColor16SemiBold
+
+                        }}>Skip</Text>)
+                        }
+                    </TouchableOpacity> 
+                    
+                    
+                    
 
                 </View>
             </SafeAreaView>
@@ -101,7 +109,7 @@ const OnboardingScreen = ({ navigation }) => {
                     <View style={{flexDirection: 'row', alignItems: 'center'}}>
                         {
                             // No. of dots
-                            [...Array(data.length)].map((_, index)=>(
+                            [...Array(data.length)].map((_id, index)=>(
                                 <View
                                 key={index} 
                                 style={{
@@ -122,8 +130,8 @@ const OnboardingScreen = ({ navigation }) => {
                     {/* Next or GetStarted button */}
                     {/* Show or Hide Next button & GetStarted button by screen */}
                     {
-                        currentPage != data.length - 1 ? (
-                            <TouchableOpacity 
+                        currentPage != data.length-1  ? (
+                            <TouchableOpacity
                             onPress={handleNext}
                             style={{
                                 flexDirection: 'row',
@@ -150,28 +158,29 @@ const OnboardingScreen = ({ navigation }) => {
 
                             
                             style={{
-                                paddingHorizontal: Size * 2,
-                                height: 60,
-                                borderRadius: 30,
-                                backgroundColor: Colors.lightPrimaryColor,
+                               
                                 flexDirection: 'row',
+                                alignItems: 'center',
                                 justifyContent: 'center',
-                                alignItems: 'center'
+                                width: 150,
+                                height: 50,
+                                borderRadius: 30,
+                                backgroundColor: Colors.primaryColor
                             }}
-                            
+                            activeOpacity={0.8}
                             >
                                 <Text style={{
-                                    color: Colors.DEFAULT_WHITE,
-                                    fontSize: 18,
-                                    marginLeft:Size,
-                                    fontFamily:Fonts.whiteColor16Bold,
-                                }}>
-                                <AntDesignIcons name="right" 
-                                style={{fontSize: 18, color: Colors.DEFAULT_WHITE, opacity: 0.3, marginLeft: Size}}/>
+                           ...Fonts.whiteColor16Bold
+                        }}>Get Started
+                        <AntDesignIcons
+                                name="right"
+                                style={{fontSize: 18, color: Colors.lightPrimaryColor, marginLeft: +15}}
+                                />
+                        </Text>
+
                                 
-                                </Text>
-                               
                             </TouchableOpacity>
+                               
                         )
                     }
                     

@@ -1,8 +1,10 @@
-import { StyleSheet, Text,Image ,View, SafeAreaView, StatusBar, TextInput, TouchableOpacity, ScrollView } from 'react-native'
-import React, { useState } from 'react'
+import { StyleSheet, Text,ActivityIndicator,Alert,Image ,View, SafeAreaView, StatusBar, TextInput, TouchableOpacity, ScrollView } from 'react-native'
+import React, { useState,useContext } from 'react'
 import { Colors, Fonts, Sizes } from '../../constants/styles';
 import { MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { useTranslation } from 'react-i18next';
+import { AuthContext } from '../../constants/AuthContext';
+import { Overlay } from 'react-native-elements';
 
 const NewPasswordScreen = ({ navigation }) => {
 
@@ -13,6 +15,7 @@ const NewPasswordScreen = ({ navigation }) => {
     function tr(key) {
         return t(`newPasswordScreen:${key}`)
     }
+    const [isLoading, setIsLoading] = useState(false);
 
     const [state, setState] = useState({
         password: '',
@@ -22,9 +25,56 @@ const NewPasswordScreen = ({ navigation }) => {
     })
 
     const { password, showPassword, confirmPassword, showConfirmPassword } = state;
+    const {email} = useContext(AuthContext);
+    const [msg, setmsg] = useState('');
 
     const updateState = (data) => setState((state) => ({ ...state, ...data }));
+    const handlepass=()=>{
+        if(password==confirmPassword){
+        console.log(email);
+        console.log(password);
 
+        fetch(`http://192.168.1.12:8082/reset-password/player`, {
+            method: "POST",
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({email: email,password:password})
+          })
+          .then(res => {
+            console.log(res.status);
+            console.log(res.headers);
+            return res.text();
+          })
+          .then(
+            (result) => {
+                console.log(result);
+
+                if(result=='Success'){
+                    Alert.alert(result)
+                    setIsLoading(true)
+                    setTimeout(() => {
+                        navigation.push('Signin');
+                        setIsLoading(false)
+                    }, 2000);
+    
+              }
+              else{
+                  Alert.alert(result)
+                  }
+                
+              setIsLoading(false);
+            },
+            (error) => {
+              console.log(error);
+              setIsLoading(false);
+            }
+          )}
+          else{
+            Alert.alert("conform your password")
+
+          }
+    }
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: Colors.whiteColor }}>
             <StatusBar translucent={false} backgroundColor={Colors.primaryColor} />
@@ -36,15 +86,30 @@ const NewPasswordScreen = ({ navigation }) => {
                     {confirmPasswordTextField()}
                     {submitButton()}
                 </ScrollView>
+                {loadingDialog()}
+
             </View>
         </SafeAreaView>
     )
+    function loadingDialog() {
+        return (
+            <Overlay
+                isVisible={isLoading}
+                overlayStyle={styles.dialogStyle}
+            >
+                <ActivityIndicator size={35} color={Colors.primaryColor} style={{ alignSelf: 'center' }} />
+                <Text style={{ marginTop: Sizes.fixPadding, textAlign: 'center', ...Fonts.blackColor16Bold }}>
+                    Success
+                </Text>
+            </Overlay>
+        )
+    }
 
     function submitButton() {
         return (
             <TouchableOpacity
                 activeOpacity={0.99}
-                onPress={() => navigation.push('Signin')}
+                onPress={() => handlepass()}
                 style={styles.buttonStyle}
             >
                 <Text style={{ ...Fonts.whiteColor16Bold }}>
