@@ -238,7 +238,7 @@ const HomeTraninerScreen = ({ navigation, route, screenProps }) => {
             <View style={{ ...styles.headerWrapStyle, flexDirection: isRtl ? 'row-reverse' : 'row' }}>
                 <View style={{ flex: 1, flexDirection: isRtl ? 'row-reverse' : 'row', alignItems: 'center' }}>
                     <Image
-                        source={require('../../assets/images/trainers/trainer2.png')}
+                source={{uri:`http://192.168.1.12:8082/downloadFile/${userinfo.path}`}}
                         style={{ width: 45.0, height: 45.0, borderRadius: 22.5 }}
                     />
                     <View style={{ flex: 1, marginHorizontal: Sizes.fixPadding + 5.0 }}>

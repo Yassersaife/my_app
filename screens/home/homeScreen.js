@@ -2,6 +2,8 @@ import { SafeAreaView, ScrollView, TouchableOpaascity,StyleSheet, Text, Touchabl
 import React, { useState,useContext,useEffect } from 'react'
 import { Colors, Fonts, Sizes,Size } from '../../constants/styles';
 import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
+import { Stack, ActivityIndicator } from "@react-native-material/core";
+
 import { Overlay } from 'react-native-elements';
 import { useTranslation } from 'react-i18next';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -10,6 +12,7 @@ import { BlurView } from "expo-blur";
 import { AuthContext } from '../../constants/AuthContext';
 
 const { width } = Dimensions.get('window');
+
 const products =[{ 
     id: 1,
     name: "Hexagon Dumbbells",
@@ -235,10 +238,63 @@ const HomeScreen = ({ navigation, route, screenProps }) => {
         return t(`homeScreen:${key}`)
     }
     const {userinfo,email,setuserinfo,setgoalname} = useContext(AuthContext);
+    const [gym, setgym] = useState([]);
+    const [trainer, settrainer] = useState([]);
+    const [isLoading, setisLoading] = useState(false);
 
+    const hanletrainers=async()=>{
+
+      fetch(`http://192.168.1.12:8082/coaches/`, {
+        method: "GET",
+                 
+      })
+      .then(res => {
+          return res.json();}
+      )
+      .then(
+        (result) => {
+          settrainer(result);
+          console.log(result);
+        
+
+        },
+        (error) => {
+
+          console.log(error);
+                }
+      )
+    }
+    const hanlegym=async ()=>{
+      setisLoading(true);
+
+      fetch(`http://192.168.1.12:8082/gyms/`, {
+        method: "GET",
+                 
+      })
+      .then(res => {
+          return res.json();}
+      )
+      .then(
+        (result) => {
+          console.log(result);
+          setgym(result);
+          setisLoading(false);
+
+        },
+        (error) => {
+
+          console.log(error);
+                }
+      )
+    }
 
     useEffect(()=>{
-        setuserinfo([]);
+      setuserinfo([]);
+
+
+        hanlegym();
+        hanletrainers();
+
         fetch(`http://192.168.1.12:8082/player/getdatafromemail/${email}`, {
             method: "GET",
                      
@@ -281,9 +337,29 @@ const HomeScreen = ({ navigation, route, screenProps }) => {
                     {motivationalVideosInfo()}
                 </ScrollView>
                 {appointmentDialog()}
+                {loadingDialog()}
             </View>
         </SafeAreaView>
     )
+    function loadingDialog() {
+      return (
+          <Overlay
+              isVisible={isLoading}
+              overlayStyle={{ width: '80%',
+      backgroundColor: Colors.whiteColor,
+      borderRadius: Sizes.fixPadding,
+      paddingHorizontal: Sizes.fixPadding * 2.0,
+      paddingBottom: Sizes.fixPadding * 3.5,
+      paddingTop: Sizes.fixPadding * 3.0,
+      elevation: 3.0,}}
+          >
+              <ActivityIndicator size={40} color={Colors.primaryColor} style={{ alignSelf: 'center' }} />
+              <Text style={{ marginTop: Sizes.fixPadding, textAlign: 'center', ...Fonts.blackColor16Bold }}>
+                  Please wait...
+              </Text>
+          </Overlay>
+      )
+  }
 
     function appointmentDialog() {
         return (
@@ -504,7 +580,7 @@ const HomeScreen = ({ navigation, route, screenProps }) => {
                     style={styles.trainerInfoWrapStyle}
                 >
                     <ImageBackground
-                        source={item.trainerImage}
+                source={{uri:`http://192.168.1.12:8082/downloadFile/${item.path}`}}
                         style={{ width: width / 2.5, height: (width / 2.5) - 30, }}
                         borderTopLeftRadius={Sizes.fixPadding - 2.0}
                         borderTopRightRadius={Sizes.fixPadding - 2.0}
@@ -517,18 +593,16 @@ const HomeScreen = ({ navigation, route, screenProps }) => {
                     </ImageBackground>
                     <View style={{ ...styles.trainerDetailWrapStyle, flexDirection: isRtl ? 'row-reverse' : 'row' }}>
                         <View style={{ flex: 1, }}>
-                            <Text numberOfLines={1} style={{ ...Fonts.blackColor16SemiBold }}>
-                                {item.trainerName}
+                            <Text numberOfLines={1} style={{ ...Fonts.blackColor14SemiBold }}>
+                                {item.fullname}
                             </Text>
-                            <Text numberOfLines={1} style={{ ...Fonts.grayColor14Regular }}>
-                                {item.specialist}
+                            <Text numberOfLines={2} style={{ ...Fonts.grayColor14Regular }}>
+                            {GoalData[item.goal]}
                             </Text>
                         </View>
                         <View style={{ marginTop: Sizes.fixPadding - 7.0, flexDirection: isRtl ? 'row-reverse' : 'row' }}>
                             <MaterialIcons name="star" size={13} color={Colors.yellowColor} />
-                            <Text style={{ ...Fonts.blackColor12Regular, marginLeft: Sizes.fixPadding - 7.0 }}>
-                                {item.rating}
-                            </Text>
+                            <Text style={{ ...Fonts.blackColor12Regular, marginLeft: Sizes.fixPadding *-20 }}>4.5                       </Text>
                         </View>
                     </View>
                 </TouchableOpacity>
@@ -549,7 +623,7 @@ const HomeScreen = ({ navigation, route, screenProps }) => {
                     </Text>
                 </View>
                 <FlatList
-                    data={trainers}
+                    data={trainer.slice(0,5)}
                     keyExtractor={(item) => `${item.id}`}
                     renderItem={renderItem}
                     horizontal
@@ -564,6 +638,11 @@ const HomeScreen = ({ navigation, route, screenProps }) => {
         const renderItem = ({item}) => {
             return (
                 <TouchableOpacity
+                  onPress={() => {
+                    navigation.navigate('ClubInfo', {
+                      item:item
+                    });
+                }}
                     style={{
           height: 209,
           width: 231,
@@ -583,7 +662,7 @@ const HomeScreen = ({ navigation, route, screenProps }) => {
                    }}>
                    
         <Image
-          source={item.gymImage}
+                source={{uri:`http://192.168.1.12:8082/downloadFile/${item.path}`}}
           style={{
             height: 150,
             width: '100%',
@@ -601,7 +680,7 @@ const HomeScreen = ({ navigation, route, screenProps }) => {
           }}>
           <View>
             <Text style={{fontSize: 14, ...Fonts.blackColor14SemiBold}}>
-              {item.gymName}
+              {item.name}
             </Text>
             <Text
               style={{
@@ -609,7 +688,7 @@ const HomeScreen = ({ navigation, route, screenProps }) => {
                 ...Fonts.blackColor14Medium,
 
               }}>
-              {item.city}
+              {item.location}
             </Text>
           </View>
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
@@ -650,7 +729,7 @@ const HomeScreen = ({ navigation, route, screenProps }) => {
                     </View>
                 <View style={{ marginTop: Sizes.fixPadding }}>
                     <FlatList
-                        data={gyms}
+                        data={gym.slice(0,5)}
                         keyExtractor={(item) => `${item.id}`}
                         renderItem={renderItem}
                         horizontal
@@ -955,7 +1034,7 @@ const HomeScreen = ({ navigation, route, screenProps }) => {
             <View style={{ ...styles.headerWrapStyle, flexDirection: isRtl ? 'row-reverse' : 'row' }}>
                 <View style={{ flex: 1, flexDirection: isRtl ? 'row-reverse' : 'row', alignItems: 'center' }}>
                     <Image
-                        source={require('../../assets/images/user/user1.png')}
+                source={{uri:`http://192.168.1.12:8082/downloadFile/${userinfo.path}`}}
                         style={{ width: 45.0, height: 45.0, borderRadius: 22.5 }}
                     />
                     <View style={{ flex: 1, marginHorizontal: Sizes.fixPadding + 5.0 }}>

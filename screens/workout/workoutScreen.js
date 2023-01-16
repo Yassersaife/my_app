@@ -1,13 +1,15 @@
 import { StyleSheet, Text, View,TextInput, SafeAreaView, ScrollView, StatusBar, FlatList, Image, Dimensions, ImageBackground, TouchableOpacity } from 'react-native'
-import React, { useState,useContext } from 'react'
+import React, { useState,useContext ,useEffect} from 'react'
 import { Fonts, Colors, Sizes } from '../../constants/styles';
-import { Overlay } from 'react-native-elements';
-import { useTranslation } from 'react-i18next';
+import { Stack, ActivityIndicator } from "@react-native-material/core";
+
+import { Overlay } from 'react-native-elements';import { useTranslation } from 'react-i18next';
 import { LinearGradient } from 'expo-linear-gradient';
 import { SimpleLineIcons } from '@expo/vector-icons';
 import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
 import { AuthContext } from '../../constants/AuthContext';
-
+const GoalData = ['Keep fit' ,'Lose weight (lose fat)',"Gain muscle mass (Grow your size)","Gain more flexible",
+ "Get Stringer "  ];
 const { width, height } = Dimensions.get('window');
 const activities =[
     {
@@ -234,7 +236,38 @@ const WorkoutScreen = ({ navigation }) => {
     }
 
     const [showAppointmentDialog, setShowAppointmentDialog] = useState(false);
-    const {goalname} = useContext(AuthContext);
+    const {goalname,userinfo} = useContext(AuthContext);
+    const [trainer, settrainer] = useState({});
+    const [isLoading, setisLoading] = useState(false);
+
+    useEffect(()=>{
+        setisLoading(true);
+
+        console.log(userinfo.coacid);
+
+      fetch(`http://192.168.1.12:8082/coaches/id/${userinfo.coachid}`, {
+        method: "GET",
+                 
+      })
+      .then(res => {
+          return res.json();
+        }
+      )
+      .then(
+        (result) => {
+          settrainer(result);
+          console.log(result);
+          setisLoading(false);
+
+
+        },
+        (error) => {
+          console.log(error);
+          setisLoading(false);
+
+                }
+      )
+    },[]);
 
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: Colors.whiteColor }}>
@@ -247,17 +280,37 @@ const WorkoutScreen = ({ navigation }) => {
                     {todayWorkoutInfo()}
 
                     {CategoriesInfo()}
+                    {trainersInfo()}
+
                     {activitiesinfo()}
 
-                    {trainersInfo()}
                     {workoutVideos()}
                 </ScrollView>
             </View>
             {appointmentDialog()}
+            {loadingDialog()}
         </SafeAreaView>
     )
 
-
+    function loadingDialog() {
+        return (
+            <Overlay
+                isVisible={isLoading}
+                overlayStyle={{ width: '80%',
+        backgroundColor: Colors.whiteColor,
+        borderRadius: Sizes.fixPadding,
+        paddingHorizontal: Sizes.fixPadding * 2.0,
+        paddingBottom: Sizes.fixPadding * 3.5,
+        paddingTop: Sizes.fixPadding * 3.0,
+        elevation: 3.0,}}
+            >
+                <ActivityIndicator size={40} color={Colors.primaryColor} style={{ alignSelf: 'center' }} />
+                <Text style={{ marginTop: Sizes.fixPadding, textAlign: 'center', ...Fonts.blackColor16Bold }}>
+                    Please wait...
+                </Text>
+            </Overlay>
+        )
+    }
     function appointmentDialog() {
         return (
             <Overlay
@@ -343,16 +396,19 @@ style={{ marginTop: Sizes.fixPadding - 5.0,marginHorizontal:5, ...Fonts.blackCol
         )
     }
     function trainersInfo() {
-        const renderItem = ({ item }) => {
             return (
+                <View style={{ marginVertical: Sizes.fixPadding-4 ,}}>
+<Text style={{ marginHorizontal: Sizes.fixPadding * 2.0,paddingVertical:Sizes.fixPadding , ...Fonts.blackColor16SemiBold }}>
+                   My coach
+                </Text>
                 <TouchableOpacity
                     activeOpacity={0.99}
-                    onPress={() => navigation.push('TrainerProfile',{item:item})}
+                    onPress={() => navigation.push('TrainerProfile',{item:trainer})}
                     style={styles.trainerInfoWrapStyle}
                 >
                     <ImageBackground
-                        source={item.trainerImage}
-                        style={{ width: width / 2.5, height: (width / 2.5) - 30, }}
+                        source={{uri:`http://192.168.1.12:8082/downloadFile/${trainer.path}`}}
+                        style={{ width: width / 1.5, height: (width / 2.5) - 30, }}
                         borderTopLeftRadius={Sizes.fixPadding - 2.0}
                         borderTopRightRadius={Sizes.fixPadding - 2.0}
                     >
@@ -365,47 +421,23 @@ style={{ marginTop: Sizes.fixPadding - 5.0,marginHorizontal:5, ...Fonts.blackCol
                     <View style={{ ...styles.trainerDetailWrapStyle, flexDirection: isRtl ? 'row-reverse' : 'row' }}>
                         <View style={{ flex: 1, }}>
                             <Text numberOfLines={1} style={{ ...Fonts.blackColor16SemiBold }}>
-                                {item.trainerName}
+                                {trainer.fullname}
                             </Text>
                             <Text numberOfLines={1} style={{ ...Fonts.grayColor14Regular }}>
-                                {item.specialist}
-                            </Text>
+                            {GoalData[trainer.goal]}                             </Text>
                         </View>
                         <View style={{ marginTop: Sizes.fixPadding - 7.0, flexDirection: isRtl ? 'row-reverse' : 'row' }}>
-                            <MaterialIcons name="star" size={13} color={Colors.yellowColor} />
+                            <MaterialIcons name="work" size={13} color={Colors.primary2} />
                             <Text style={{ ...Fonts.blackColor12Regular, marginLeft: Sizes.fixPadding - 7.0 }}>
-                                {item.rating}
-                            </Text>
+                            {trainer.experience} </Text>
                         </View>
                     </View>
                 </TouchableOpacity>
+                </View>
             )
         }
-        return (
-            <View style={{ marginVertical: Sizes.fixPadding }}>
-          <View style={{ ...styles.dietCategoriesHeaderWrapStyle, flexDirection: isRtl ? 'row-reverse' : 'row', }}>
-
-                <Text style={{ marginHorizontal: Sizes.fixPadding * 2.0, ...Fonts.blackColor16SemiBold }}>
-                    {tr('personalTrainerTitle')}
-                </Text>
-                <Text
-                        onPress={() => navigation.push('Trainers')}
-                        style={{ ...Fonts.primaryColor14SemiBold }}
-                    >
-                        {tr('seeAll')}
-                    </Text>
-                </View>
-                <FlatList
-                    data={trainers}
-                    keyExtractor={(item) => `${item.id}`}
-                    renderItem={renderItem}
-                    horizontal
-                    showsHorizontalScrollIndicator={false}
-                    contentContainerStyle={{ paddingVertical: Sizes.fixPadding, paddingLeft: Sizes.fixPadding * 2.0, }}
-                />
-            </View>
-        )
-    }
+        
+    
     function searchField() {
         return (
             <View style={{ ...styles.searchFieldWrapStyle, flexDirection: isRtl ? 'row-reverse' : 'row', }}>
@@ -607,7 +639,7 @@ Activities that Interrst                </Text>
                     />
                     <View style={{ marginHorizontal: Sizes.fixPadding + 5.0, flex: 1 }}>
                         <Text numberOfLines={1} style={{ ...Fonts.blackColor16SemiBold }}>
-                                         {goalname}      </Text>
+                                         {GoalData[userinfo.goal]}      </Text>
                         <View style={{ ...styles.sessionStartTimeWrapStyle, alignSelf: isRtl ? 'flex-end' : 'flex-start', }}>
                             <Text style={{ ...Fonts.primaryColor14Regular }}>
                             Today you have 5 workout.
@@ -722,11 +754,20 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },trainerInfoWrapStyle: {
-        marginRight: Sizes.fixPadding * 2.0,
-        width: width / 2.5,
+        marginHorizontal:Sizes.fixPadding*8,
+        width: width / 1.5,
         elevation: 2.0,
         borderRadius: Sizes.fixPadding - 2.0,
         backgroundColor: Colors.whiteColor,
+        shadowColor: Colors.DARK_ONE,
+          shadowOffset: {
+            width: 0,
+            height: 1,
+          },
+          shadowOpacity: 0.22,
+          shadowRadius: 2.22,
+
+          elevation: 3,
     },
     currencyWrapStyle: {
         margin: Sizes.fixPadding - 3.0,

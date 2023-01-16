@@ -21,7 +21,7 @@ import addScreen from '../screens/trainerpages/AddworkoutScreen';
 const TabArr = [
   { route: 'Home', label: 'Home', type: AntDesign, activeIcon: 'home', inActiveIcon: 'home', component:HomeTraninerScreen },
   { route: 'Add', label: 'Workout', type: MaterialIcons, activeIcon: 'add-circle', inActiveIcon: 'add-circle-outline', component: addScreen },
-  { route: 'Profile', label: 'My Profile', type: Ionicons, activeIcon: 'person-circle-sharp', inActiveIcon: 'person-circle-outline', component: ProfileTrainerScreen},
+  { route: 'ProfileTrainer', label: 'My Profile', type: Ionicons, activeIcon: 'person-circle-sharp', inActiveIcon: 'person-circle-outline', component: ProfileTrainerScreen},
 
 ];
 

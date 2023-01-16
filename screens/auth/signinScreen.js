@@ -5,6 +5,8 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useFocusEffect } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
 import { Stack, ActivityIndicator } from "@react-native-material/core";
+import { Overlay } from 'react-native-elements';
+
 import * as Network from 'expo-network';
 
 
@@ -43,7 +45,7 @@ const SigninScreen = ({ navigation }) => {
         setBackClickCount(1);
         setTimeout(() => {
             setBackClickCount(0)
-        }, 1000)
+        }, 2000)
     }
 
     const [backClickCount, setBackClickCount] = useState(0);
@@ -60,12 +62,14 @@ const [isloagding,setisLoading]=useState(false);
     const { email, password, showPassword } = state;
 
     const updateState = (data) => setState((state) => ({ ...state, ...data }));
+    const [isLoading, setIsLoading] = useState(false);
 
 
     const handleLogin = () =>{
         handleMessage(null);
+        setIsLoading(true)
 
-        fetch(`http://192.168.1.12:8082/login/`, {
+           fetch(`http://192.168.1.12:8082/login/`, {
             method: "POST",
             headers: {
               'Content-Type': 'application/json'
@@ -76,20 +80,35 @@ const [isloagding,setisLoading]=useState(false);
           })
           .then(res => {
              
-            return res.json();}
+              return res.json();}
           )
           .then(
             (result) => {
-                if(result.msg =="Failed")
-                    handleMessage("Sorry, your password was incorrect. Please try again"); 
+                if(result.msg =="Failed"){
+                setIsLoading(false);
+
+                    handleMessage("Sorry, your password was incorrect. Please try again"); }
                 else if(result.msg=="Success 'Player' "){
                 setemail(email);
-                    navigation.push('BottomTabs',result.id);}
+                    setTimeout(() => {
+
+                        navigation.push('BottomTabs')
+                        setIsLoading(false)
+
+                    }, 800);
+    
+              ;}
                 else{
                 setemail(email);
-                 navigation.push('BottomTabs2',result.id);}
+                    setTimeout(() => {
+                        navigation.push('BottomTabs2')
+                        setisLoading(false);
 
-          setisLoading(false);
+                    }, 800);
+    
+              }
+
+              setIsLoading(false)
 
               console.log(result);
             },
@@ -119,14 +138,13 @@ const [isloagding,setisLoading]=useState(false);
                     {passwordTextField()}
                     {forgotPasswordText()}
                     {Messageinfo()}
-
                     {signinButton()}
-
                     {connectWithInfo()}
                 </ScrollView>
             </View>
             {dontAccountInfo()}
             {exitInfo()}
+            {loadingDialog()}
         </SafeAreaView>
     )
 
@@ -141,6 +159,25 @@ const [isloagding,setisLoading]=useState(false);
                 </View>
                 :
                 null
+        )
+    }
+    function loadingDialog() {
+        return (
+            <Overlay
+                isVisible={isLoading}
+                overlayStyle={{ width: '80%',
+        backgroundColor: Colors.whiteColor,
+        borderRadius: Sizes.fixPadding,
+        paddingHorizontal: Sizes.fixPadding * 2.0,
+        paddingBottom: Sizes.fixPadding * 3.5,
+        paddingTop: Sizes.fixPadding * 3.0,
+        elevation: 3.0,}}
+            >
+                <ActivityIndicator size={40} color={Colors.primaryColor} style={{ alignSelf: 'center' }} />
+                <Text style={{ marginTop: Sizes.fixPadding, textAlign: 'center', ...Fonts.blackColor16Bold }}>
+                    Please wait...
+                </Text>
+            </Overlay>
         )
     }
 

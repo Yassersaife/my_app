@@ -10,7 +10,7 @@ import {
     FlatList,
     Image,
   } from "react-native";
-  import React, { useState,useContext } from "react";
+  import React, { useState,useContext, useEffect } from "react";
   import { MaterialIcons } from '@expo/vector-icons';
 
   import { Ionicons } from "@expo/vector-icons";
@@ -45,12 +45,31 @@ import { AuthContext } from "../../constants/AuthContext";
     const [activeItem, setActiveItem] = useState('');
     const { item} = route.params;
     const {userinfo,email,setuserinfo} = useContext(AuthContext);
+    const [coaches, setcoaches] = useState([]);
 
+useEffect(()=>{
+  fetch(`http://192.168.1.12:8082/gyms/coaches/${item.id}`, {
+    method: "GET",
+             
+  })
+  .then(res => {
+      return res.json();}
+  )
+  .then(
+    (result) => {
+      console.log(result);
+      setcoaches(result);
 
-    const handlejoin=(id)=>{
-      console.log(id);
+    },
+    (error) => {
+      console.log(error);
+            }
+  )
+},[]);
 
-       fetch(`http://192.168.1.12:8082/player/gym/${userinfo.id}/${id}`, {
+    const handlejoin=()=>{
+
+       fetch(`http://192.168.1.12:8082/player/gym/${userinfo.id}/${item.id}`, {
            method: "GET",
                     
          })
@@ -61,7 +80,7 @@ import { AuthContext } from "../../constants/AuthContext";
              .then(
                (result) => {
                    if(result =="Success")
-                   navigation.push(('SuccessPayment'),{name:item.fullname});
+                   navigation.push(('SuccessPayment'),{name:item.name});
                        
                    else{
                        Alert.alert("Sorry, you Failed Payment. Please try again");   }
@@ -82,7 +101,7 @@ import { AuthContext } from "../../constants/AuthContext";
         <ScrollView>
               <SafeAreaView>
             <ImageBackground
-              source={item.gymImage}
+               source={{uri:`http://192.168.1.12:8082/downloadFile/${item.path}`}}
               style={{
                 height: height / 2 + Size * 2,
   
@@ -204,7 +223,7 @@ import { AuthContext } from "../../constants/AuthContext";
                           alignItems: "center",
                         }}
                       >
-                                        <MaterialIcons name="chat" size={20} color={Colors.blackColor} />
+                                        <MaterialIcons name="chat" size={20} color={Colors.whiteColor} />
 
                         <Text
                           style={{
@@ -226,7 +245,7 @@ import { AuthContext } from "../../constants/AuthContext";
                           alignItems: "center",
                         }}
                       >
-                       <MaterialIcons name="call" size={20} color={Colors.blackColor} />
+                       <MaterialIcons name="call" size={20} color={Colors.whiteColor} />
 
                         <Text
                           style={{
@@ -311,7 +330,7 @@ import { AuthContext } from "../../constants/AuthContext";
                   marginLeft: Size / 2,
                 }}
               >
-                {item.amoutmonthlt}
+                {item.amountmonthly}
               </Text>
               <Text style={{ color: Colors.DARK_TWO, fontSize: Size ,top:15}}>
                 /PER MONTH
@@ -319,7 +338,7 @@ import { AuthContext } from "../../constants/AuthContext";
             </View>
           </View>
           <TouchableOpacity
-          onPress={()=>handlejoin(item.id)}
+          onPress={()=>handlejoin()}
             style={{
               marginRight: Size,
               backgroundColor: Colors.primaryColor,
@@ -340,63 +359,59 @@ import { AuthContext } from "../../constants/AuthContext";
         </SafeAreaView>
       </>
     );
+    function trainersData() {
+      const renderItem = ({ item }) => (
+          <TouchableOpacity
+              activeOpacity={0.99}
+              onPress={() => navigation.push('TrainerProfile',{item:item})}
+              style={{ ...styles.trainerInfoWrapStyle, flexDirection:  'row'  }}
+          >
+              <View style={{ flex: 1, flexDirection: 'row' , alignItems: 'center', }}>
+                  <Image
+         source={{uri:`http://192.168.1.12:8082/downloadFile/${item.path}`}}
+                      style={{ width: 70.0, height: 70.0, borderRadius: 35.0, }}
+                  />
+                  <View style={{ flex: 1,  marginLeft:  Sizes.fixPadding-5  }}>
+                      <View style={{ marginBottom: Sizes.fixPadding -5,}}>
+                          <Text style={{ ...Fonts.blackColor14SemiBold }}>
+                              {item.fullname}
+                          </Text>
+                          <Text style={{ ...Fonts.grayColor14Medium }}>
+                          {GoalData[item.goal]}                        </Text>
+                      </View>
+                      <View style={{ marginTop: Sizes.fixPadding  }}>
+                          <Text style={{ ...Fonts.primaryColor14SemiBold }}>
+                              {item.registrationyear} 
+                          </Text>
+                          <Text style={{ ...Fonts.grayColor14Medium }}>
+                          Registration Year                      </Text>
+                      </View>
+                  </View>
+              </View>
+              <View style={{ flexDirection:  'row-reverse' , alignItems: 'center' }}>
+                  <MaterialIcons name="chat" size={20} color={Colors.primary2} />
+                                </View>
+              
+          </TouchableOpacity>
+      )
+      return (<View style={{ marginTop: Sizes.fixPadding - 5.0 }}>
+          <Text style={{ marginHorizontal: Sizes.fixPadding * 2.0, ...Fonts.blackColor16SemiBold }}>
+  Trainers gym        </Text>
+          <View style={{ marginTop: Sizes.fixPadding }}>
+          <FlatList
+              data={coaches}
+              keyExtractor={(item) => `${item.id}`}
+              renderItem={renderItem}
+              showsVerticalScrollIndicator={false}
+              contentContainerStyle={{ paddingTop: Sizes.fixPadding - 5.0, }}
+          />
+          </View>
+          </View>
+      )
+  }
   };
   
-  function trainersData() {
-    const renderItem = ({ item }) => (
-        <TouchableOpacity
-            activeOpacity={0.99}
-            onPress={() => navigation.push('TrainerProfile',{item:item})}
-            style={{ ...styles.trainerInfoWrapStyle, flexDirection:  'row'  }}
-        >
-            <View style={{ flex: 1, flexDirection: 'row' , alignItems: 'center', }}>
-                <Image
-                    source={item.trainerImage}
-                    style={{ width: 70.0, height: 70.0, borderRadius: 35.0, }}
-                />
-                <View style={{ flex: 1,  marginLeft:  Sizes.fixPadding-5  }}>
-                    <View style={{ marginBottom: Sizes.fixPadding -5,}}>
-                        <Text style={{ ...Fonts.blackColor14SemiBold }}>
-                            {item.fullname}
-                        </Text>
-                        <Text style={{ ...Fonts.grayColor14Medium }}>
-                        {GoalData[item.goal]}                        </Text>
-                    </View>
-                    <View style={{ marginTop: Sizes.fixPadding  }}>
-                        <Text style={{ ...Fonts.primaryColor14SemiBold }}>
-                            {item.registrationyear} 
-                        </Text>
-                        <Text style={{ ...Fonts.grayColor14Medium }}>
-                        Registration Year                      </Text>
-                    </View>
-                </View>
-            </View>
-            <View style={{ flexDirection:  'row-reverse' , alignItems: 'center' }}>
-                <MaterialIcons name="star" size={16} color={Colors.yellowColor} />
-                <Text style={{
-                    marginLeft:   Sizes.fixPadding - 7.0 ,
-                    ...Fonts.blackColor14SemiBold
-                }}>
-4.5                </Text>
-            </View>
-            
-        </TouchableOpacity>
-    )
-    return (<View style={{ marginTop: Sizes.fixPadding - 5.0 }}>
-        <Text style={{ marginHorizontal: Sizes.fixPadding * 2.0, ...Fonts.blackColor16SemiBold }}>
-Trainers gym        </Text>
-        <View style={{ marginTop: Sizes.fixPadding }}>
-        <FlatList
-            data={item.gymCoaches}
-            keyExtractor={(item) => `${item.id}`}
-            renderItem={renderItem}
-            showsVerticalScrollIndicator={false}
-            contentContainerStyle={{ paddingTop: Sizes.fixPadding - 5.0, }}
-        />
-        </View>
-        </View>
-    )
-}
+  
   export default ClubInfo;
   
   const styles = StyleSheet.create({

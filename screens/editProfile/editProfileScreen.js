@@ -217,7 +217,7 @@ value={fitnessGoal}
     function profilePicWithChangeOption() {
         return (
             <ImageBackground
-                source={require('../../assets/images/user/user1.png')}
+                source={{uri:`http://192.168.1.12:8082/downloadFile/${userinfo.path}`}}
                 style={styles.profilePicStyle}
                 borderRadius={(width / 3.3) / 2.0}
             >

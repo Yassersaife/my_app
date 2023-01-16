@@ -3,7 +3,9 @@ import React, { useState,useContext,useEffect } from 'react'
 import { Colors, Fonts, Sizes } from '../../constants/styles';
 import { MaterialIcons } from '@expo/vector-icons';
 import { useTranslation } from 'react-i18next';
+import { Stack, ActivityIndicator } from "@react-native-material/core";
 
+import { Overlay } from 'react-native-elements';
 const trainers = [
     {
         id: '133',
@@ -111,8 +113,11 @@ const [search,setsearch]=useState('');
         return t(`trainersScreen:${key}`)
     }
     const [trainer, settrainer] = useState([]);
+    const [isLoading, setisLoading] = useState(false);
 
     useEffect(()=>{
+        setisLoading(true);
+
       fetch(`http://192.168.1.12:8082/coaches/`, {
         method: "GET",
                  
@@ -124,11 +129,14 @@ const [search,setsearch]=useState('');
         (result) => {
           settrainer(result);
           console.log(result);
-         
+          setisLoading(false);
+
 
         },
         (error) => {
           console.log(error);
+          setisLoading(false);
+
                 }
       )
     },[])
@@ -142,8 +150,28 @@ const [search,setsearch]=useState('');
                 {searchField()}
                 {trainersData()}
             </View>
+            {loadingDialog()}
         </SafeAreaView>
     )
+    function loadingDialog() {
+        return (
+            <Overlay
+                isVisible={isLoading}
+                overlayStyle={{ width: '80%',
+        backgroundColor: Colors.whiteColor,
+        borderRadius: Sizes.fixPadding,
+        paddingHorizontal: Sizes.fixPadding * 2.0,
+        paddingBottom: Sizes.fixPadding * 3.5,
+        paddingTop: Sizes.fixPadding * 3.0,
+        elevation: 3.0,}}
+            >
+                <ActivityIndicator size={40} color={Colors.primaryColor} style={{ alignSelf: 'center' }} />
+                <Text style={{ marginTop: Sizes.fixPadding, textAlign: 'center', ...Fonts.blackColor16Bold }}>
+                    Please wait...
+                </Text>
+            </Overlay>
+        )
+    }
 
     function trainersData() {
         const renderItem = ({ item }) => (
@@ -155,7 +183,7 @@ const [search,setsearch]=useState('');
                 
                 <View style={{ flex: 1, flexDirection: isRtl ? 'row-reverse' : 'row', alignItems: 'center', }}>
                     <Image
-                        source={{uri:"../../assets/images/trainers/trainer7.png",}}
+                        source={{uri:`http://192.168.1.12:8082/downloadFile/${item.path}`}}
                         style={{ width: 70.0, height: 70.0, borderRadius: 35.0, }}
                     />
                     <View style={{ flex: 1, marginLeft: isRtl ? 0.0 : Sizes.fixPadding, marginRight: isRtl ? Sizes.fixPadding : 0.0 }}>
@@ -192,7 +220,7 @@ const [search,setsearch]=useState('');
         )
         return (
             <FlatList
-                data={trainer}
+                data={trainer.slice(0, 15)}
                 keyExtractor={(item) => `${item.id}`}
                 renderItem={renderItem}
                 showsVerticalScrollIndicator={false}

@@ -5,6 +5,7 @@ import { Colors } from "../constants/styles";
 import { Stack, ActivityIndicator } from "@react-native-material/core";
 import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 import { colors } from "react-native-elements";
+import data from '../Data/onboarding'
 
 const LoadingScreen = ({ navigation }) => {
 
@@ -15,7 +16,7 @@ const LoadingScreen = ({ navigation }) => {
                 Montserrat_Medium: require("../assets/fonts/Montserrat-Medium.ttf"),
                 Montserrat_SemiBold: require("../assets/fonts/Montserrat-SemiBold.ttf"),
                 Montserrat_Bold: require("../assets/fonts/Montserrat-Bold.ttf"),
-                
+
             });
             navigation.navigate('Splash');
         }

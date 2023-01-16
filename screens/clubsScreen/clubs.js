@@ -9,6 +9,8 @@ import { Ionicons } from "@expo/vector-icons";
 import { BlurView } from "expo-blur";
 import SearchField from '../../components/SearchField';
 import { FontAwesome5 } from '@expo/vector-icons';
+import { Stack, ActivityIndicator } from "@react-native-material/core";
+
 const { width } = Dimensions.get('window');
 
 
@@ -71,6 +73,7 @@ const clubsScreen = ({ navigation }) => {
     const { t, i18n } = useTranslation();
 
     const isRtl = i18n.dir() == 'rtl';
+    const [isLoading, setisLoading] = useState(false);
 
 
     function tr(key) {
@@ -79,6 +82,8 @@ const clubsScreen = ({ navigation }) => {
     const [gym, setgym] = useState([]);
 
     useEffect(()=>{
+      setisLoading(true);
+
       fetch(`http://192.168.1.12:8082/gyms/`, {
         method: "GET",
                  
@@ -88,13 +93,15 @@ const clubsScreen = ({ navigation }) => {
       )
       .then(
         (result) => {
-          console.log(result);
           setgym(result);
-          console.log(gym);
+          setisLoading(false);
+
 
         },
         (error) => {
           console.log(error);
+          setisLoading(false);
+
                 }
       )
     },[])
@@ -114,16 +121,36 @@ const clubsScreen = ({ navigation }) => {
 
                 </ScrollView>
             </View>
+            {loadingDialog()}
         </SafeAreaView>
     )
+    function loadingDialog() {
+      return (
+          <Overlay
+              isVisible={isLoading}
+              overlayStyle={{ width: '80%',
+      backgroundColor: Colors.whiteColor,
+      borderRadius: Sizes.fixPadding,
+      paddingHorizontal: Sizes.fixPadding * 2.0,
+      paddingBottom: Sizes.fixPadding * 3.5,
+      paddingTop: Sizes.fixPadding * 3.0,
+      elevation: 3.0,}}
+          >
+              <ActivityIndicator size={40} color={Colors.primaryColor} style={{ alignSelf: 'center' }} />
+              <Text style={{ marginTop: Sizes.fixPadding, textAlign: 'center', ...Fonts.blackColor16Bold }}>
+                  Please wait...
+              </Text>
+          </Overlay>
+      )
+  }
 
     function recommend() {
         const renderItem = ({item}) => {
             return (
                 <TouchableOpacity
-                    onPress={() => {
+                   onPress={() => {
                     navigation.navigate('ClubInfo', {
-                        item: item
+                      item:item
                     });
                 }}
                      style={{
@@ -152,7 +179,7 @@ const clubsScreen = ({ navigation }) => {
         }}>
         <View>        
         <Image
-          source={item.path}
+         source={{uri:`http://192.168.1.12:8082/downloadFile/${item.path}`}}
           style={{
               height: 60,
               width: 60,
@@ -205,7 +232,7 @@ const clubsScreen = ({ navigation }) => {
                 </Text>
                 <View style={{ marginTop: Sizes.fixPadding }}>
                     <FlatList
-                        data={gym}
+                        data={gym.slice(0, 10)}
                         keyExtractor={(item) => `${item.id}`}
                         renderItem={renderItem}
                         
@@ -247,7 +274,7 @@ const clubsScreen = ({ navigation }) => {
                    }}>
                    
         <Image
-          source={item.gymImage}
+          source={{uri:`http://192.168.1.12:8082/downloadFile/${item.path}`}}
           style={{
             height: 150,
             width: '100%',
@@ -265,7 +292,7 @@ const clubsScreen = ({ navigation }) => {
           }}>
           <View>
             <Text style={{fontSize: 14, ...Fonts.blackColor14SemiBold}}>
-              {item.gymName}
+              {item.name}
             </Text>
             <Text
               style={{
@@ -273,7 +300,7 @@ const clubsScreen = ({ navigation }) => {
                 ...Fonts.blackColor14Medium,
 
               }}>
-              {item.city}
+              {item.location}
             </Text>
           </View>
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
@@ -305,7 +332,7 @@ const clubsScreen = ({ navigation }) => {
                 </Text>
                 <View style={{ marginTop: Sizes.fixPadding }}>
                     <FlatList
-                        data={gyms}
+                        data={gym.slice(10, 15)}
                         keyExtractor={(item) => `${item.id}`}
                         renderItem={renderItem}
                         horizontal

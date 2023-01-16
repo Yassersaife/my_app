@@ -182,7 +182,7 @@ const ProfileTrainerScreen = ({ navigation }) => {
             <View style={styles.userInfoSection}>
         <View style={{flexDirection: 'row', marginTop: 15}}>
           <Avatar.Image 
-                        source={require('../../assets/images/trainers/trainer2.png')}
+                source={{uri:`http://192.168.1.12:8082/downloadFile/${userinfo.path}`}}
 
             size={80}
           />

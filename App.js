@@ -82,7 +82,6 @@ const Route = () => {
         <Stack.Screen name="BottomTabs2" component={BottomTabs2} options={{ ...TransitionPresets.DefaultTransition }} />
         <Stack.Screen name="BottomTabs" component={BottomTabs} options={{ ...TransitionPresets.DefaultTransition }} />
         <Stack.Screen name="Shop" component={ShopScreen} />
-
         <Stack.Screen name="ProductInfo" component={ProductInfo}/>
         <Stack.Screen name="Clubs" component={clubsScreen}/>
         <Stack.Screen name="ClubInfo" component={ClubInfo}/>
@@ -94,7 +93,6 @@ const Route = () => {
         <Stack.Screen name="Trainers" component={TrainersScreen} />
         <Stack.Screen name="EditProfile" component={EditProfileScreen} />
         <Stack.Screen name="EditProfileTrainer" component={EditProfileTScreen} />
-
         <Stack.Screen name="WorkoutCategoryDetail" component={WorkoutCategoryDetailScreen} />
         <Stack.Screen name="Videos" component={VideosScreen} />
         <Stack.Screen name="UserProgram" component={UserProgramScreen} />
@@ -113,11 +111,7 @@ const Route = () => {
         <Stack.Screen name="ProfileTrainer" component={ProfileTrainerScreen} />
         <Stack.Screen name="videosTrainer" component={VideosTrainerScreen} />
         <Stack.Screen name="maps" component={MapTestScreen} />
-
-
-        
-
-
+    
       </Stack.Navigator>
     </NavigationContainer>
     

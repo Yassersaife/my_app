@@ -122,7 +122,7 @@ const TrainerProfileScreen = ({ navigation ,route}) => {
         const renderToolBar = () => {
             return (
                 <ImageBackground
-                        source={item.path}
+                source={{uri:`http://192.168.1.12:8082/downloadFile/${item.path}`}}
 
                   style={{
                   height: height / 2 + Size * 2,

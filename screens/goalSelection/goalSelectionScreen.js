@@ -55,6 +55,8 @@ const GoalSelectionScreen = ({ navigation }) => {
 
 const handleSigup =()=>{
     console.log(gender);
+    setIsLoading(true)
+
     fetch(`http://192.168.1.12:8082/signup/player`, {
             method: "POST",
             headers: {
@@ -74,6 +76,7 @@ const handleSigup =()=>{
                 gymid: 120,
                 coachid: 0,
                 city: city,
+                path:'cp-1010',
                 guest:1
             
             
@@ -89,14 +92,15 @@ const handleSigup =()=>{
 
 
                 if(result==" Success + Guest "){
-                    setIsLoading(true)
                     setTimeout(() => {
-                        setIsLoading(false)
                         navigation.push('BottomTabs')
+
                     }, 2000);
     
-              setIsLoading(false);}
+              }
               else{
+                setIsLoading(false)
+
                   Alert.alert(result)
                   }
                 
@@ -140,7 +144,7 @@ const handleSigup =()=>{
             >
                 <ActivityIndicator size={35} color={Colors.primaryColor} style={{ alignSelf: 'center' }} />
                 <Text style={{ marginTop: Sizes.fixPadding, textAlign: 'center', ...Fonts.blackColor16Bold }}>
-                    {tr('wait')}
+                    Please wait
                 </Text>
             </Overlay>
         )
@@ -179,7 +183,7 @@ const handleSigup =()=>{
                 style={styles.buttonStyle}
             >
                 <Text style={{ ...Fonts.whiteColor16Bold }}>
-                    {tr('next')}
+                   Sign up
                 </Text>
             </TouchableOpacity>
         )

@@ -73,6 +73,7 @@ const SpecialitySelectionScreen = ({ navigation }) => {
                     height: height1,
                     amount: salary,
                     paymentperiod: 2,
+                    path:'cp-222',
                     goal: selectedGoalIndex
                 
                 })

@@ -95,7 +95,7 @@ const ClientScreen = ({ navigation }) => {
             >
                 <View style={{ flex: 1, flexDirection: isRtl ? 'row-reverse' : 'row', alignItems: 'center', }}>
                     <Image
-                        source={item.Image}
+                source={{uri:`http://192.168.1.12:8082/downloadFile/${item.path}`}}
                         style={{ width: 70.0, height: 70.0, borderRadius: 35.0, }}
                     />
                     <View style={{ flex: 1, marginLeft: isRtl ? 0.0 : Sizes.fixPadding, marginRight: isRtl ? Sizes.fixPadding : 0.0 }}>
