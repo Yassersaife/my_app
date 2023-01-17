@@ -54,7 +54,6 @@ import EditProfileTScreen from './screens/trainerpages/editProfileTScreen';
 LogBox.ignoreAllLogs();
 
 const Stack = createStackNavigator();
-
 const Route = () => {
   return (
     <NavigationContainer>
@@ -111,7 +110,7 @@ const Route = () => {
         <Stack.Screen name="ProfileTrainer" component={ProfileTrainerScreen} />
         <Stack.Screen name="videosTrainer" component={VideosTrainerScreen} />
         <Stack.Screen name="maps" component={MapTestScreen} />
-    
+
       </Stack.Navigator>
     </NavigationContainer>
     

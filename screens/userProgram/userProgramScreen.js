@@ -1,5 +1,5 @@
 import { StyleSheet,TouchableOpacity, Text, View, SafeAreaView, StatusBar, ScrollView, FlatList, ImageBackground, Image, BackHandler, Dimensions } from 'react-native'
-import React, { useState, useCallback, useEffect } from 'react'
+import React, { useState, useCallback,useContext, useEffect } from 'react'
 import { Colors, Fonts, Size, Sizes } from '../../constants/styles';
 import { MaterialIcons, Octicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import VideoPlayer from 'expo-video-player';
@@ -8,6 +8,7 @@ import * as ScreenOrientation from 'expo-screen-orientation';
 import { useFocusEffect } from '@react-navigation/native';
 import { Snackbar } from 'react-native-paper';
 import { useTranslation } from 'react-i18next';
+import { AuthContext } from '../../constants/AuthContext';
 
 const { width, height } = Dimensions.get('window');
 
@@ -51,7 +52,9 @@ const upcomingVideos = [
         videoTitle: "Drill essentials",
     },
 ];
-
+const GoalData = ['Keep fit' ,'Lose weight (lose fat)',"Gain muscle mass (Grow your size)","Gain more flexible",
+ "Get Stringer " 
+ ];
 const benifits = ['Strengts', 'Stamina', 'Endurance', 'Mobility'];
 
 const UserProgramScreen = ({ navigation }) => {
@@ -63,6 +66,8 @@ const UserProgramScreen = ({ navigation }) => {
     function tr(key) {
         return t(`userProgramScreen:${key}`)
     }
+    const {userinfo,email,setuserinfo} = useContext(AuthContext);
+
 
     const [inFullscreen2, setInFullsreen2] = useState(false);
     const [showSnackBar, setShowSnackBar] = useState(false);
@@ -89,6 +94,8 @@ const UserProgramScreen = ({ navigation }) => {
     );
 
     useEffect(() => {
+        handletr();
+
         return async () => {
             await changeScreenToPotrait();
         };
@@ -98,6 +105,33 @@ const UserProgramScreen = ({ navigation }) => {
         await ScreenOrientation.lockAsync(
             ScreenOrientation.OrientationLock.PORTRAIT
         );
+    }
+    const [trainer, settrainer] = useState({});
+    const handletr=()=>{
+        
+          fetch(`http://192.168.1.12:8082/coaches/id/${userinfo.coachid}`, {
+        method: "GET",
+                 
+      })
+      .then(res => {
+          return res.json();
+        }
+      )
+      .then(
+        (result) => {
+            
+          settrainer(result);
+          console.log(result);
+        
+
+
+        },
+        (error) => {
+          console.log(error);
+
+                }
+      )
+    
     }
 
     return (
@@ -370,16 +404,16 @@ const UserProgramScreen = ({ navigation }) => {
               shadowRadius: 2.22,}}>
                         Full body tranning
                     </Text>
-                    <View style={{ width :width/2 ,flex: 1, marginTop: Sizes.fixPadding+5, flexDirection: isRtl ? 'row-reverse' : 'row', alignItems: 'center', }}>
+                    <View style={{ width :width/1.8 ,flex: 1, marginTop: Sizes.fixPadding+5, flexDirection: isRtl ? 'row-reverse' : 'row', alignItems: 'center', }}>
                     <Image
                         source={require('../../assets/images/trainers/trainer1.png')}
                         style={{ width: 60.0, height: 60.0, borderRadius: 35.0, }}
                     />
-                    <View style={{ flex: 1, marginLeft: isRtl ? 0.0 : Sizes.fixPadding-2, marginRight: isRtl ? Sizes.fixPadding : 0.0 }}>
+                    <View style={{ flex: 2, marginLeft: isRtl ? 0.0 : Sizes.fixPadding, marginRight: isRtl ? Sizes.fixPadding : 0.0 }}>
                     <Text numberOfLines={1} style={{ marginTop: Sizes.fixPadding-3, ...Fonts.blackColor16SemiBold }}>
-                     yasser saife                    </Text>
-                    <Text numberOfLines={1} style={{  ...Fonts.primaryColor14SemiBold }}>
-                      power workout       
+                     {trainer.fullname}                    </Text>
+                    <Text numberOfLines={2} style={{  ...Fonts.primaryColor14SemiBold }}>
+                      {GoalData[trainer.goal]}
                                </Text>
                     </View>
                     </View>

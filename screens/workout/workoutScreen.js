@@ -255,7 +255,11 @@ const WorkoutScreen = ({ navigation }) => {
       )
       .then(
         (result) => {
-          settrainer(result);
+            if(result.id==null)
+            setShowAppointmentDialog(true);
+
+            else{
+          settrainer(result);}
           console.log(result);
           setisLoading(false);
 
@@ -291,7 +295,39 @@ const WorkoutScreen = ({ navigation }) => {
             {loadingDialog()}
         </SafeAreaView>
     )
-
+function appointmentDialog() {
+        return (
+            <Overlay
+                isVisible={showAppointmentDialog}
+                onBackdropPress={() => setShowAppointmentDialog(false)}
+                overlayStyle={{ width: width - 40.0, borderRadius: Sizes.fixPadding - 2.0, padding: 0.0 }}
+            >
+                <View style={{ marginVertical: Sizes.fixPadding * 2.5, marginHorizontal: Sizes.fixPadding * 2.0, }}>
+                    <Text style={{ textAlign: 'center', ...Fonts.blackColor16Medium }}>
+                        {tr('appointmentTitle')}
+                    </Text>
+                    <TouchableOpacity
+                        activeOpacity={0.99}
+                        onPress={() => {
+                            setShowAppointmentDialog(false)
+                            navigation.push('Trainers')
+                        }}
+                        style={styles.buttonStyle}
+                    >
+                        <Text style={{ ...Fonts.whiteColor16Bold }}>
+                            {tr('bookAppintment')}
+                        </Text>
+                    </TouchableOpacity>
+                    <Text
+                        onPress={() => setShowAppointmentDialog(false)}
+                        style={{ textAlign: 'center', ...Fonts.grayColor16SemiBold }}
+                    >
+                        {tr('skip')}
+                    </Text>
+                </View>
+            </Overlay>
+        )
+    }
     function loadingDialog() {
         return (
             <Overlay

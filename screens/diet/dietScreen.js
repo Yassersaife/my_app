@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 
 const { width, height } = Dimensions.get('window');
 
-const favoriteDiets = [
+const favoriteDietss = [
     {
         id: '1',
         foodImage: require('../../assets/images/food/food10.png'),
@@ -129,7 +129,9 @@ const DietScreen = ({ navigation }) => {
     const [dietCategories, setDietCategories] = useState(dietCategoriesData);
     const [showSnackBar, setShowSnackBar] = useState(false);
     const [snackBarMsg, setSnackBarMsg] = useState("");
+    const [favoriteDiets, setfavoriteDiets] = useState([]);
 
+    favoriteDiets
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: Colors.whiteColor }}>
             <StatusBar translucent={false} backgroundColor={Colors.primaryColor} />
@@ -191,7 +193,9 @@ const DietScreen = ({ navigation }) => {
         )
     }
 
+
     function updateDietCategories({ id }) {
+
         const copyData = dietCategories;
         const updatedData = copyData.map((item) => {
             if (item.id == id) {
@@ -224,7 +228,9 @@ const DietScreen = ({ navigation }) => {
                         size={22}
                         color={Colors.whiteColor}
                         style={{ alignSelf: 'flex-end', margin: Sizes.fixPadding - 5.0, }}
-                        onPress={() => updateDietCategories({ id: item.id })}
+                        onPress={() => {updateDietCategories({ id: item.id });
+                        setfavoriteDiets(item);
+                        }}
                     />
                 </ImageBackground>
                 <View style={{ alignItems: 'center', paddingVertical: Sizes.fixPadding - 5.0 }}>
@@ -252,7 +258,7 @@ const DietScreen = ({ navigation }) => {
                 </View>
                 <View style={{ marginHorizontal: Sizes.fixPadding }}>
                     <FlatList
-                        data={dietCategories.slice(0, 3)}
+                        data={dietCategories.slice(0, 4)}
                         keyExtractor={(item) => `${item.id}`}
                         renderItem={renderItem}
                         numColumns={2}

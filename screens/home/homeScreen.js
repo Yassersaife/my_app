@@ -1062,7 +1062,9 @@ const HomeScreen = ({ navigation, route, screenProps }) => {
                         <View style={styles.newNotificationBellStyle} />
                     </View>
                     <View style={{ marginLeft: isRtl ? 0.0 : Sizes.fixPadding, marginRight: isRtl ? Sizes.fixPadding : 0.0 }}>
-                        <MaterialCommunityIcons name="chat" size={24} color={Colors.blackColor} />
+                        <MaterialCommunityIcons name="chat" size={24} color={Colors.blackColor}
+          onPress={() =>  this.props.navigation.navigate('Chat', { name: userinfo.fullname})}
+ />
                         <View style={styles.newNotificationBellStyle} />
                     </View>
                 </TouchableOpacity>
