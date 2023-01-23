@@ -13,17 +13,17 @@ import {
     TouchableRipple,
   } from 'react-native-paper';
   import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { AuthContext } from '../../constants/AuthContext';
+import { AuthContext} from '../../constants/AuthContext';
 
 const { width } = Dimensions.get('window');
 const GoalData = ['Keep fit' ,'Lose weight (lose fat)',"Gain muscle mass (Grow your size)","Gain more flexible",
  "Get Stringer "  ];
 const ProfileScreen = ({ navigation }) => {
-    const {userinfo,email,setuserinfo} = useContext(AuthContext);
+    const {userinfo,email,setuserinfo,localhost} = useContext(AuthContext);
 
     useEffect(()=>{
         setuserinfo([]);
-        fetch(`http://192.168.1.12:8082/player/getdatafromemail/${email}`, {
+        fetch(`http://${localhost}:8082/player/getdatafromemail/${email}`, {
             method: "GET",
                      
           })
@@ -187,7 +187,7 @@ const ProfileScreen = ({ navigation }) => {
             <View style={styles.userInfoSection}>
         <View style={{flexDirection: 'row', marginTop: 15}}>
           <Avatar.Image 
-                source={{uri:`http://192.168.1.12:8082/downloadFile/${userinfo.path}`}}
+                source={{uri:`http://${localhost}:8082/downloadFile/${userinfo.path}`}}
 
             size={80}
           />

@@ -1,35 +1,41 @@
 {
   "project_info": {
-    "project_number": "177085038448",
-    "firebase_url": "https://chat-app-13654-default-rtdb.firebaseio.com",
-    "project_id": "chat-app-13654",
-    "storage_bucket": "chat-app-13654.appspot.com"
+    "project_number": "717056688882",
+    "project_id": "fitness-b39fb",
+    "storage_bucket": "fitness-b39fb.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:177085038448:android:26cde839f875d084b919b5",
+        "mobilesdk_app_id": "1:717056688882:android:5883d33ca7781b4cd3c66b",
         "android_client_info": {
-          "package_name": "com.sharathnb.firebase"
+          "package_name": "com.fitness"
         }
       },
       "oauth_client": [
         {
-          "client_id": "177085038448-9pfdvgo6jddictsplttiim07svdkd8pm.apps.googleusercontent.com",
+          "client_id": "717056688882-3o6gatku074410r3815ms5fgjrtjeqcp.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCKO_h-9nVocRwu-VArHX1UNdfMw-B1xRI"
+          "current_key": "AIzaSyDmhYHIOTfqHp0RZ03yWwfWRyMfKA8MUmM"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "177085038448-9pfdvgo6jddictsplttiim07svdkd8pm.apps.googleusercontent.com",
+              "client_id": "717056688882-3o6gatku074410r3815ms5fgjrtjeqcp.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "717056688882-aefo11sg1uoqnri2tv1jfftpclajjeoo.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "Fitness"
+              }
             }
           ]
         }

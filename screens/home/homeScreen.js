@@ -237,14 +237,16 @@ const HomeScreen = ({ navigation, route, screenProps }) => {
     function tr(key) {
         return t(`homeScreen:${key}`)
     }
-    const {userinfo,email,setuserinfo,setgoalname} = useContext(AuthContext);
+    const {userinfo,email,setuserinfo,setgoalname,localhost} = useContext(AuthContext);
     const [gym, setgym] = useState([]);
     const [trainer, settrainer] = useState([]);
     const [isLoading, setisLoading] = useState(false);
 
-    const hanletrainers=async()=>{
+    
 
-      fetch(`http://192.168.1.12:8082/coaches/`, {
+    const hanletrainers=()=>{
+
+      fetch(`http://${localhost}:8082/coaches/`, {
         method: "GET",
                  
       })
@@ -264,10 +266,10 @@ const HomeScreen = ({ navigation, route, screenProps }) => {
                 }
       )
     }
-    const hanlegym=async ()=>{
+    const hanlegym=()=>{
       setisLoading(true);
 
-      fetch(`http://192.168.1.12:8082/gyms/`, {
+      fetch(`http://${localhost}:8082/gyms/`, {
         method: "GET",
                  
       })
@@ -276,12 +278,14 @@ const HomeScreen = ({ navigation, route, screenProps }) => {
       )
       .then(
         (result) => {
+          setisLoading(false);
+
           console.log(result);
           setgym(result);
-          setisLoading(false);
 
         },
         (error) => {
+          setisLoading(false);
 
           console.log(error);
                 }
@@ -289,13 +293,14 @@ const HomeScreen = ({ navigation, route, screenProps }) => {
     }
 
     useEffect(()=>{
+
       setuserinfo([]);
 
 
         hanlegym();
         hanletrainers();
 
-        fetch(`http://192.168.1.12:8082/player/getdatafromemail/${email}`, {
+        fetch(`http://${localhost}:8082/player/getdatafromemail/${email}`, {
             method: "GET",
                      
           })
@@ -304,15 +309,14 @@ const HomeScreen = ({ navigation, route, screenProps }) => {
           )
           .then(
             (result) => {
-              console.log(result);
               setuserinfo(result);
               setgoalname(GoalData[userinfo.goal]);
 
-              console.log(userinfo);
 
             },
             (error) => {
               console.log(error);
+
                     }
           )
         
@@ -580,7 +584,7 @@ const HomeScreen = ({ navigation, route, screenProps }) => {
                     style={styles.trainerInfoWrapStyle}
                 >
                     <ImageBackground
-                source={{uri:`http://192.168.1.12:8082/downloadFile/${item.path}`}}
+                source={{uri:`http://${localhost}:8082/downloadFile/${item.path}`}}
                         style={{ width: width / 2.5, height: (width / 2.5) - 30, }}
                         borderTopLeftRadius={Sizes.fixPadding - 2.0}
                         borderTopRightRadius={Sizes.fixPadding - 2.0}
@@ -662,7 +666,7 @@ const HomeScreen = ({ navigation, route, screenProps }) => {
                    }}>
                    
         <Image
-                source={{uri:`http://192.168.1.12:8082/downloadFile/${item.path}`}}
+                source={{uri:`http://${localhost}:8082/downloadFile/${item.path}`}}
           style={{
             height: 150,
             width: '100%',
@@ -1006,7 +1010,7 @@ const HomeScreen = ({ navigation, route, screenProps }) => {
                     </Text>
                     <TouchableOpacity
                         activeOpacity={0.99}
-                        onPress={() => navigation.push('TrainerProfile')}
+                        onPress={() => navigation.push('UserSubscription')}
                         style={{ ...styles.joinNowButtonStyle, alignSelf: isRtl ? 'flex-end' : 'flex-start', }}
                     >
                         <Text style={{ ...Fonts.whiteColor16SemiBold }}>
@@ -1034,7 +1038,7 @@ const HomeScreen = ({ navigation, route, screenProps }) => {
             <View style={{ ...styles.headerWrapStyle, flexDirection: isRtl ? 'row-reverse' : 'row' }}>
                 <View style={{ flex: 1, flexDirection: isRtl ? 'row-reverse' : 'row', alignItems: 'center' }}>
                     <Image
-                source={{uri:`http://192.168.1.12:8082/downloadFile/${userinfo.path}`}}
+                source={{uri:`http://${localhost}:8082/downloadFile/${userinfo.path}`}}
                         style={{ width: 45.0, height: 45.0, borderRadius: 22.5 }}
                     />
                     <View style={{ flex: 1, marginHorizontal: Sizes.fixPadding + 5.0 }}>
@@ -1048,22 +1052,21 @@ const HomeScreen = ({ navigation, route, screenProps }) => {
                 </View>
                 <TouchableOpacity
                     activeOpacity={0.99}
-                    onPress={() => navigation.push('Notification')}
+                    onPress={() => navigation.push('Videos')}
                     style={{ flexDirection: isRtl ? 'row-reverse' : 'row', alignItems: 'center' }}
                 >
                     <MaterialCommunityIcons
                         name="calendar-month-outline"
                         size={24}
                         color={Colors.blackColor}
-                        onPress={() => navigation.push('UserProgram')}
+                        onPress={() => navigation.push('Videos')}
                     />
                     <View style={{ marginLeft: isRtl ? 0.0 : Sizes.fixPadding, marginRight: isRtl ? Sizes.fixPadding : 0.0 }}>
-                        <MaterialCommunityIcons name="bell-outline" size={24} color={Colors.blackColor} />
                         <View style={styles.newNotificationBellStyle} />
                     </View>
                     <View style={{ marginLeft: isRtl ? 0.0 : Sizes.fixPadding, marginRight: isRtl ? Sizes.fixPadding : 0.0 }}>
                         <MaterialCommunityIcons name="chat" size={24} color={Colors.blackColor}
-          onPress={() =>  this.props.navigation.navigate('Chat', { name: userinfo.fullname})}
+          
  />
                         <View style={styles.newNotificationBellStyle} />
                     </View>

@@ -44,11 +44,11 @@ import { AuthContext } from "../../constants/AuthContext";
   const ClubInfo = ({ navigation,route }) => {
     const [activeItem, setActiveItem] = useState('');
     const { item} = route.params;
-    const {userinfo,email,setuserinfo} = useContext(AuthContext);
+    const {userinfo,email,setuserinfo,localhost} = useContext(AuthContext);
     const [coaches, setcoaches] = useState([]);
 
 useEffect(()=>{
-  fetch(`http://192.168.1.12:8082/gyms/coaches/${item.id}`, {
+  fetch(`http://${localhost}:8082/gyms/coaches/${item.id}`, {
     method: "GET",
              
   })
@@ -69,7 +69,7 @@ useEffect(()=>{
 
     const handlejoin=()=>{
 
-       fetch(`http://192.168.1.12:8082/player/gym/${userinfo.id}/${item.id}`, {
+       fetch(`http://${localhost}:8082/player/gym/${userinfo.id}/${item.id}`, {
            method: "GET",
                     
          })
@@ -101,7 +101,7 @@ useEffect(()=>{
         <ScrollView>
               <SafeAreaView>
             <ImageBackground
-               source={{uri:`http://192.168.1.12:8082/downloadFile/${item.path}`}}
+               source={{uri:`http://${localhost}:8082/downloadFile/${item.path}`}}
               style={{
                 height: height / 2 + Size * 2,
   
@@ -368,7 +368,7 @@ useEffect(()=>{
           >
               <View style={{ flex: 1, flexDirection: 'row' , alignItems: 'center', }}>
                   <Image
-         source={{uri:`http://192.168.1.12:8082/downloadFile/${item.path}`}}
+         source={{uri:`http://${localhost}:8082/downloadFile/${item.path}`}}
                       style={{ width: 70.0, height: 70.0, borderRadius: 35.0, }}
                   />
                   <View style={{ flex: 1,  marginLeft:  Sizes.fixPadding-5  }}>

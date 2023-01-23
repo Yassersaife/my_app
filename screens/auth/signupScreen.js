@@ -43,9 +43,11 @@ const SignupScreen = ({ navigation }) => {
         handleMessage('fill in the fields');
 
         else{
+
         Sigup1(fullName, email, phoneNumber,city, password);
         handleMessage(null);
         setlogin(0);
+        
         navigation.push('GenderSelection')}
     }
 

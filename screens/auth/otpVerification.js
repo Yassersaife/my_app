@@ -30,7 +30,7 @@ const OtpVerificationScreen = ({ navigation, route }) => {
     
      useEffect(() =>{
 
-        fetch(`http://192.168.1.12:8082/signup/otp/player`, {
+        fetch(`http://${localhost}:8082/signup/otp/player`, {
             method: "POST",
             headers: {
               'Content-Type': 'application/json'

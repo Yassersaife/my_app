@@ -236,7 +236,7 @@ const WorkoutScreen = ({ navigation }) => {
     }
 
     const [showAppointmentDialog, setShowAppointmentDialog] = useState(false);
-    const {goalname,userinfo} = useContext(AuthContext);
+    const {goalname,userinfo,localhost} = useContext(AuthContext);
     const [trainer, settrainer] = useState({});
     const [isLoading, setisLoading] = useState(false);
 
@@ -245,7 +245,7 @@ const WorkoutScreen = ({ navigation }) => {
 
         console.log(userinfo.coacid);
 
-      fetch(`http://192.168.1.12:8082/coaches/id/${userinfo.coachid}`, {
+      fetch(`http://${localhost}:8082/coaches/id/${userinfo.coachid}`, {
         method: "GET",
                  
       })
@@ -255,7 +255,7 @@ const WorkoutScreen = ({ navigation }) => {
       )
       .then(
         (result) => {
-            if(result.id==null)
+            if(result.id==100)
             setShowAppointmentDialog(true);
 
             else{
@@ -318,12 +318,7 @@ function appointmentDialog() {
                             {tr('bookAppintment')}
                         </Text>
                     </TouchableOpacity>
-                    <Text
-                        onPress={() => setShowAppointmentDialog(false)}
-                        style={{ textAlign: 'center', ...Fonts.grayColor16SemiBold }}
-                    >
-                        {tr('skip')}
-                    </Text>
+                   
                 </View>
             </Overlay>
         )
@@ -443,7 +438,7 @@ style={{ marginTop: Sizes.fixPadding - 5.0,marginHorizontal:5, ...Fonts.blackCol
                     style={styles.trainerInfoWrapStyle}
                 >
                     <ImageBackground
-                        source={{uri:`http://192.168.1.12:8082/downloadFile/${trainer.path}`}}
+                        source={{uri:`http://${localhost}:8082/downloadFile/${trainer.path}`}}
                         style={{ width: width / 1.5, height: (width / 2.5) - 30, }}
                         borderTopLeftRadius={Sizes.fixPadding - 2.0}
                         borderTopRightRadius={Sizes.fixPadding - 2.0}

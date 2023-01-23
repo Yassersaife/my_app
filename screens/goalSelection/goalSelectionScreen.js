@@ -9,23 +9,23 @@ import { AuthContext } from '../../constants/AuthContext';
 const {width, height} = Dimensions.get('window');
 
 const GoalData = [
-   { id: '1',
+   { id: '0',
    image: require('../../assets/images/goal/goal1.png'),
    title: "Keep fit",
 },
-{ id: '2',
+{ id: '1',
 image: require('../../assets/images/goal/goal2.png'),
 title: "Lose weight (lose fat)",
 },
-{ id: '3',
+{ id: '2',
 image: require('../../assets/images/goal/goal3.png'),
 title: "Gain muscle mass (Grow your size)",
 },
-{ id: '4',
+{ id: '3',
 image: require('../../assets/images/goal/goal4.png'),
 title: "Gain more flexible",
 },
-{ id: '5',
+{ id: '4',
     image: require('../../assets/images/goal/goal5.png'),
     title: "Get Stringer ",
 },   
@@ -48,7 +48,8 @@ const GoalSelectionScreen = ({ navigation }) => {
         fullName,
         phoneNumber,
         password,
-        city} = useContext(AuthContext);
+        city,
+        localhost} = useContext(AuthContext);
 
     const [selectedGoalIndex, setSelectedGoalIndex] = useState(2);
     const [isLoading, setIsLoading] = useState(false);
@@ -57,7 +58,7 @@ const handleSigup =()=>{
     console.log(gender);
     setIsLoading(true)
 
-    fetch(`http://192.168.1.12:8082/signup/player`, {
+    fetch(`http://${localhost}:8082/signup/player`, {
             method: "POST",
             headers: {
               'Content-Type': 'application/json'
@@ -89,6 +90,7 @@ const handleSigup =()=>{
           .then(
             (result) => {
                 console.log(result);
+                setIsLoading(false);
 
 
                 if(result==" Success + Guest "){
@@ -99,7 +101,6 @@ const handleSigup =()=>{
     
               }
               else{
-                setIsLoading(false)
 
                   Alert.alert(result)
                   }

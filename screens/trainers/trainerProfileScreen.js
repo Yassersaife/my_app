@@ -35,12 +35,12 @@ const reviews = [
 const TrainerProfileScreen = ({ navigation ,route}) => {
 
     const item =route.params.item;
-    const {userinfo,email,setuserinfo} = useContext(AuthContext);
+    const {userinfo,email,setuserinfo,localhost} = useContext(AuthContext);
 
 
  const handlejoin=()=>{
 
-    fetch(`http://192.168.1.12:8082/player/coach/${userinfo.id}/${item.id}`, {
+    fetch(`http://${localhost}:8082/player/coach/${userinfo.id}/${item.id}`, {
         method: "GET",
                  
       })
@@ -122,7 +122,7 @@ const TrainerProfileScreen = ({ navigation ,route}) => {
         const renderToolBar = () => {
             return (
                 <ImageBackground
-                source={{uri:`http://192.168.1.12:8082/downloadFile/${item.path}`}}
+                source={{uri:`http://${localhost}:8082/downloadFile/${item.path}`}}
 
                   style={{
                   height: height / 2 + Size * 2,

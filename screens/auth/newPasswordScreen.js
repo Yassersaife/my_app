@@ -25,7 +25,7 @@ const NewPasswordScreen = ({ navigation }) => {
     })
 
     const { password, showPassword, confirmPassword, showConfirmPassword } = state;
-    const {email} = useContext(AuthContext);
+    const {email,localhost} = useContext(AuthContext);
     const [msg, setmsg] = useState('');
 
     const updateState = (data) => setState((state) => ({ ...state, ...data }));
@@ -34,7 +34,7 @@ const NewPasswordScreen = ({ navigation }) => {
         console.log(email);
         console.log(password);
 
-        fetch(`http://192.168.1.12:8082/reset-password/player`, {
+        fetch(`http://${localhost}:8082/reset-password/player`, {
             method: "POST",
             headers: {
               'Content-Type': 'application/json'

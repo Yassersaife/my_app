@@ -66,7 +66,7 @@ const UserProgramScreen = ({ navigation }) => {
     function tr(key) {
         return t(`userProgramScreen:${key}`)
     }
-    const {userinfo,email,setuserinfo} = useContext(AuthContext);
+    const {userinfo,email,setuserinfo,localhost} = useContext(AuthContext);
 
 
     const [inFullscreen2, setInFullsreen2] = useState(false);
@@ -109,7 +109,7 @@ const UserProgramScreen = ({ navigation }) => {
     const [trainer, settrainer] = useState({});
     const handletr=()=>{
         
-          fetch(`http://192.168.1.12:8082/coaches/id/${userinfo.coachid}`, {
+          fetch(`http://${localhost}:8082/coaches/id/${userinfo.coachid}`, {
         method: "GET",
                  
       })

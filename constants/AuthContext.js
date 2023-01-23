@@ -8,6 +8,7 @@ import { set } from 'react-native-reanimated';
  const AuthProvider = ({children}) => {
   const [login,setlogin] = useState(0);
   const [userinfo,setuserinfo] = useState([]);
+  const [localhost,setlocalhost]=useState('192.168.1.12');
 
     const [fullName,setfullName] = useState('');
     const [email,setemail] = useState('');
@@ -52,6 +53,7 @@ import { set } from 'react-native-reanimated';
             setlogin,
             userinfo,
             setuserinfo,
+            localhost,
             goalname,
             login,
             fullName,

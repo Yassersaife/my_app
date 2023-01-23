@@ -37,7 +37,7 @@ const SignupTraninerScreen = ({ navigation }) => {
     const updateState = (data) => setState((state) => ({ ...state, ...data }));
     const {Sigup2,setlogin} = useContext(AuthContext);
 
-
+    
     const handleSigup =()=>{
         handleMessage(null);
 

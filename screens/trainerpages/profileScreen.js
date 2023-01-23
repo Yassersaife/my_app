@@ -20,11 +20,11 @@ const GoalData = ['Keep fit' ,'Lose weight (lose fat)',"Gain muscle mass (Grow y
  "Get Stringer "  ];
 const ProfileTrainerScreen = ({ navigation }) => {
 
-    const {userinfo,email,setuserinfo} = useContext(AuthContext);
+    const {userinfo,email,setuserinfo,localhost} = useContext(AuthContext);
 
     useEffect(()=>{
         setuserinfo([]);
-        fetch(`http://192.168.1.12:8082/coaches/${email}`, {
+        fetch(`http://${localhost}:8082/coaches/${email}`, {
             method: "GET",
                      
           })
@@ -182,7 +182,7 @@ const ProfileTrainerScreen = ({ navigation }) => {
             <View style={styles.userInfoSection}>
         <View style={{flexDirection: 'row', marginTop: 15}}>
           <Avatar.Image 
-                source={{uri:`http://192.168.1.12:8082/downloadFile/${userinfo.path}`}}
+                source={{uri:`http://${localhost}:8082/downloadFile/${userinfo.path}`}}
 
             size={80}
           />

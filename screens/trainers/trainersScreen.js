@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { Stack, ActivityIndicator } from "@react-native-material/core";
 
 import { Overlay } from 'react-native-elements';
+import { AuthContext } from '../../constants/AuthContext';
 const trainers = [
     {
         id: '133',
@@ -114,16 +115,18 @@ const [search,setsearch]=useState('');
     }
     const [trainer, settrainer] = useState([]);
     const [isLoading, setisLoading] = useState(false);
+    const {setemail,localhost} = useContext(AuthContext);
 
     useEffect(()=>{
-        setisLoading(true);
 
-      fetch(`http://192.168.1.12:8082/coaches/`, {
+      fetch(`http://${localhost}:8082/coaches/`, {
         method: "GET",
                  
       })
       .then(res => {
-          return res.json();}
+          return res.json();
+          setisLoading(true);
+        }
       )
       .then(
         (result) => {
@@ -183,7 +186,7 @@ const [search,setsearch]=useState('');
                 
                 <View style={{ flex: 1, flexDirection: isRtl ? 'row-reverse' : 'row', alignItems: 'center', }}>
                     <Image
-                        source={{uri:`http://192.168.1.12:8082/downloadFile/${item.path}`}}
+                        source={{uri:`http://${localhost}:8082/downloadFile/${item.path}`}}
                         style={{ width: 70.0, height: 70.0, borderRadius: 35.0, }}
                     />
                     <View style={{ flex: 1, marginLeft: isRtl ? 0.0 : Sizes.fixPadding, marginRight: isRtl ? Sizes.fixPadding : 0.0 }}>
@@ -220,7 +223,7 @@ const [search,setsearch]=useState('');
         )
         return (
             <FlatList
-                data={trainer.slice(0, 15)}
+                data={trainer.filter((item)=>{return search.toLowerCase()==''?item:item.fullname.toLowerCase().includes(search)})}
                 keyExtractor={(item) => `${item.id}`}
                 renderItem={renderItem}
                 showsVerticalScrollIndicator={false}
@@ -235,7 +238,7 @@ const [search,setsearch]=useState('');
                 <MaterialIcons name="search" size={22} color={Colors.grayColor} />
                 <TextInput
                     value={search}
-                    onChangeText={(text) => setSearch(text)}
+                    onChangeText={(text) => setsearch(text)}
                     selectionColor={Colors.primaryColor}
                     style={styles.textFieldStyle}
                 />

@@ -16,7 +16,7 @@ const EditProfileScreen = ({ navigation }) => {
     function tr(key) {
         return t(`editProfileScreen:${key}`)
     }
-    const {userinfo,setuserinfo} = useContext(AuthContext);
+    const {userinfo,setuserinfo,localhost} = useContext(AuthContext);
 
     const isRtl = i18n.dir() == 'rtl';
 
@@ -33,7 +33,7 @@ const EditProfileScreen = ({ navigation }) => {
     const updateState = (data) => setState((state) => ({ ...state, ...data }));
  
     const handleupdate=()=>{
-        fetch(`http://192.168.1.12:8082/profile/edit/player?name=${name}&phone=${phoneNo}&goal=${fitnessGoal}&email=${email}`, {
+        fetch(`http://${localhost}:8082/profile/edit/player?name=${name}&phone=${phoneNo}&goal=${fitnessGoal}&email=${email}`, {
             method: "PUT",
             headers: {
               'Content-Type': 'application/json'
@@ -217,7 +217,7 @@ value={fitnessGoal}
     function profilePicWithChangeOption() {
         return (
             <ImageBackground
-                source={{uri:`http://192.168.1.12:8082/downloadFile/${userinfo.path}`}}
+                source={{uri:`http://${localhost}:8082/downloadFile/${userinfo.path}`}}
                 style={styles.profilePicStyle}
                 borderRadius={(width / 3.3) / 2.0}
             >

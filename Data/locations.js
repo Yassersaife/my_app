@@ -42,32 +42,40 @@ export const locations =
           },
           {          id:'6',
 
-          gymName: 'Dynamic Gym',
-          gymImage: require('../assets/images/GYMS/gym5.jpg'),
+          gymName: 'NablusGym',
+          gymImage: require('../assets/images/GYMS/gym6.jpg'),
 
           lat: 32.23605385676927,
           lng: 35.1907013412052
         }, {          id:'7',
 
-        gymName: 'Dynamic Gym',
-        gymImage: require('../assets/images/GYMS/gym5.jpg'),
+        gymName: 'FitLife Gym',
+        gymImage: require('../assets/images/GYMS/gym7.jpg'),
 
         lat: 32.24605385676927,
         lng: 35.1707013412052
       }, {          id:'8',
 
-      gymName: 'Dynamic Gym',
-      gymImage: require('../assets/images/GYMS/gym5.jpg'),
+      gymName: 'BodyWorks Gym',
+      gymImage: require('../assets/images/GYMS/gym8.jpg'),
 
       lat: 32.26605385676935,
       lng: 35.1707013412055
     }, {          id:'9',
 
-    gymName: 'Dynamic Gym',
-    gymImage: require('../assets/images/GYMS/gym5.jpg'),
+    gymName: 'PowerHouse Gym ',
+    gymImage: require('../assets/images/GYMS/gym9.jpg'),
 
     lat: 32.27605385676930,
     lng: 35.1907013412060
+  },
+   {          id:'10',
+
+    gymName: 'Total Fitness Gym ',
+    gymImage: require('../assets/images/GYMS/gym10.jpg'),
+
+    lat: 32.27515385676930,
+    lng: 35.1857013412060
   },
          
         ];               

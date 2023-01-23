@@ -15,7 +15,7 @@ export default data = [
         _id : '2',
         title: 'Stay Healthy even if yoou stay at home',
         description: 'Solutions for moving beter and felling healthier.',
-        img: require('../assets/images/onboarding/onboaeding4.jpg'),
+        img: require('../assets/images/onboarding/onboarding2.jpg'),
     },
     
     

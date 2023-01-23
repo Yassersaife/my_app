@@ -1,5 +1,5 @@
 import { SafeAreaView,TextInput, ScrollView, TouchableOpaascity,StyleSheet, Text, TouchableOpacity, View, StatusBar, ImageBackground, Image, Dimensions, FlatList, } from 'react-native'
-import React, { useState ,useEffect} from 'react'
+import React, { useState,useContext ,useEffect} from 'react'
 import { Colors, Fonts, Sizes,Size } from '../../constants/styles';
 import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
 import { Overlay } from 'react-native-elements';
@@ -10,6 +10,7 @@ import { BlurView } from "expo-blur";
 import SearchField from '../../components/SearchField';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { Stack, ActivityIndicator } from "@react-native-material/core";
+import { AuthContext } from '../../constants/AuthContext';
 
 const { width } = Dimensions.get('window');
 
@@ -75,25 +76,30 @@ const clubsScreen = ({ navigation }) => {
     const isRtl = i18n.dir() == 'rtl';
     const [isLoading, setisLoading] = useState(false);
 
+    const [search, setSearch] = useState('');
 
     function tr(key) {
         return t(`clubsScreen:${key}`)
     }
+    const {setemail,localhost} = useContext(AuthContext);
+
     const [gym, setgym] = useState([]);
 
     useEffect(()=>{
       setisLoading(true);
 
-      fetch(`http://192.168.1.12:8082/gyms/`, {
+      fetch(`http://${localhost}:8082/gyms/`, {
         method: "GET",
                  
       })
       .then(res => {
-          return res.json();}
+          return res.json();
+        }
       )
       .then(
         (result) => {
           setgym(result);
+
           setisLoading(false);
 
 
@@ -179,7 +185,7 @@ const clubsScreen = ({ navigation }) => {
         }}>
         <View>        
         <Image
-         source={{uri:`http://192.168.1.12:8082/downloadFile/${item.path}`}}
+         source={{uri:`http://${localhost}:8082/downloadFile/${item.path}`}}
           style={{
               height: 60,
               width: 60,
@@ -274,7 +280,7 @@ const clubsScreen = ({ navigation }) => {
                    }}>
                    
         <Image
-          source={{uri:`http://192.168.1.12:8082/downloadFile/${item.path}`}}
+          source={{uri:`http://${localhost}:8082/downloadFile/${item.path}`}}
           style={{
             height: 150,
             width: '100%',
@@ -332,7 +338,7 @@ const clubsScreen = ({ navigation }) => {
                 </Text>
                 <View style={{ marginTop: Sizes.fixPadding }}>
                     <FlatList
-                        data={gym.slice(10, 15)}
+                        data={gym.filter((item)=>{return search.toLowerCase()==''?item:item.name.toLowerCase().includes(search)})}
                         keyExtractor={(item) => `${item.id}`}
                         renderItem={renderItem}
                         horizontal
@@ -348,7 +354,15 @@ const clubsScreen = ({ navigation }) => {
         return (
         <View style={styles.wrapperWelcome}>
           <Text style={styles.textWelcome}>Find Your GYM </Text>
-          <SearchField/>
+          <View style={{ ...styles.searchFieldWrapStyle, flexDirection: isRtl ? 'row-reverse' : 'row', }}>
+                <MaterialIcons name="search" size={22} color={Colors.grayColor} />
+                <TextInput
+                    value={search}
+                    onChangeText={(text) => setSearch(text)}
+                    selectionColor={Colors.primaryColor}
+                    style={styles.textFieldStyle}
+                />
+            </View>
 
         </View>
             
@@ -404,7 +418,20 @@ const styles = StyleSheet.create({
         marginHorizontal: Sizes.fixPadding * 2.0,
         alignItems: 'center',
         justifyContent: 'space-between'
-    },
+    }, 
+    searchFieldWrapStyle: {
+      borderRadius: Sizes.fixPadding - 2.0,
+      backgroundColor: '#F0F0F0',
+      padding: Sizes.fixPadding,
+      marginHorizontal: Sizes.fixPadding * 2.0,
+      marginBottom: Sizes.fixPadding * 2.0,
+  },
+  textFieldStyle: {
+      marginLeft: Sizes.fixPadding,
+      ...Fonts.blackColor14Medium,
+      flex: 1,
+      height: 20.0,
+  },
    
     buttonStyle: {
         backgroundColor: Colors.primaryColor,

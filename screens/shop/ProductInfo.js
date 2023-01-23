@@ -141,55 +141,7 @@ const ProductInfo = ({ navigation,route }) => {
                       justifyContent: "space-between",
                     }}
                   >
-                    <View
-                      style={{
-                        padding: Size / 2,
-                        width: Size * 5,
-                        height: Size * 5,
-                        backgroundColor: Colors.DEFAULT_BLACK,
-                        borderRadius: Size,
-                        justifyContent: "center",
-                        alignItems: "center",
-                      }}
-                    >
-                      <Ionicons
-                      name="shopping-sale"                       size={Size * 2}
-                        color={Colors.lightPrimaryColor}
-                      />
-                      <Text
-                        style={{
-                          color: Colors.DEFAULT_WHITE,
-                          fontSize: Size,
-                        }}
-                      >
-                        Sale
-                      </Text>
-                    </View>
-                    <View
-                      style={{
-                        padding: Size / 2,
-                        width: Size * 5,
-                        height: Size * 5,
-                        backgroundColor: Colors.DEFAULT_BLACK,
-                        borderRadius: Size,
-                        justifyContent: "center",
-                        alignItems: "center",
-                      }}
-                    >
-                      <Ionicons
-                      name="fitness-center"                        
-                        size={Size * 2}
-                        color={Colors.lightPrimaryColor}
-                      />
-                      <Text
-                        style={{
-                          color: Colors.DEFAULT_WHITE,
-                          fontSize: Size,
-                        }}
-                      >
-                          Fitness
-                      </Text>
-                    </View>
+                    
                   </View>
                   <View
                     style={{

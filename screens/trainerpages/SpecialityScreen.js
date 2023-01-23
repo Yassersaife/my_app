@@ -50,6 +50,7 @@ const SpecialitySelectionScreen = ({ navigation }) => {
         salary,
         phoneNumber,
         password,
+        localhost
        } = useContext(AuthContext);
 
     const [selectedGoalIndex, setSelectedGoalIndex] = useState(2);
@@ -57,7 +58,7 @@ const SpecialitySelectionScreen = ({ navigation }) => {
 
     const handleSigup =()=>{
         console.log(gender);
-        fetch(`http://192.168.1.12:8082/signup/coach`, {
+        fetch(`http://${localhost}:8082/signup/coach`, {
                 method: "POST",
                 headers: {
                   'Content-Type': 'application/json'
@@ -74,7 +75,8 @@ const SpecialitySelectionScreen = ({ navigation }) => {
                     amount: salary,
                     paymentperiod: 2,
                     path:'cp-222',
-                    goal: selectedGoalIndex
+                    goal: selectedGoalIndex,
+                    gymid:100,
                 
                 })
               })
@@ -248,7 +250,7 @@ const SpecialitySelectionScreen = ({ navigation }) => {
                 size={24}
                 color={Colors.blackColor}
                 onPress={() => navigation.pop()}
-                style={{ margin: Sizes.fixPadding * 2.0, alignSelf: isRtl ? 'flex-end' : 'flex-start' }}
+                style={{ margin: Sizes.fixPadding * 1.0, alignSelf: isRtl ? 'flex-end' : 'flex-start' }}
             />
         )
     }
@@ -293,7 +295,7 @@ const styles = StyleSheet.create({
         backgroundColor: Colors.DEFAULT_WHITE,
         elevation: 2.0,
         marginHorizontal: Sizes.fixPadding,
-        marginBottom: Sizes.fixPadding * 3.0,
+        marginBottom: Sizes.fixPadding * 1.0,
         maxWidth: (width / 2.0) - 20,
     },
 })

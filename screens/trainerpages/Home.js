@@ -54,7 +54,7 @@ const HomeTraninerScreen = ({ navigation, route, screenProps }) => {
     const { t, i18n } = useTranslation();
 
     const isRtl = i18n.dir() == 'rtl';
-    const {userinfo,email,setuserinfo,setgoalname} = useContext(AuthContext);
+    const {userinfo,email,setuserinfo,setgoalname,localhost} = useContext(AuthContext);
 
 
     function tr(key) {
@@ -62,7 +62,7 @@ const HomeTraninerScreen = ({ navigation, route, screenProps }) => {
     }
     useEffect(()=>{
         setuserinfo([]);
-        fetch(`http://192.168.1.12:8082/coaches/${email}`, {
+        fetch(`http://${localhost}:8082/coaches/${email}`, {
             method: "GET",
                      
           })
@@ -219,7 +219,7 @@ const HomeTraninerScreen = ({ navigation, route, screenProps }) => {
                     
                     <TouchableOpacity
                         activeOpacity={0.99}
-                        onPress={() => navigation.push('TrainerProfile')}
+                        onPress={() => navigation.push('UserSubscription')}
                         style={{ ...styles.joinNowButtonStyle, alignSelf: isRtl ? 'flex-end' : 'flex-start', }}
                     >
                         <Text style={{ ...Fonts.whiteColor16SemiBold }}>
@@ -238,7 +238,7 @@ const HomeTraninerScreen = ({ navigation, route, screenProps }) => {
             <View style={{ ...styles.headerWrapStyle, flexDirection: isRtl ? 'row-reverse' : 'row' }}>
                 <View style={{ flex: 1, flexDirection: isRtl ? 'row-reverse' : 'row', alignItems: 'center' }}>
                     <Image
-                source={{uri:`http://192.168.1.12:8082/downloadFile/${userinfo.path}`}}
+                source={{uri:`http://${localhost}:8082/downloadFile/${userinfo.path}`}}
                         style={{ width: 45.0, height: 45.0, borderRadius: 22.5 }}
                     />
                     <View style={{ flex: 1, marginHorizontal: Sizes.fixPadding + 5.0 }}>
@@ -255,7 +255,7 @@ const HomeTraninerScreen = ({ navigation, route, screenProps }) => {
                     style={{ flexDirection: isRtl ? 'row-reverse' : 'row', alignItems: 'center' }}
                 >
                     <View style={{ marginLeft: isRtl ? 0.0 : Sizes.fixPadding, marginRight: isRtl ? Sizes.fixPadding : 0.0 }}>
-                        <MaterialCommunityIcons name="chat" size={24} color={Colors.blackColor} />
+                        <MaterialCommunityIcons name="chat" size={24} color={Colors.blackColor}  />
                         <View style={styles.newNotificationBellStyle} />
                     </View>
                    

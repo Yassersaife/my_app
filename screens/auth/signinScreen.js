@@ -24,7 +24,7 @@ const SigninScreen = ({ navigation }) => {
     function tr(key) {
         return t(`signinScreen:${key}`)
     }
-    const {setemail} = useContext(AuthContext);
+    const {setemail,localhost} = useContext(AuthContext);
 
     const backAction = () => {
         backClickCount == 1 ? BackHandler.exitApp() : _spring();
@@ -69,7 +69,7 @@ const [isloagding,setisLoading]=useState(false);
         handleMessage(null);
         setIsLoading(true)
 
-           fetch(`http://192.168.1.12:8082/login/`, {
+           fetch(`http://${localhost}:8082/login/`, {
             method: "POST",
             headers: {
               'Content-Type': 'application/json'

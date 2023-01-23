@@ -51,13 +51,13 @@ const ClientScreen = ({ navigation }) => {
     function tr(key) {
         return t(`trainersScreen:${key}`)
     }
-    const {userinfo,email,setuserinfo} = useContext(AuthContext);
+    const {userinfo,localhost,email,setuserinfo} = useContext(AuthContext);
 
     const [search, setSearch] = useState('');
     const [clients, setclients] = useState([]);
 
     useEffect(()=>{
-      fetch(`http://192.168.1.12:8082/coaches/getplayers/${email}`, {
+      fetch(`http://${localhost}:8082/coaches/getplayers/${email}`, {
         method: "GET",
                  
       })
@@ -95,7 +95,7 @@ const ClientScreen = ({ navigation }) => {
             >
                 <View style={{ flex: 1, flexDirection: isRtl ? 'row-reverse' : 'row', alignItems: 'center', }}>
                     <Image
-                source={{uri:`http://192.168.1.12:8082/downloadFile/${item.path}`}}
+                source={{uri:`http://${localhost}:8082/downloadFile/${item.path}`}}
                         style={{ width: 70.0, height: 70.0, borderRadius: 35.0, }}
                     />
                     <View style={{ flex: 1, marginLeft: isRtl ? 0.0 : Sizes.fixPadding, marginRight: isRtl ? Sizes.fixPadding : 0.0 }}>
@@ -127,7 +127,7 @@ const ClientScreen = ({ navigation }) => {
         )
         return (
             <FlatList
-                data={clients}
+                data={clients.filter((item)=>{return search.toLowerCase()==''?item:item.fullname.toLowerCase().includes(search)})}
                 keyExtractor={(item) => `${item.id}`}
                 renderItem={renderItem}
                 showsVerticalScrollIndicator={false}
@@ -170,19 +170,7 @@ const ClientScreen = ({ navigation }) => {
 export default ClientScreen;
 
 const styles = StyleSheet.create({
-    searchFieldWrapStyle: {
-        borderRadius: Sizes.fixPadding - 2.0,
-        backgroundColor: '#F0F0F0',
-        padding: Sizes.fixPadding,
-        marginHorizontal: Sizes.fixPadding * 2.0,
-        marginBottom: Sizes.fixPadding * 2.0,
-    },
-    textFieldStyle: {
-        marginLeft: Sizes.fixPadding,
-        ...Fonts.blackColor14Medium,
-        flex: 1,
-        height: 20.0,
-    },
+   
     trainerInfoWrapStyle: {
         marginHorizontal: Sizes.fixPadding * 2.0,
         marginBottom: Sizes.fixPadding * 3.0,
